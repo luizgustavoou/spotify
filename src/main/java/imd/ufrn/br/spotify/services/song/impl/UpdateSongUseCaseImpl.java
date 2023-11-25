@@ -17,6 +17,6 @@ public class UpdateSongUseCaseImpl implements IUpdateSongUseCase {
     }
     @Override
     public void execute(UUID id, Song value) throws EntityNotFoundException {
-
+        this.songRepository.update(id, value);
     }
 }

@@ -16,6 +16,7 @@ public class RemoveSongUseCaseImpl implements IRemoveSongUseCase {
     }
     @Override
     public void execute(UUID id) throws EntityNotFoundException {
+        this.songRepository.remove(id);
 
     }
 }

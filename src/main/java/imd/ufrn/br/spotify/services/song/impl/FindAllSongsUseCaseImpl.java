@@ -16,6 +16,6 @@ public class FindAllSongsUseCaseImpl implements IFindAllSongsUseCase {
     }
     @Override
     public List<Song> execute() {
-        return null;
+        return this.songRepository.findAll();
     }
 }

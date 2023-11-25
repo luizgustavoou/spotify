@@ -16,6 +16,6 @@ public class CreateSongUseCaseImpl implements ICreateSongUseCase {
 
     @Override
     public Song execute(Song value) {
-        return null;
+        return this.songRepository.create(value);
     }
 }

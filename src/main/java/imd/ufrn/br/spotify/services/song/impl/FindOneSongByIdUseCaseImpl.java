@@ -17,6 +17,6 @@ public class FindOneSongByIdUseCaseImpl implements IFindOneSongByIdUseCase {
     }
     @Override
     public Song execute(UUID id) throws EntityNotFoundException {
-        return null;
+        return this.songRepository.findOneById(id);
     }
 }
