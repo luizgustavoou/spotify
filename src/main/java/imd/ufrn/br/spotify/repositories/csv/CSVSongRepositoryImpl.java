@@ -151,7 +151,7 @@ public class CSVSongRepositoryImpl implements ISongRepository {
         // Test update
 //        songRepository.update(UUID.fromString("7f32a9cb-23b9-47f2-b83d-b02af47d5969"), new Song(UUID.fromString("7f32a9cb-23b9-47f2-b83d-b02af47d5969"),"musicaruim", "caminho", null));
 
-    // Test findAllSongsOfUserByPlaylistId
+    // Test findAllSongsOfPlaylist
 //        System.out.println(songRepository.findAllSongsOfUserByPlaylistId(null)); // pegar todos os folders da playlist Default
         System.out.println(songRepository.findAllSongsOfPlaylist(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9"))); // pegar todos os folders da playlist Metalzão
 
