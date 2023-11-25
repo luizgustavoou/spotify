@@ -5,16 +5,18 @@ import java.util.UUID;
 public class Folder {
     UUID id;
     String path;
+    UUID playlistId;
 
-    public Folder(UUID id, String path) {
+    public Folder(UUID id, String path, UUID playlistId) {
         this.id = id;
         this.path = path;
+        this.playlistId = playlistId;
     }
 
-    public Folder(String path) {
+    public Folder(String path, UUID playlistId) {
         this.id = UUID.randomUUID();
-        this.id = id;
         this.path = path;
+        this.playlistId = playlistId;
     }
 
     public UUID getId() {
@@ -33,11 +35,20 @@ public class Folder {
         this.path = path;
     }
 
+    public UUID getplaylistId() {
+        return playlistId;
+    }
+
+    public void setplaylistId(UUID playlistId) {
+        this.playlistId = playlistId;
+    }
+
     @Override
     public String toString() {
         return "Folder{" +
                 "id=" + id +
                 ", path='" + path + '\'' +
+                ", playlistId=" + playlistId +
                 '}';
     }
 }
