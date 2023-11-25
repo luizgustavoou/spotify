@@ -14,8 +14,10 @@ import java.util.UUID;
 
 public class CSVFolderRepositoryImpl implements IFolderRepository {
     // private  final String CSV_FILE_NAME = "";
-    // Camihno joab
+    // // Path joab
 //    private  final String CSV_FILE_NAME = "C:\\folders\\Joab\\Desktop\\spotify\\db\\folders.txt";
+
+    // Path luiz
     private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/folders.txt";
 
     private ICSVApi csvApi = new CSVApiImpl(CSV_FILE_NAME);
@@ -49,7 +51,7 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
         List<String[]> foldersResponse = folders.stream().map(folder -> {
             UUID id = folder.getId();
             String path = folder.getPath();
-            UUID playlistId = folder.getplaylistId();
+            UUID playlistId = folder.getPlaylistId();
 
             String playlistIdString = playlistId == null ? "null" : playlistId.toString();
 
@@ -122,9 +124,8 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
     }
 
     @Override
-    public List<Folder> findAllFoldersOfUserByPlaylistId(UUID id) {
-        //        return this.readFile().stream().filter(folder -> folder.getPlaylistId() == playlistId || (folder.getPlaylistId() != null && folder.getPlaylistId().equals(playlistId))).toList();
-        return null;
+    public List<Folder> findAllFoldersOfPlaylist(UUID playlistId) {
+        return this.readFile().stream().filter(folder -> folder.getPlaylistId() == playlistId || (folder.getPlaylistId() != null && folder.getPlaylistId().equals(playlistId))).toList();
     }
 
 
@@ -152,6 +153,11 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
 
         // Test update
 //        folderRepository.update(UUID.fromString("511d0812-e8ed-4d0c-a6f8-ac943fe89d3d"), new Folder(UUID.fromString("511d0812-e8ed-4d0c-a6f8-ac943fe89d3d"),"/user/joabpato/folder"));
+
+        // Test findAllFoldersOfPlaylist
+        System.out.println(folderRepository.findAllFoldersOfPlaylist(null)); // pegar todos os folders da playlist Default
+
+//        System.out.println(folderRepository.findAllFoldersOfPlaylist(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9"))); // pegar todos os folders da playlist Metalzão
     }
 
 }

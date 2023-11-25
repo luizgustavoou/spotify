@@ -35,11 +35,11 @@ public class Folder {
         this.path = path;
     }
 
-    public UUID getplaylistId() {
+    public UUID getPlaylistId() {
         return playlistId;
     }
 
-    public void setplaylistId(UUID playlistId) {
+    public void setPlaylistId(UUID playlistId) {
         this.playlistId = playlistId;
     }
 
