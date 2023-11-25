@@ -3,3 +3,5 @@
 0323a6d9-edb8-42f6-9513-14db6244af9e,joao,123,João da Silva,0
 259958c0-af93-4df7-a000-ff530420d8f0,joaozin92,senha,João,0
 758c8710-f1ac-4f9b-990b-09538995852e,joaozin17,$2a$10$rZG5AT1HoK0CtEHyczl/5uhjcPcvOXRqvk2.HH6q94XrNcV3Qcz5C,João,0
+11498d8b-97ec-4907-a174-ae4f9e7596d2,joaozin86,$2a$10$jTnsEhCcXU0vMDFVA/b82OiKTW/djufv9uuEaXPIKot2uzg1VfmmS,João,0
+12b2a592-722b-44db-ad94-3540658abeab,joaozin10,$2a$10$cUkKtwUgdNm134ZCEDas3u.ABmUFKytzkf3U6xG8nwXztr137S8fC,João,0

@@ -11,6 +11,12 @@ public class Folder {
         this.path = path;
     }
 
+    public Folder(String path) {
+        this.id = UUID.randomUUID();
+        this.id = id;
+        this.path = path;
+    }
+
     public UUID getId() {
         return id;
     }
