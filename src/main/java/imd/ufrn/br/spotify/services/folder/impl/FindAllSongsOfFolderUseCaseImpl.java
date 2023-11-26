@@ -1,7 +1,7 @@
 package imd.ufrn.br.spotify.services.folder.impl;
 
 import imd.ufrn.br.spotify.entities.Song;
-import imd.ufrn.br.spotify.services.folder.IFindSongsOfFolderUseCase;
+import imd.ufrn.br.spotify.services.folder.IFindAllSongsOfFolderUseCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.UUID;
 
-public class FindAllSongsOfFolderUseCaseImpl implements IFindSongsOfFolderUseCase {
+public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUseCase {
     @Override
     public List<Song> execute(String path, UUID idPlaylist) {
         File diretorio = new File(path);
@@ -37,7 +37,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindSongsOfFolderUseCas
     }
 
     public static void main(String[] args) {
-        IFindSongsOfFolderUseCase findSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
+        IFindAllSongsOfFolderUseCase findSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
         // Luiz
         String pathFolder = "/home/luizgustavoou/Área de Trabalho/testmusicas";
 
