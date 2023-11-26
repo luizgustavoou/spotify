@@ -14,19 +14,20 @@ import java.util.UUID;
 
 public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistUseCase{
 
-    IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase;
+
     IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylistUseCase;
     IFindAllFoldersOfPlaylist findAllFoldersOfPlaylist;
+    IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase;
 
     GetAllSongsOfPlaylistUseCaseImpl(IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase, IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylist, IFindAllFoldersOfPlaylist findAllFoldersOfPlaylist) {
-        this.findAllSongsOfFolderUseCase = findAllSongsOfFolderUseCase;
         this.findAllSongsOfPlaylistUseCase = findAllSongsOfPlaylist;
         this.findAllFoldersOfPlaylist = findAllFoldersOfPlaylist;
+        this.findAllSongsOfFolderUseCase = findAllSongsOfFolderUseCase;
     }
     GetAllSongsOfPlaylistUseCaseImpl() {
-        this.findAllSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
         this.findAllSongsOfPlaylistUseCase = new FindAllSongsOfPlaylistUseCaseImpl();
         this.findAllFoldersOfPlaylist = new FindAllFoldersOfPlaylistImpl();
+        this.findAllSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
     }
 
     @Override
