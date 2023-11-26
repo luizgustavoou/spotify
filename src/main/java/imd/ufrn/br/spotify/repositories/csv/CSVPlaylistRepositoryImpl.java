@@ -19,7 +19,10 @@ import java.util.UUID;
 public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
     // private  final String CSV_FILE_NAME = "";
     // // Path joab
-    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\playlists.txt";
+    //private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\playlists.txt";
+
+    // fellipe
+     private  final String CSV_FILE_NAME = "C:\\Users\\zanat\\IdeaProjects\\spotify\\db\\playlists.txt";
 
     // Path luiz
     //private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/playlists.txt";
