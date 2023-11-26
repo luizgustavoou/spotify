@@ -14,7 +14,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
     @Override
     public List<Song> execute(String path, UUID idPlaylist) {
         File diretorio = new File(path);
-        ArrayList<Song> songs = new ArrayList<Song>();
+        ArrayList<Song> songs = new ArrayList<>();
 
         if (diretorio.isDirectory()) {
             File[] arquivosMP3 = diretorio.listFiles(new FilenameFilter() {
@@ -26,8 +26,8 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
 
             if (arquivosMP3 != null) {
                 for (File arquivo : arquivosMP3) {
-                    Song newSong = new Song(arquivo.getName(), arquivo.getPath(), idPlaylist);
-                    songs.add(newSong);
+                    Song song = new Song(arquivo.getName(), arquivo.getPath(), idPlaylist);
+                    songs.add(song);
                 }
             }
         } else {
