@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.UUID;
 
-public class FindSongsOfFolderUseCaseImpl implements IFindSongsOfFolderUseCase {
+public class FindAllSongsOfFolderUseCaseImpl implements IFindSongsOfFolderUseCase {
     @Override
     public List<Song> execute(String path, UUID idPlaylist) {
         File diretorio = new File(path);
@@ -37,7 +37,7 @@ public class FindSongsOfFolderUseCaseImpl implements IFindSongsOfFolderUseCase {
     }
 
     public static void main(String[] args) {
-        IFindSongsOfFolderUseCase findSongsOfFolderUseCase = new FindSongsOfFolderUseCaseImpl();
+        IFindSongsOfFolderUseCase findSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
         // Luiz
         String pathFolder = "/home/luizgustavoou/Área de Trabalho/testmusicas";
 
