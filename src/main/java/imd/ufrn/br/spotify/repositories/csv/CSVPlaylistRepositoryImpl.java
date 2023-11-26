@@ -19,10 +19,10 @@ import java.util.UUID;
 public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
     // private  final String CSV_FILE_NAME = "";
     // // Path joab
-    //private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\playlists.txt";
+    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\playlists.txt";
 
     // fellipe
-     private  final String CSV_FILE_NAME = "C:\\Users\\zanat\\IdeaProjects\\spotify\\db\\playlists.txt";
+     //private  final String CSV_FILE_NAME = "C:\\Users\\zanat\\IdeaProjects\\spotify\\db\\playlists.txt";
 
     // Path luiz
     //private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/playlists.txt";
@@ -61,9 +61,10 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
         csvApi.writeFile(playlistsResponse);
     }
     @Override
-    public List<Playlist> findAllPlaylistOfUser(UUID userId) {
+    public List<Playlist> findAllPlaylistOfUser(UUID userIdSearch) {
+        ArrayList<Playlist> playlists = new ArrayList<>(this.readFile());
 
-        return null;
+        return playlists.stream().filter(pl -> pl.getUserId().equals(userIdSearch)).toList();
     }
     @Override
     public Playlist create(Playlist value) {
@@ -151,5 +152,8 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
         // Test update
         //playlistRepository.update(UUID.fromString("0485b478-11e3-4039-bde7-98365492c473"), new Playlist("Nu metal",UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff")));
 
+        // Teste findAllPlaylistOfUser
+        //ArrayList<Playlist> testeAllplaylists = new ArrayList<>(playlistRepository.findAllPlaylistOfUser(UUID.fromString("12b2a592-722b-44db-ad94-3540658abeab")));
+        //System.out.println(testeAllplaylists);
        }
 }
