@@ -61,10 +61,10 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
         csvApi.writeFile(playlistsResponse);
     }
     @Override
-    public List<Playlist> findAllPlaylistOfUser(UUID userIdSearch) {
+    public List<Playlist> findAllPlaylistOfUser(UUID userId) {
         ArrayList<Playlist> playlists = new ArrayList<>(this.readFile());
 
-        return playlists.stream().filter(pl -> pl.getUserId().equals(userIdSearch)).toList();
+        return playlists.stream().filter(pl -> pl.getUserId().equals(userId)).toList();
     }
     @Override
     public Playlist create(Playlist value) {
