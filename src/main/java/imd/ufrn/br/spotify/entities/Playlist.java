@@ -6,20 +6,17 @@ import java.util.UUID;
 public class Playlist {
     private UUID id;
     private String name;
-    private List<Song> songs;
     private UUID userId;
 
-    public Playlist(UUID id, String name, List<Song> songs, UUID userId) {
+    public Playlist(UUID id, String name, UUID userId) {
         this.id = id;
         this.name = name;
-        this.songs = songs;
         this.userId = userId;
     }
 
-    public Playlist(String name, List<Song> songs, UUID userId) {
+    public Playlist(String name, UUID userId) {
         this.id = UUID.randomUUID();
         this.name = name;
-        this.songs = songs;
         this.userId = userId;
     }
 
@@ -39,14 +36,6 @@ public class Playlist {
         this.name = name;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
-
     public UUID getUserId() {
         return userId;
     }
@@ -56,7 +45,6 @@ public class Playlist {
         return "Playlist{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", songs=" + songs +
                 ", userId=" + userId +
                 '}';
     }
