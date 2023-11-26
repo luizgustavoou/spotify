@@ -1,7 +1,7 @@
-package imd.ufrn.br.spotify.services.folder.impl;
+package imd.ufrn.br.spotify.services.song.impl;
 
 import imd.ufrn.br.spotify.entities.Song;
-import imd.ufrn.br.spotify.services.folder.IFindAllSongsOfFolderUseCase;
+import imd.ufrn.br.spotify.services.song.IFindAllSongsOfFolderUseCase;
 
 import java.util.ArrayList;
 import java.util.List;

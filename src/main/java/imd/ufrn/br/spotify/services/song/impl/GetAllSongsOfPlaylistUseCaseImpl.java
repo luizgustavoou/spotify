@@ -1,18 +1,17 @@
-package imd.ufrn.br.spotify.services;
+package imd.ufrn.br.spotify.services.song.impl;
 
 import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.services.folder.IFindAllFoldersOfPlaylist;
-import imd.ufrn.br.spotify.services.folder.IFindAllSongsOfFolderUseCase;
+import imd.ufrn.br.spotify.services.song.IFindAllSongsOfFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.FindAllFoldersOfPlaylistImpl;
-import imd.ufrn.br.spotify.services.folder.impl.FindAllSongsOfFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.IFindAllSongsOfPlaylistUseCase;
-import imd.ufrn.br.spotify.services.song.impl.FindAllSongsOfPlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistUseCase{
+public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistUseCase {
 
 
     IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylistUseCase;

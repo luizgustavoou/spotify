@@ -1,4 +1,4 @@
-package imd.ufrn.br.spotify.services.folder;
+package imd.ufrn.br.spotify.services.song;
 
 import imd.ufrn.br.spotify.entities.Song;
 
