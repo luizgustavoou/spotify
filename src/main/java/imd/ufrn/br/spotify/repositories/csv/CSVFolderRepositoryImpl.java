@@ -17,6 +17,9 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
     // // Path joab
 //    private  final String CSV_FILE_NAME = "C:\\folders\\Joab\\Desktop\\spotify\\db\\folders.txt";
 
+    // Path fellipe
+    // private  final String CSV_FILE_NAME = "C:\Users\zanat\IdeaProjects\spotify\db\folders.txt";
+
     // Path luiz
     private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/folders.txt";
 
