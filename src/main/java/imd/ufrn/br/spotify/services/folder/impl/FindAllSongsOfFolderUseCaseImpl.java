@@ -47,8 +47,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
         ArrayList<Song> songs = new ArrayList<>(findSongsOfFolderUseCase.execute(pathFolder, UUID.fromString("0b0b5ce5-c100-4e18-8197-8b3b81b22aae")));
 
 //        ArrayList<Song> songs = new ArrayList<>(findSongsOfFolderUseCase.execute(pathFolder, UUID.fromString("0b0b5ce5-c100-4e18-8197-8b3b81b22aae")));
-        songs.forEach(song -> {
-            System.out.println(song);
-        });
+
+        System.out.println(songs);
     }
 }
