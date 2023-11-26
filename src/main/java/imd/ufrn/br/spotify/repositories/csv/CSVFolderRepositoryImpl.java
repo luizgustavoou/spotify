@@ -142,9 +142,8 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
 //        });
 
         // Test create
-//        Folder newFolder = new Folder("caminho", UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9")); // diretorio pertence a playlist Metalzão
-//        System.out.println(newFolder.toString());
-//        folderRepository.create(newFolder);
+        Folder newFolder = new Folder("/home/luizgustavoou/Área de Trabalho/testmusicas", UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9")); // diretorio pertence a playlist Metalzão
+        System.out.println(folderRepository.create(newFolder));
 
 
 //         Test findOneById
@@ -158,7 +157,7 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
 //        folderRepository.update(UUID.fromString("511d0812-e8ed-4d0c-a6f8-ac943fe89d3d"), new Folder(UUID.fromString("511d0812-e8ed-4d0c-a6f8-ac943fe89d3d"),"/user/joabpato/folder"));
 
         // Test findAllFoldersOfPlaylist
-        System.out.println(folderRepository.findAllFoldersOfPlaylist(null)); // pegar todos os folders da playlist Default
+//        System.out.println(folderRepository.findAllFoldersOfPlaylist(null)); // pegar todos os folders da playlist Default
 
 //        System.out.println(folderRepository.findAllFoldersOfPlaylist(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9"))); // pegar todos os folders da playlist Metalzão
     }
