@@ -13,20 +13,20 @@ import java.util.UUID;
 public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUseCase {
     @Override
     public List<Song> execute(String path, UUID idPlaylist) {
-        File diretorio = new File(path);
+        File folder = new File(path);
         ArrayList<Song> songs = new ArrayList<>();
 
-        if (diretorio.isDirectory()) {
-            File[] arquivosMP3 = diretorio.listFiles(new FilenameFilter() {
+        if (folder.isDirectory()) {
+            File[] mp3Files = folder.listFiles(new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String nomeArquivo) {
                     return nomeArquivo.toLowerCase().endsWith(".mp3");
                 }
             });
 
-            if (arquivosMP3 != null) {
-                for (File arquivo : arquivosMP3) {
-                    Song song = new Song(arquivo.getName(), arquivo.getPath(), idPlaylist);
+            if (mp3Files != null) {
+                for (File file : mp3Files) {
+                    Song song = new Song(file.getName(), file.getPath(), idPlaylist);
                     songs.add(song);
                 }
             }
