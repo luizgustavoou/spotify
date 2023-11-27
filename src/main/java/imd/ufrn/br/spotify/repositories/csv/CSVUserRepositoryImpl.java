@@ -30,6 +30,7 @@ public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IU
             String username = userArray[1];
             String password = userArray[2];
             String fullName = userArray[3];
+
             Boolean isVip = Objects.equals(userArray[4], "1");
 
 
