@@ -8,22 +8,24 @@ import imd.ufrn.br.spotify.repositories.ISongRepository;
 
 import java.util.*;
 
-public class CSVSongRepositoryImpl implements ISongRepository {
+public class CSVSongRepositoryImpl extends CSVRepositoryImpl<Song> implements ISongRepository {
 
     // Path fellipe
     // private  final String CSV_FILE_NAME = "C:\Users\zanat\IdeaProjects\spotify\db\songs.txt";
 
     // Path luiz
-    private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/songs.txt";
-    private ICSVApi csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    private final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/songs.txt";
+    private final ICSVApi csvApi;
 
     public CSVSongRepositoryImpl(ICSVApi csvApi) {
         this.csvApi = csvApi;
     }
 
-    public CSVSongRepositoryImpl() {};
+    public CSVSongRepositoryImpl() {
+        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    };
 
-    private List<Song> readFile() {
+    public List<Song> readFile() {
         List<String[]> songsResponse = this.csvApi.readFile();
 
 
@@ -46,7 +48,7 @@ public class CSVSongRepositoryImpl implements ISongRepository {
 
     }
 
-    private void writeFile(List<Song> songs) {
+    public void writeFile(List<Song> songs) {
         List<String[]> songsResponse = songs.stream().map(song -> {
             UUID id = song.getId();
             String name = song.getName();
@@ -62,68 +64,6 @@ public class CSVSongRepositoryImpl implements ISongRepository {
 
         csvApi.writeFile(songsResponse);
     }
-
-    @Override
-    public Song create(Song value) {
-        ArrayList<Song> songs = new ArrayList<Song>(this.readFile());
-        songs.add(value);
-        this.writeFile(songs);
-
-        return value;
-    }
-
-    @Override
-    public void update(UUID id, Song value) throws EntityNotFoundException {
-        ArrayList<Song> songs = new ArrayList<Song>(this.readFile());
-
-        int indexToUpdate = -1;
-
-        for (int i = 0; i < songs.size(); i++) {
-            if (songs.get(i).getId().equals(id)) {
-                indexToUpdate = i;
-                break;
-            }
-        }
-
-        if (indexToUpdate == -1) {
-            throw new EntityNotFoundException("Erro ao atualizar música: música não existe.");
-        }
-
-        songs.set(indexToUpdate, value);
-        this.writeFile(songs);
-    }
-
-    @Override
-    public void remove(UUID id) throws EntityNotFoundException {
-        ArrayList<Song> songs = new ArrayList<Song>(this.readFile());
-        boolean removed = songs.removeIf(song -> song.getId().equals(id));
-
-        if(!removed) {
-            throw new EntityNotFoundException("Erro ao remover música: música não existe.");
-        }
-
-        this.writeFile(songs);
-
-    }
-
-    @Override
-    public List<Song> findAll() {
-        return this.readFile();
-    }
-
-    @Override
-    public Song findOneById(UUID id) throws EntityNotFoundException {
-        ArrayList<Song> songs = new ArrayList<Song>(this.readFile());
-
-        Optional<Song> song = songs.stream().filter(uu -> uu.getId().equals(id)).findFirst();
-
-        if(song.isEmpty()) {
-            throw new EntityNotFoundException("Erro ao buscar música: música não existe.");
-        }
-
-        return song.get();
-    }
-
 
     @Override
     public List<Song> findAllSongsOfPlaylist(UUID playlistId) {

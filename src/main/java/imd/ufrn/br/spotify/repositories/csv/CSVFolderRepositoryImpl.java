@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CSVFolderRepositoryImpl implements IFolderRepository {
+public class CSVFolderRepositoryImpl extends CSVRepositoryImpl<Folder> implements IFolderRepository {
     // private  final String CSV_FILE_NAME = "";
     // // Path joab
 //    private  final String CSV_FILE_NAME = "C:\\folders\\Joab\\Desktop\\spotify\\db\\folders.txt";
@@ -22,16 +22,17 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
 
     // Path luiz
     private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/folders.txt";
-
-    private ICSVApi csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    private final ICSVApi csvApi;
 
     public CSVFolderRepositoryImpl(ICSVApi csvApi) {
         this.csvApi = csvApi;
     }
 
-    public CSVFolderRepositoryImpl() {}
+    public CSVFolderRepositoryImpl() {
+        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    }
 
-    private List<Folder> readFile() {
+    public List<Folder> readFile() {
         List<String[]> foldersResponse = this.csvApi.readFile();
 
         return foldersResponse.stream().map(folderArray -> {
@@ -50,7 +51,7 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
         }).toList();
     }
 
-    private void writeFile(List<Folder> folders) {
+    public void writeFile(List<Folder> folders) {
         List<String[]> foldersResponse = folders.stream().map(folder -> {
             UUID id = folder.getId();
             String path = folder.getPath();
@@ -63,67 +64,6 @@ public class CSVFolderRepositoryImpl implements IFolderRepository {
 
 
         csvApi.writeFile(foldersResponse);
-    }
-
-    @Override
-    public Folder create(Folder value) {
-        ArrayList<Folder> folders = new ArrayList<>(this.readFile());
-        folders.add(value);
-        this.writeFile(folders);
-
-        return value;
-    }
-
-    @Override
-    public void update(UUID id, Folder value) throws EntityNotFoundException {
-        ArrayList<Folder> folders = new ArrayList<>(this.readFile());
-
-        int indexToUpdate = -1;
-
-        for (int i = 0; i < folders.size(); i++) {
-            if (folders.get(i).getId().equals(id)) {
-                indexToUpdate = i;
-                break;
-            }
-        }
-
-        if (indexToUpdate == -1) {
-            throw new EntityNotFoundException("Erro ao atualizar diretório: diretório não existe.");
-        }
-
-        folders.set(indexToUpdate, value);
-        this.writeFile(folders);
-    }
-
-    @Override
-    public void remove(UUID id) throws EntityNotFoundException {
-        ArrayList<Folder> folders = new ArrayList<>(this.readFile());
-        boolean removed = folders.removeIf(folder -> folder.getId().equals(id));
-
-        if(!removed) {
-            throw new EntityNotFoundException("Erro ao remover diretório: diretório não existe.");
-        }
-
-        this.writeFile(folders);
-
-    }
-
-    @Override
-    public List<Folder> findAll() {
-        return this.readFile();
-    }
-
-    @Override
-    public Folder findOneById(UUID id) throws EntityNotFoundException {
-        ArrayList<Folder> folders = new ArrayList<>(this.readFile());
-
-        Optional<Folder> folder = folders.stream().filter(uu -> uu.getId().equals(id)).findFirst();
-
-        if(folder.isEmpty()) {
-            throw new EntityNotFoundException("Erro ao buscar diretório: diretório não existe.");
-        }
-
-        return folder.get();
     }
 
     @Override

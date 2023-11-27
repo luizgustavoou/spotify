@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
+public class CSVPlaylistRepositoryImpl extends CSVRepositoryImpl<Playlist> implements IPlaylistRepository {
     // private  final String CSV_FILE_NAME = "";
     // // Path joab
 //    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\playlists.txt";
@@ -25,17 +25,19 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
      //private  final String CSV_FILE_NAME = "C:\\Users\\zanat\\IdeaProjects\\spotify\\db\\playlists.txt";
 
     // Path luiz
-    private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/playlists.txt";
+    private final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/playlists.txt";
 
-    private ICSVApi csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    private final ICSVApi csvApi;
 
     public CSVPlaylistRepositoryImpl(ICSVApi csvApi) {
         this.csvApi = csvApi;
     }
 
-    public CSVPlaylistRepositoryImpl() {}
+    public CSVPlaylistRepositoryImpl() {
+        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    }
 
-    private List<Playlist> readFile() {
+    public List<Playlist> readFile() {
         List<String[]> playlistResponse = this.csvApi.readFile();
 
         return playlistResponse.stream().map(playlistArray -> {
@@ -48,7 +50,7 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
         }).toList();
     }
 
-    private void writeFile(List<Playlist> playlists) {
+    public void writeFile(List<Playlist> playlists) {
         List<String[]> playlistsResponse = playlists.stream().map(playlist -> {
             UUID id = playlist.getId();
             String name = playlist.getName();
@@ -66,66 +68,7 @@ public class CSVPlaylistRepositoryImpl implements IPlaylistRepository {
 
         return playlists.stream().filter(pl -> pl.getUserId().equals(userId)).toList();
     }
-    @Override
-    public Playlist create(Playlist value) {
-        ArrayList<Playlist> playlists = new ArrayList<Playlist>(this.readFile());
-        playlists.add(value);
-        this.writeFile(playlists);
 
-        return value;
-    }
-
-    @Override
-    public void update(UUID id, Playlist value) throws EntityNotFoundException {
-        ArrayList<Playlist> playlists = new ArrayList<Playlist>(this.readFile());
-
-        int indexToUpdate = -1;
-
-        for (int i = 0; i < playlists.size(); i++) {
-            if (playlists.get(i).getId().equals(id)) {
-                indexToUpdate = i;
-                break;
-            }
-        }
-
-        if (indexToUpdate == -1) {
-            throw new EntityNotFoundException("Erro ao atualizar playlist: playlist não existe.");
-        }
-
-        playlists.set(indexToUpdate, value);
-        this.writeFile(playlists);
-    }
-
-    @Override
-    public void remove(UUID id) throws EntityNotFoundException {
-        ArrayList<Playlist> playlists = new ArrayList<Playlist>(this.readFile());
-        boolean removed = playlists.removeIf(pl -> pl.getId().equals(id));
-
-        if(!removed) {
-            throw new EntityNotFoundException("Erro ao remover playlist: playlist não existe.");
-        }
-
-        this.writeFile(playlists);
-
-    }
-
-    @Override
-    public List<Playlist> findAll() {
-        return this.readFile();
-    }
-
-    @Override
-    public Playlist findOneById(UUID id) throws EntityNotFoundException {
-        ArrayList<Playlist> playlists = new ArrayList<Playlist>(this.readFile());
-
-        Optional<Playlist> playlist = playlists.stream().filter(pl -> pl.getId().equals(id)).findFirst();
-
-        if(playlist.isEmpty()) {
-            throw new EntityNotFoundException("Erro ao buscar playlist: playlist não existe.");
-        }
-
-        return playlist.get();
-    }
 
     public static void main(String[] args) throws EntityNotFoundException, UnauthorizedException {
         //IPlaylistRepository playlistRepository = new CSVPlaylistRepositoryImpl();
