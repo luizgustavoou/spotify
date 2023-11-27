@@ -21,4 +21,10 @@ public class FindAllPlaylistOfUserUseCaseImpl implements IFindAllPlaylistOfUserU
     public List<Playlist> execute(UUID userId) {
         return this.playlistRepository.findAllPlaylistOfUser(userId);
     }
+
+    public static void main(String[] args) {
+        IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
+
+        System.out.println(findAllPlaylistOfUserUseCase.execute(UUID.fromString("12b2a592-722b-44db-ad94-3540658abeab")));
+    }
 }

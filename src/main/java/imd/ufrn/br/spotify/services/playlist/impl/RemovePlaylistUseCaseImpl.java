@@ -20,4 +20,10 @@ public class RemovePlaylistUseCaseImpl implements IRemovePlaylistUseCase {
     public void execute(UUID id) throws EntityNotFoundException {
         this.playlistRepository.remove(id);
     }
+
+    public static void main(String[] args) throws EntityNotFoundException {
+        IRemovePlaylistUseCase removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
+
+        removePlaylistUseCase.execute(UUID.fromString("69c06b05-262b-4fe8-bcf0-c9a035f910bb"));
+    }
 }

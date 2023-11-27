@@ -21,4 +21,10 @@ public class UpdatePlaylistUseCaseImpl implements IUpdatePlaylistUseCase {
     public void execute(UUID id, Playlist value) throws EntityNotFoundException {
         this.playlistRepository.update(id, value);
     }
+
+    public static void main(String[] args) throws EntityNotFoundException {
+        IUpdatePlaylistUseCase updatePlaylistUseCase = new UpdatePlaylistUseCaseImpl();
+
+        updatePlaylistUseCase.execute(UUID.fromString("881a3904-2c20-475c-a10b-0e1f272b2e22"), new Playlist(UUID.fromString("881a3904-2c20-475c-a10b-0e1f272b2e22"), "Playlist das piores", UUID.fromString("11498d8b-97ec-4907-a174-ae4f9e7596d2")));
+    }
 }

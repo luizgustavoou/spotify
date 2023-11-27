@@ -21,4 +21,10 @@ public class FindOnePlaylistByIdUseCaseImpl implements IFindOnePlaylistByIdUseCa
     public Playlist execute(UUID id) throws EntityNotFoundException {
         return this.playlistRepository.findOneById(id);
     }
+
+    public static void main(String[] args) throws EntityNotFoundException {
+        IFindOnePlaylistByIdUseCase findOnePlaylistByIdUseCase = new FindOnePlaylistByIdUseCaseImpl();
+
+        System.out.println(findOnePlaylistByIdUseCase.execute(UUID.fromString("7230aaab-5840-4133-9790-23658fbf8aa8")));
+    }
 }

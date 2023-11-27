@@ -20,4 +20,10 @@ public class FindAllPlaylistsUseCaseImpl implements IFindAllPlaylistsUseCase {
     public List<Playlist> execute() {
         return this.playlistRepository.findAll();
     }
+
+    public static void main(String[] args) {
+        IFindAllPlaylistsUseCase findAllPlaylistsUseCase = new FindAllPlaylistsUseCaseImpl();
+
+        System.out.println(findAllPlaylistsUseCase.execute());
+    }
 }
