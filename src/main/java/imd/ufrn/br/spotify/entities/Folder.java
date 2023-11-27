@@ -2,29 +2,20 @@ package imd.ufrn.br.spotify.entities;
 
 import java.util.UUID;
 
-public class Folder {
-    UUID id;
+public class Folder extends Entity{
     String path;
     UUID playlistId;
 
     public Folder(UUID id, String path, UUID playlistId) {
-        this.id = id;
+        super(id);
         this.path = path;
         this.playlistId = playlistId;
     }
 
     public Folder(String path, UUID playlistId) {
-        this.id = UUID.randomUUID();
+        super();
         this.path = path;
         this.playlistId = playlistId;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getPath() {
