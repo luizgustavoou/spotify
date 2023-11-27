@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class FindAllSongsOfPlaylistUseCaseImpl implements IFindAllSongsOfPlaylistUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public FindAllSongsOfPlaylistUseCaseImpl() {}
+    ISongRepository songRepository;
+    public FindAllSongsOfPlaylistUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public FindAllSongsOfPlaylistUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

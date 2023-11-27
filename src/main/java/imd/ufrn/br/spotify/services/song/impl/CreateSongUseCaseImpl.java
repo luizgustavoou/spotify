@@ -7,8 +7,10 @@ import imd.ufrn.br.spotify.repositories.csv.CSVSongRepositoryImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
 
 public class CreateSongUseCaseImpl implements ICreateSongUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public CreateSongUseCaseImpl() {}
+    ISongRepository songRepository;
+    public CreateSongUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public CreateSongUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

@@ -8,9 +8,11 @@ import imd.ufrn.br.spotify.services.user.IFindAllUsersUseCase;
 import java.util.List;
 
 public class FindAllUsersUseCaseImpl implements IFindAllUsersUseCase {
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
+    IUserRepository userRepository;
 
-    public FindAllUsersUseCaseImpl() {}
+    public FindAllUsersUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+    }
 
     public FindAllUsersUseCaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;

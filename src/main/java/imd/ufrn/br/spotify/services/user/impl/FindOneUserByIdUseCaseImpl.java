@@ -10,9 +10,11 @@ import java.util.UUID;
 
 public class FindOneUserByIdUseCaseImpl implements IFindOneUserByIdUseCase {
 
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
+    IUserRepository userRepository;
 
-    public FindOneUserByIdUseCaseImpl() {}
+    public FindOneUserByIdUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+    }
 
     public FindOneUserByIdUseCaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;

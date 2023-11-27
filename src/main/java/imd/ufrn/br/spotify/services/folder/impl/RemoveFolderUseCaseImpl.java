@@ -8,8 +8,10 @@ import imd.ufrn.br.spotify.services.folder.IRemoveFolderUseCase;
 import java.util.UUID;
 
 public class RemoveFolderUseCaseImpl implements IRemoveFolderUseCase {
-    IFolderRepository folderRepository = new CSVFolderRepositoryImpl();
-    public RemoveFolderUseCaseImpl() {}
+    IFolderRepository folderRepository;
+    public RemoveFolderUseCaseImpl() {
+        this.folderRepository = new CSVFolderRepositoryImpl();
+    }
 
     public RemoveFolderUseCaseImpl(IFolderRepository folderRepository) {
         this.folderRepository = folderRepository;

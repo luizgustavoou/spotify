@@ -8,9 +8,11 @@ import imd.ufrn.br.spotify.services.user.IRemoveUserUseCase;
 import java.util.UUID;
 
 public class RemoveUserUseCaseImpl implements IRemoveUserUseCase {
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
+    IUserRepository userRepository;
 
-    public RemoveUserUseCaseImpl() {}
+    public RemoveUserUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+    }
 
     public RemoveUserUseCaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;

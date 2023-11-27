@@ -9,8 +9,10 @@ import imd.ufrn.br.spotify.services.song.IFindOneSongByIdUseCase;
 import java.util.UUID;
 
 public class FindOneSongByIdUseCaseImpl implements IFindOneSongByIdUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public FindOneSongByIdUseCaseImpl() {}
+    ISongRepository songRepository;
+    public FindOneSongByIdUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public FindOneSongByIdUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

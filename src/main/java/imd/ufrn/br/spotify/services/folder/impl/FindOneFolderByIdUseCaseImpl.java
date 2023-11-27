@@ -9,8 +9,10 @@ import imd.ufrn.br.spotify.services.folder.IFindOneFolderByIdUseCase;
 import java.util.UUID;
 
 public class FindOneFolderByIdUseCaseImpl implements IFindOneFolderByIdUseCase {
-    IFolderRepository folderRepository = new CSVFolderRepositoryImpl();
-    public FindOneFolderByIdUseCaseImpl() {}
+    IFolderRepository folderRepository;
+    public FindOneFolderByIdUseCaseImpl() {
+        this.folderRepository = new CSVFolderRepositoryImpl();
+    }
 
     public FindOneFolderByIdUseCaseImpl(IFolderRepository folderRepository) {
         this.folderRepository = folderRepository;

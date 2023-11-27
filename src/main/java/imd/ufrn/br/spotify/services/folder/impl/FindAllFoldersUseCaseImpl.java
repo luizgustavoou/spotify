@@ -8,8 +8,10 @@ import imd.ufrn.br.spotify.services.folder.IFindAllFoldersUseCase;
 import java.util.List;
 
 public class FindAllFoldersUseCaseImpl implements IFindAllFoldersUseCase {
-    IFolderRepository folderRepository = new CSVFolderRepositoryImpl();
-    public FindAllFoldersUseCaseImpl() {}
+    IFolderRepository folderRepository;
+    public FindAllFoldersUseCaseImpl() {
+        this.folderRepository = new CSVFolderRepositoryImpl();
+    }
 
     public FindAllFoldersUseCaseImpl(IFolderRepository folderRepository) {
         this.folderRepository = folderRepository;

@@ -10,10 +10,14 @@ import imd.ufrn.br.spotify.repositories.csv.CSVUserRepositoryImpl;
 import imd.ufrn.br.spotify.services.user.ILoginUseCase;
 
 public class LoginUseCaseImpl implements ILoginUseCase {
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
-    IByCryptUseCase byCryptUseCase = new ByCryptUseCaseImpl();
+    IUserRepository userRepository;
+    IByCryptUseCase byCryptUseCase;
 
-    public LoginUseCaseImpl() {}
+    public LoginUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+        this.byCryptUseCase = new ByCryptUseCaseImpl();
+
+    }
 
     public LoginUseCaseImpl(IUserRepository userRepository, IByCryptUseCase byCryptUseCase) {
         this.byCryptUseCase = byCryptUseCase;

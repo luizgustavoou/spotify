@@ -10,9 +10,12 @@ import imd.ufrn.br.spotify.services.user.ICreateUserUseCase;
 import java.util.UUID;
 
 public class CreateUserUseCaseImpl implements ICreateUserUseCase {
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
-    IByCryptUseCase byCryptUseCase = new ByCryptUseCaseImpl();
-    public CreateUserUseCaseImpl() {}
+    IUserRepository userRepository;
+    IByCryptUseCase byCryptUseCase;
+    public CreateUserUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+        this.byCryptUseCase = new ByCryptUseCaseImpl();
+    }
 
     public CreateUserUseCaseImpl(IUserRepository userRepository, IByCryptUseCase byCryptUseCase) {
         this.byCryptUseCase = byCryptUseCase;

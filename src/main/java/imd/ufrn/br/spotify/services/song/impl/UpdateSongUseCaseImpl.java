@@ -9,8 +9,10 @@ import imd.ufrn.br.spotify.services.song.IUpdateSongUseCase;
 import java.util.UUID;
 
 public class UpdateSongUseCaseImpl implements IUpdateSongUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public UpdateSongUseCaseImpl() {}
+    ISongRepository songRepository;
+    public UpdateSongUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public UpdateSongUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

@@ -9,9 +9,11 @@ import imd.ufrn.br.spotify.services.user.IUpdateUserUseCase;
 import java.util.UUID;
 
 public class UpdateUserUseCaseImpl implements IUpdateUserUseCase {
-    IUserRepository userRepository = new CSVUserRepositoryImpl();
+    IUserRepository userRepository;
 
-    public UpdateUserUseCaseImpl() {}
+    public UpdateUserUseCaseImpl() {
+        this.userRepository = new CSVUserRepositoryImpl();
+    }
 
     public UpdateUserUseCaseImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;

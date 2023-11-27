@@ -8,8 +8,10 @@ import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
 import java.util.UUID;
 
 public class RemoveSongUseCaseImpl implements IRemoveSongUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public RemoveSongUseCaseImpl() {}
+    ISongRepository songRepository;
+    public RemoveSongUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public RemoveSongUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

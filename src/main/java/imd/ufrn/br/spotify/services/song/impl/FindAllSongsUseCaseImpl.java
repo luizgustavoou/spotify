@@ -8,8 +8,10 @@ import imd.ufrn.br.spotify.services.song.IFindAllSongsUseCase;
 import java.util.List;
 
 public class FindAllSongsUseCaseImpl implements IFindAllSongsUseCase {
-    ISongRepository songRepository = new CSVSongRepositoryImpl();
-    public FindAllSongsUseCaseImpl() {}
+    ISongRepository songRepository;
+    public FindAllSongsUseCaseImpl() {
+        this.songRepository = new CSVSongRepositoryImpl();
+    }
 
     public FindAllSongsUseCaseImpl(ISongRepository songRepository) {
         this.songRepository = songRepository;

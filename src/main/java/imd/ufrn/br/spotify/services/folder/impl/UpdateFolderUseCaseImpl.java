@@ -9,8 +9,10 @@ import imd.ufrn.br.spotify.services.folder.IUpdateFolderUseCase;
 import java.util.UUID;
 
 public class UpdateFolderUseCaseImpl implements IUpdateFolderUseCase {
-    IFolderRepository folderRepository = new CSVFolderRepositoryImpl();
-    public UpdateFolderUseCaseImpl() {}
+    IFolderRepository folderRepository;
+    public UpdateFolderUseCaseImpl() {
+        this.folderRepository = new CSVFolderRepositoryImpl();
+    }
 
     public UpdateFolderUseCaseImpl(IFolderRepository folderRepository) {
         this.folderRepository = folderRepository;

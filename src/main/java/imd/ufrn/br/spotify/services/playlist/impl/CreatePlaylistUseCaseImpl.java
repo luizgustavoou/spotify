@@ -8,10 +8,10 @@ import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
 import java.util.UUID;
 
 public class CreatePlaylistUseCaseImpl implements ICreatePlaylistUseCase {
-    IPlaylistRepository playlistRepository = new CSVPlaylistRepositoryImpl();
+    IPlaylistRepository playlistRepository;
 
     public CreatePlaylistUseCaseImpl(){
-
+        this.playlistRepository = new CSVPlaylistRepositoryImpl();
     }
 
     public CreatePlaylistUseCaseImpl(IPlaylistRepository playlistRepository){

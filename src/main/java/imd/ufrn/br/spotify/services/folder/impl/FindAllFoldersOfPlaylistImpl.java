@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class FindAllFoldersOfPlaylistImpl implements IFindAllFoldersOfPlaylist {
-    IFolderRepository folderRepository = new CSVFolderRepositoryImpl();
-    public FindAllFoldersOfPlaylistImpl() {}
+    IFolderRepository folderRepository;
+    public FindAllFoldersOfPlaylistImpl() {
+        this.folderRepository = new CSVFolderRepositoryImpl();
+    }
 
     public FindAllFoldersOfPlaylistImpl(IFolderRepository folderRepository) {
         this.folderRepository = folderRepository;
