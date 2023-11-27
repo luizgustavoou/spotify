@@ -1,4 +1,4 @@
-package imd.ufrn.br.spotify.helpers.bcrypt;
+package imd.ufrn.br.spotify.helpers;
 
 
 public enum UserType {
