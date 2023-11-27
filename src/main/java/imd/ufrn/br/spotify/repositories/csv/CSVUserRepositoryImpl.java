@@ -8,18 +8,20 @@ import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
 import imd.ufrn.br.spotify.repositories.IUserRepository;
 import java.util.*;
 
-public class CSVUserRepositoryImpl implements IUserRepository {
+public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IUserRepository {
      private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/users.txt";
 //    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\users.txt";
-    private ICSVApi csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    private ICSVApi csvApi;
 
     public CSVUserRepositoryImpl(ICSVApi csvApi) {
         this.csvApi = csvApi;
     }
 
-    public CSVUserRepositoryImpl() {};
+    public CSVUserRepositoryImpl() {
+        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+    };
 
-    private List<User> readFile() {
+    public List<User> readFile() {
         List<String[]> usersResponse = this.csvApi.readFile();
 
 
@@ -35,7 +37,7 @@ public class CSVUserRepositoryImpl implements IUserRepository {
         }).toList();
     }
 
-    private void writeFile(List<User> users) {
+    public void writeFile(List<User> users) {
         List<String[]> usersResponse = users.stream().map(user -> {
             UUID id = user.getId();
             String username = user.getUsername();
@@ -49,67 +51,6 @@ public class CSVUserRepositoryImpl implements IUserRepository {
 
 
         csvApi.writeFile(usersResponse);
-    }
-
-    @Override
-    public User create(User value) {
-        ArrayList<User> users = new ArrayList<User>(this.readFile());
-        users.add(value);
-        this.writeFile(users);
-
-        return value;
-    }
-
-    @Override
-    public void update(UUID id, User value) throws EntityNotFoundException {
-        ArrayList<User> users = new ArrayList<User>(this.readFile());
-
-        int indexToUpdate = -1;
-
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId().equals(id)) {
-                indexToUpdate = i;
-                break;
-            }
-        }
-
-        if (indexToUpdate == -1) {
-            throw new EntityNotFoundException("Erro ao atualizar usuário: usuário não existe.");
-        }
-
-        users.set(indexToUpdate, value);
-        this.writeFile(users);
-    }
-
-    @Override
-    public void remove(UUID id) throws EntityNotFoundException {
-        ArrayList<User> users = new ArrayList<User>(this.readFile());
-        boolean removed = users.removeIf(user -> user.getId().equals(id));
-
-        if(!removed) {
-            throw new EntityNotFoundException("Erro ao remover usuário: usuário não existe.");
-        }
-
-        this.writeFile(users);
-
-    }
-
-    @Override
-    public List<User> findAll() {
-      return this.readFile();
-    }
-
-    @Override
-    public User findOneById(UUID id) throws EntityNotFoundException {
-        ArrayList<User> users = new ArrayList<User>(this.readFile());
-
-        Optional<User> user = users.stream().filter(uu -> uu.getId().equals(id)).findFirst();
-
-        if(user.isEmpty()) {
-            throw new EntityNotFoundException("Erro ao buscar usuário: usuário não existe.");
-        }
-
-        return user.get();
     }
 
     @Override
@@ -135,7 +76,6 @@ public class CSVUserRepositoryImpl implements IUserRepository {
 
         // Test create
 //        User newUser = new User("joao", "123", "João da Silva", false);
-//
 //        userRepository.create(newUser);
 
 //         Test findOneById
