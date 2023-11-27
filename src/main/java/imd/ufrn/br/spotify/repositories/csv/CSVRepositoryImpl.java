@@ -47,7 +47,8 @@ abstract public class CSVRepositoryImpl<T extends Entity> implements IRepository
     @Override
     public void remove(UUID id) throws EntityNotFoundException {
         ArrayList<T> values = new ArrayList<T>(this.readFile());
-        boolean removed = values.removeIf(pl -> pl.getId().equals(id));
+
+        boolean removed = values.removeIf(value -> value.getId().equals(id));
 
         if(!removed) {
             throw new EntityNotFoundException("Erro ao remover T: T não existe.");
@@ -66,12 +67,12 @@ abstract public class CSVRepositoryImpl<T extends Entity> implements IRepository
     public T findOneById(UUID id) throws EntityNotFoundException {
         ArrayList<T> values = new ArrayList<T>(this.readFile());
 
-        Optional<T> value = values.stream().filter(vv -> vv.getId().equals(id)).findFirst();
+        Optional<T> valueFinded = values.stream().filter(value -> value.getId().equals(id)).findFirst();
 
-        if(value.isEmpty()) {
+        if(valueFinded.isEmpty()) {
             throw new EntityNotFoundException("Erro ao buscar T: T não existe.");
         }
 
-        return value.get();
+        return valueFinded.get();
     }
 }
