@@ -19,8 +19,8 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
         if (folder.isDirectory()) {
             File[] mp3Files = folder.listFiles(new FilenameFilter() {
                 @Override
-                public boolean accept(File dir, String nomeArquivo) {
-                    return nomeArquivo.toLowerCase().endsWith(".mp3");
+                public boolean accept(File dir, String fileName) {
+                    return fileName.toLowerCase().endsWith(".mp3");
                 }
             });
 
