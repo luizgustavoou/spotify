@@ -17,12 +17,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
         ArrayList<Song> songs = new ArrayList<>();
 
         if (folder.isDirectory()) {
-            File[] mp3Files = folder.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String fileName) {
-                    return fileName.toLowerCase().endsWith(".mp3");
-                }
-            });
+            File[] mp3Files = folder.listFiles((File file, String fileName) -> fileName.toLowerCase().endsWith(".mp3"));
 
             if (mp3Files != null) {
                 for (File file : mp3Files) {
@@ -33,7 +28,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
         } else {
             System.out.println("O caminho fornecido não é um diretório válido.");
     }
-    return songs;
+        return songs;
     }
 
     public static void main(String[] args) {
