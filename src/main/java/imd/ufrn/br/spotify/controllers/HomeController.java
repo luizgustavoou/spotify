@@ -32,7 +32,7 @@ public class HomeController {
         this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
     }
 
-    public void getAllPlaylists(String userId) {
+    public void getAllPlaylistsOfUser(String userId) {
         System.out.println(playlists);
 
         playlists.clear();
@@ -55,7 +55,7 @@ public class HomeController {
 
     public static void main(String[] args) {
         HomeController homeController = new HomeController();
-        homeController.getAllPlaylists("12b2a592-722b-44db-ad94-3540658abeab");
+        homeController.getAllPlaylistsOfUser("12b2a592-722b-44db-ad94-3540658abeab"); // pegar playlists do joaozin10
 
         homeController.getAllSongsOfPlaylist(homeController.playlists.get(3).getId().toString());
 
