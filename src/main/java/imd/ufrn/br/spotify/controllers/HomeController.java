@@ -33,23 +33,17 @@ public class HomeController {
     }
 
     public void getAllPlaylistsOfUser(String userId) {
-        System.out.println(playlists);
-
         playlists.clear();
 
         playlists.addAll(findAllPlaylistOfUserUseCase.execute(UUID.fromString(userId)));
 
-        System.out.println(playlists);
     }
 
     public void getAllSongsOfPlaylist(String playlistId) {
-        System.out.println(songs);
-
         songs.clear();
 
         songs.addAll(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
 
-        System.out.println(songs);
 
     }
 
