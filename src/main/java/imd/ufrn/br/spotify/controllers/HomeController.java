@@ -24,12 +24,13 @@ public class HomeController {
     }
 
     public void getAllSongsOfPlaylist(UUID playlistId) {
-//        ArrayList<Song> songs = new ArrayList<>(getAllSongsOfPlaylistUseCase.execute(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9")));
-        System.out.println(this.getAllSongsOfPlaylistUseCase.execute(playlistId));
+        System.out.println(songs);
 
-//        System.out.println(songs);
+        songs.clear();
 
-//        System.out.println(songs);
+        songs.addAll(getAllSongsOfPlaylistUseCase.execute(playlistId));
+
+        System.out.println(songs);
 
 
 
@@ -38,7 +39,7 @@ public class HomeController {
     public static void main(String[] args) {
         HomeController homeController = new HomeController();
 
-        homeController.getAllSongsOfPlaylistUseCase.execute(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9"));  // Suponha que a playlist selecionada seja "Playlist boazinha"
+        homeController.getAllSongsOfPlaylist(UUID.fromString("ab2acce0-30ca-4aa9-98cb-315781d0c2b9"));  // Suponha que a playlist selecionada seja "Playlist boazinha"
 
 
 
