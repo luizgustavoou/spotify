@@ -27,7 +27,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
                 }
             }
         } else {
-            System.out.println("O caminho fornecido não é um diretório válido.");
+//            System.out.println("O caminho fornecido não é um diretório válido.");
         }
         return songs;
     }
