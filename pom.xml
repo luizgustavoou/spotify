@@ -50,6 +50,27 @@
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
     </dependency>
+    <dependency>
+
+      <groupId>de.jensd</groupId>
+
+      <artifactId>fontawesomefx-fontawesome</artifactId>
+
+      <version>4.7.0-11</version>
+
+    </dependency>
+
+    <dependency>
+
+      <groupId>de.jensd</groupId>
+
+      <artifactId>fontawesomefx</artifactId>
+
+      <version>8.9</version>
+
+    </dependency>
+
+
   </dependencies>
 
   <build>

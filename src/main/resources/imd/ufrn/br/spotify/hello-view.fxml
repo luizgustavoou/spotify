@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="imd.ufrn.br.spotify.controllers.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="96.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="App de música">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="122.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo aqui">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="652.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField layoutX="101.0" layoutY="207.0" promptText="Usuário" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField layoutX="101.0" layoutY="250.0" promptText="Senha" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button layoutX="138.0" layoutY="298.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #333; -fx-cursor: hand;" text="Entrar" textAlignment="CENTER" textFill="WHITE" />
+            <Hyperlink layoutX="116.0" layoutY="391.0" text="Esqueceu sua senha?" textAlignment="CENTER" />
+            <Hyperlink layoutX="138.0" layoutY="368.0" text="Cadastrar-se" />
+            <Text layoutX="87.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login de usuário">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
