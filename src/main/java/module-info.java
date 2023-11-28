@@ -8,4 +8,6 @@ module imd.ufrn.br.spotify {
 
     opens imd.ufrn.br.spotify to javafx.fxml;
     exports imd.ufrn.br.spotify;
+    exports imd.ufrn.br.spotify.controllers;
+    opens imd.ufrn.br.spotify.controllers to javafx.fxml;
 }

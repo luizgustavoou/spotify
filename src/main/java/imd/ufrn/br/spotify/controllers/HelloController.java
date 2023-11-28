@@ -1,4 +1,4 @@
-package imd.ufrn.br.spotify;
+package imd.ufrn.br.spotify.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
