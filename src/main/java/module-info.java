@@ -9,5 +9,10 @@ module imd.ufrn.br.spotify {
     opens imd.ufrn.br.spotify to javafx.fxml;
     exports imd.ufrn.br.spotify;
     exports imd.ufrn.br.spotify.controllers;
+    exports imd.ufrn.br.spotify.services.song;
+    exports imd.ufrn.br.spotify.services.user;
+    exports imd.ufrn.br.spotify.services.folder;
+    exports imd.ufrn.br.spotify.services.playlist;
+    exports imd.ufrn.br.spotify.exceptions;
     opens imd.ufrn.br.spotify.controllers to javafx.fxml;
 }
