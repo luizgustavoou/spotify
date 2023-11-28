@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.LoginController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
          <children>
@@ -28,9 +28,9 @@
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="652.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="101.0" layoutY="207.0" promptText="Usuário" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
-            <PasswordField layoutX="101.0" layoutY="250.0" promptText="Senha" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
-            <Button layoutX="138.0" layoutY="298.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #333; -fx-cursor: hand;" text="Entrar" textAlignment="CENTER" textFill="WHITE" />
+            <TextField fx:id="username" layoutX="101.0" layoutY="207.0" promptText="Usuário" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="password" layoutX="101.0" layoutY="250.0" promptText="Senha" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button fx:id="btnLogin" layoutX="138.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #333; -fx-cursor: hand;" text="Entrar" textAlignment="CENTER" textFill="WHITE" />
             <Hyperlink layoutX="116.0" layoutY="391.0" text="Esqueceu sua senha?" textAlignment="CENTER" />
             <Hyperlink layoutX="138.0" layoutY="368.0" text="Cadastrar-se" />
             <Text layoutX="87.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login de usuário">
