@@ -23,7 +23,7 @@ public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistU
         this.findAllFoldersOfPlaylist = findAllFoldersOfPlaylist;
         this.findAllSongsOfFolderUseCase = findAllSongsOfFolderUseCase;
     }
-    GetAllSongsOfPlaylistUseCaseImpl() {
+    public GetAllSongsOfPlaylistUseCaseImpl() {
         this.findAllSongsOfPlaylistUseCase = new FindAllSongsOfPlaylistUseCaseImpl();
         this.findAllFoldersOfPlaylist = new FindAllFoldersOfPlaylistImpl();
         this.findAllSongsOfFolderUseCase = new FindAllSongsOfFolderUseCaseImpl();
