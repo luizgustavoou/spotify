@@ -49,6 +49,7 @@ public class HomeController {
 
     public static void main(String[] args) {
         HomeController homeController = new HomeController();
+
         homeController.getAllPlaylistsOfUser("12b2a592-722b-44db-ad94-3540658abeab"); // pegar playlists do joaozin10
 
         homeController.getAllSongsOfPlaylist(homeController.playlists.get(3).getId().toString());
