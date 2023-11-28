@@ -43,8 +43,6 @@ public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistU
         });
 
         return songs;
-
-
     }
 
     public static void main(String[] args) {
