@@ -5,3 +5,5 @@
 758c8710-f1ac-4f9b-990b-09538995852e,joaozin17,$2a$10$rZG5AT1HoK0CtEHyczl/5uhjcPcvOXRqvk2.HH6q94XrNcV3Qcz5C,João,0
 11498d8b-97ec-4907-a174-ae4f9e7596d2,joaozin86,$2a$10$jTnsEhCcXU0vMDFVA/b82OiKTW/djufv9uuEaXPIKot2uzg1VfmmS,João,0
 12b2a592-722b-44db-ad94-3540658abeab,joaozin10,$2a$10$cUkKtwUgdNm134ZCEDas3u.ABmUFKytzkf3U6xG8nwXztr137S8fC,João,0
+7f438a9d-305e-4e7f-881e-b64270662c7a,joaozin11,$2a$10$G2Bzzs7TW4eaTqOWAKc4nuv60kMoNa.v2xH8b9haGoj1Y9oCzMGRC,João Da Silva 11,0
+d2add4ac-5509-45ef-87a5-d6c407f29a30,joaozin62,$2a$10$UZ3k6e4pFuxs5HNhQjAiZum/sKvVhBLougIpXcLR7F0O28DuaUD8W,João Da Silva 62,0
