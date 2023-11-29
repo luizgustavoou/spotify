@@ -9,7 +9,7 @@ import imd.ufrn.br.spotify.services.user.impl.LoginUseCaseImpl;
 
 
 import imd.ufrn.br.spotify.utils.Navigator;
-import imd.ufrn.br.spotify.PathViews;
+import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

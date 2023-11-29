@@ -1,4 +1,4 @@
-package imd.ufrn.br.spotify;
+package imd.ufrn.br.spotify.utils;
 
 public class PathViews {
     static public String LOGIN_VIEW = "/imd/ufrn/br/spotify/login-view.fxml";

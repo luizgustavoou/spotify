@@ -17,4 +17,6 @@ module imd.ufrn.br.spotify {
     exports imd.ufrn.br.spotify.entities;
     exports imd.ufrn.br.spotify.stores;
     opens imd.ufrn.br.spotify.controllers to javafx.fxml;
+    exports imd.ufrn.br.spotify.utils;
+    opens imd.ufrn.br.spotify.utils to javafx.fxml;
 }

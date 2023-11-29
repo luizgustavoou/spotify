@@ -1,6 +1,6 @@
 package imd.ufrn.br.spotify;
 
-import imd.ufrn.br.spotify.controllers.LoginController;
+import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
