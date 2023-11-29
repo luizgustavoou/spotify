@@ -52,6 +52,14 @@ public class RegistrationController implements Initializable {
         User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"));
 
         this.createUserUseCase.execute(user);
+        this.formClear();
+    }
+
+    private void formClear() {
+        this.username.clear();
+        this.password.clear();
+        this.fullName.clear();
+//        this.typeUserBox
     }
 
     @FXML

@@ -4,3 +4,4 @@ cfb6c74b-d1b4-4e1f-a03f-92d3d30f0c35,caminho diretorio pra playlist metalzao 3,a
 28edc671-ef58-401d-a252-7ea5670b85b7,caminho diretorio pra playlist metalzao 4,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 1d2f25f3-d4b1-4814-ae24-9ed0fb6059db,/home/luizgustavoou/Área de Trabalho/testmusicas,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 54a409cb-fe62-4612-8c17-acc2f31070e4,/folderteste/,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
+2d10b767-56fe-46da-be95-e9566238b7f8,/folderteste/,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
