@@ -6,6 +6,8 @@ import imd.ufrn.br.spotify.repositories.ISongRepository;
 import imd.ufrn.br.spotify.repositories.csv.CSVSongRepositoryImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
 
+import java.util.UUID;
+
 public class CreateSongUseCaseImpl implements ICreateSongUseCase {
     ISongRepository songRepository;
     public CreateSongUseCaseImpl() {
@@ -19,5 +21,12 @@ public class CreateSongUseCaseImpl implements ICreateSongUseCase {
     @Override
     public Song execute(Song value) {
         return this.songRepository.create(value);
+    }
+
+    public static void main(String[] args) {
+        ICreateSongUseCase createSongUseCase = new CreateSongUseCaseImpl();
+
+        Song song = new Song("chuva corea relaxante", "caminho", UUID.fromString("e0e0c95d-9453-4c2e-8940-2fe3bf090097"));
+        createSongUseCase.execute(song);
     }
 }

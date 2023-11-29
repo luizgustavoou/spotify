@@ -2,3 +2,5 @@
 7f32a9cb-23b9-47f2-b83d-b02af47d5969,musica default 2,caminho,null
 cf3e7a32-7414-43c8-b105-add54ea5268f,musica metalzao 1,caminho,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 b1a8ec9f-3145-46b5-a252-861cb39c5f25,musica metalzao 2,caminho2,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
+7ef4316d-f4d4-4314-8a3f-f3d0ff4cc3ec,musica chuva naruto,caminho,e0e0c95d-9453-4c2e-8940-2fe3bf090097
+4fca2be0-3dc5-4e14-846a-94838db0c67c,chuva corea relaxante,caminho,e0e0c95d-9453-4c2e-8940-2fe3bf090097

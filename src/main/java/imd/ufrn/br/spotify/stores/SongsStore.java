@@ -5,6 +5,7 @@ import imd.ufrn.br.spotify.entities.Song;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,14 @@ public class SongsStore {
 
     public void addSongs(List<Song> songs) {
         this.songs.addAll(songs);
+    }
+
+    public ObservableList<Song> getSongs() {
+        return songs.get();
+    }
+
+    public SimpleListProperty<Song> songsProperty() {
+        return songs;
     }
 
     public void addListener(ListChangeListener<Song> listener) {

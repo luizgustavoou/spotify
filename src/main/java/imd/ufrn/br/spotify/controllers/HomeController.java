@@ -3,6 +3,7 @@ package imd.ufrn.br.spotify.controllers;
 import imd.ufrn.br.spotify.entities.Folder;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
+import imd.ufrn.br.spotify.entities.User;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
@@ -19,6 +20,7 @@ import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -64,7 +66,9 @@ public class HomeController implements Initializable {
     public void getAllSongsOfPlaylist(String playlistId) {
         songsStore.clear();
 
-        songsStore.addSongs(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
+        List<Song> newSongs = getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId));
+
+        songsStore.addSongs(newSongs);
     }
 
     public void createSong() {
@@ -95,29 +99,34 @@ public class HomeController implements Initializable {
         Folder folder = new Folder(strPathFolder, UUID.fromString(strPlaylistId));
 
         this.createFolderUseCase.execute(folder);
-
-
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        User user = userStore.getUser();
-//        if (user != null) {
-//            this.getAllPlaylistsOfUser(user.getId().toString());
-//
-//
-//            if(!playlistsStore.getPlaylists().isEmpty()) {
-//                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
-//                System.out.println(playlistsStore.getPlaylists());
-//                System.out.println(songsStore.getSongs());
-//
-//            }
-//
-//        } else {
-//            System.out.println("User is null");
-//        }
+
+        songsStore.addListener(change -> {
+            System.out.println("--1--");
+            System.out.println(change);
+        });
+
+        playlistsStore.addListener(change -> {
+            System.out.println("--2--");
+            System.out.println(change);
+        });
+
+        User user = userStore.getUser();
+        if (user != null) {
+            this.getAllPlaylistsOfUser(user.getId().toString());
+
+
+            if(!playlistsStore.getPlaylists().isEmpty()) {
+                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
+
+            }
+
+        } else {
+            System.out.println("User is null");
+        }
     }
 
     public static void main(String[] args) {

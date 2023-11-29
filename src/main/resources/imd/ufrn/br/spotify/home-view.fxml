@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.HomeController">
    <top>
       <AnchorPane prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: fff; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #fff;" BorderPane.alignment="CENTER">
          <children>
