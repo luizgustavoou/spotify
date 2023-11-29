@@ -24,10 +24,7 @@ public class CreateUserUseCaseImpl implements ICreateUserUseCase {
 
     @Override
     public User execute(User value) {
-        System.out.println(value.getPassword());
         String hashPassword = byCryptUseCase.generateHash(value.getPassword());
-
-        System.out.println(hashPassword);
 
         value.setPassword(hashPassword);
 
