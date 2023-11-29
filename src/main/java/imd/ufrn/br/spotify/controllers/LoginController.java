@@ -9,12 +9,27 @@ import imd.ufrn.br.spotify.services.user.impl.LoginUseCaseImpl;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LoginController {
+    private final ILoginUseCase loginUseCase;
+
+    private Stage stage;
+
     @FXML
     private PasswordField password;
 
@@ -24,8 +39,6 @@ public class LoginController {
     @FXML
     private Button btnLogin;
 
-    private final ILoginUseCase loginUseCase;
-
     private LoginController(ILoginUseCase loginUseCase) {
         this.loginUseCase = loginUseCase;
     }
@@ -33,22 +46,47 @@ public class LoginController {
         this.loginUseCase = new LoginUseCaseImpl();
     }
 
-    @FXML
-    void login(MouseEvent event) {
+    private void login() {
         String strUsername = username.getText();
         String strPassword = password.getText();
 
         try {
             User user = this.loginUseCase.execute(strUsername, strPassword);
-            System.out.println(user);
+
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/imd/ufrn/br/spotify/home-view.fxml"));
+
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+
+            stage.setTitle("Home");
+            stage.setScene(scene);
+
+
+
+
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } catch (UnauthorizedException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-
     }
+
+    @FXML
+    void handleMouseClicked(MouseEvent event) {
+        this.login();
+    }
+
+//    void handleKeyPressed(KeyEvent event) {
+//        if(event.getCode() == KeyCode.ENTER) {
+//            this.login();
+//        }
+//    }
+
+
 
 }
