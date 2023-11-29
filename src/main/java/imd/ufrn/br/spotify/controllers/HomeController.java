@@ -17,8 +17,13 @@ import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +38,10 @@ public class HomeController implements Initializable {
     private final ICreateSongUseCase createSongUseCase;
     private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
+
+    //
+    FileChooser musicFileChooser = new FileChooser();
+
 
 
     public HomeController(IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase, IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase, ICreateSongUseCase createSongUseCase, ICreatePlaylistUseCase createPlaylistUseCase, ICreateFolderUseCase createFolderUseCase) {
@@ -101,29 +110,28 @@ public class HomeController implements Initializable {
         this.createFolderUseCase.execute(folder);
     }
 
+    //
+
+
+    @FXML
+    void loadFileMusic(MouseEvent event) {
+        // TODO: Selecionar o playlistId atual do usuário
+        String plalistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
+        musicFileChooser.getExtensionFilters().add(extFilter);
+        File file = musicFileChooser.showOpenDialog(new Stage());
+
+        if(file == null) return;
+
+        Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(plalistId));
+
+        createSongUseCase.execute(newSong);
+
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        songsStore.addListener(change -> {
-            System.out.println("--1--");
-            System.out.println(change);
-        });
-
-        playlistsStore.addListener(change -> {
-            System.out.println("--2--");
-            System.out.println(change);
-        });
-
-        User user = userStore.getUser();
-
-        this.getAllPlaylistsOfUser(user.getId().toString());
-
-
-        if(!playlistsStore.getPlaylists().isEmpty()) {
-            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
-
-        }
-
 
     }
 
@@ -132,6 +140,6 @@ public class HomeController implements Initializable {
 
 //        homeController.createSong();
 //        homeController.createPlaylist();
-        homeController.createFolder();
+//        homeController.createFolder();
     }
 }
