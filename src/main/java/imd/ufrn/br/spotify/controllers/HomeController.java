@@ -80,17 +80,6 @@ public class HomeController implements Initializable {
         songsStore.addSongs(newSongs);
     }
 
-    public void createSong() {
-        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
-        String strNameSong = "musicateste";
-        String strPathSong = "/musicateste.txt";
-
-        Song song = new Song(strNameSong, strPathSong, UUID.fromString(strPlaylistId));
-
-        this.createSongUseCase.execute(song);
-
-    }
-
     public void createPlaylist() {
         String strNamePlaylist = "playlist teste";
         String userId = "12b2a592-722b-44db-ad94-3540658abeab";
@@ -116,14 +105,14 @@ public class HomeController implements Initializable {
     @FXML
     void loadFileMusic(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
-        String plalistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
         File file = musicFileChooser.showOpenDialog(new Stage());
 
         if(file == null) return;
 
-        Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(plalistId));
+        Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(strPlaylistId));
 
         createSongUseCase.execute(newSong);
 
@@ -133,13 +122,5 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-
-    public static void main(String[] args) {
-        HomeController homeController = new HomeController();
-
-//        homeController.createSong();
-//        homeController.createPlaylist();
-//        homeController.createFolder();
     }
 }
