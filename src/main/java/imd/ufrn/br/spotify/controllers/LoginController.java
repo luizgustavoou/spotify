@@ -8,25 +8,21 @@ import imd.ufrn.br.spotify.services.user.ILoginUseCase;
 import imd.ufrn.br.spotify.services.user.impl.LoginUseCaseImpl;
 
 
+import imd.ufrn.br.spotify.utils.Navigator;
+import imd.ufrn.br.spotify.PathViews;
+import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LoginController {
     private final ILoginUseCase loginUseCase;
+    Navigator navigator;
 
     private Stage stage;
 
@@ -44,6 +40,7 @@ public class LoginController {
     }
     public LoginController() {
         this.loginUseCase = new LoginUseCaseImpl();
+        this.navigator = Navigator.getInstance();
     }
 
     private void login() {
@@ -53,19 +50,7 @@ public class LoginController {
         try {
             User user = this.loginUseCase.execute(strUsername, strPassword);
 
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/imd/ufrn/br/spotify/home-view.fxml"));
-
-            Parent root = fxmlLoader.load();
-
-            Scene scene = new Scene(root);
-
-            stage.setTitle("Home");
-            stage.setScene(scene);
-
-
-
+            this.navigator.to(btnLogin, TitleViews.HOME_VIEW, PathViews.HOME_VIEW);
 
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
@@ -86,7 +71,4 @@ public class LoginController {
 //            this.login();
 //        }
 //    }
-
-
-
 }

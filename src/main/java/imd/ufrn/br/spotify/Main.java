@@ -1,6 +1,7 @@
 package imd.ufrn.br.spotify;
 
 import imd.ufrn.br.spotify.controllers.LoginController;
+import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,13 +13,13 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(PathViews.LOGIN_VIEW));
 
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Login");
+        stage.setTitle(TitleViews.LOGIN_VIEW);
         stage.setScene(scene);
         stage.show();
     }
