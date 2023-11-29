@@ -3,9 +3,14 @@ package imd.ufrn.br.spotify.stores;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaylistsStore {
-    private Playlist playlist;
-    private PlaylistsStore() {}
+    private ArrayList<Playlist> playlists;
+    private PlaylistsStore() {
+        playlists = new ArrayList<>();
+    }
     static public PlaylistsStore instance;
     static public PlaylistsStore getInstance() {
         if(instance == null) {
@@ -14,11 +19,19 @@ public class PlaylistsStore {
         return instance;
     }
 
-    public Playlist getPlaylist() {
-        return this.playlist;
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
     }
 
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
+    public void setPlaylists(ArrayList<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    public void clear() {
+        playlists.clear();
+    }
+
+    public void addPlaylists(List<Playlist> playlists) {
+        this.playlists.addAll(playlists);
     }
 }

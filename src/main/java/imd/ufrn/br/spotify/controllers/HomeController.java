@@ -7,6 +7,8 @@ import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
 import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.stores.PlaylistsStore;
+import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.fxml.Initializable;
 
@@ -16,38 +18,39 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class HomeController implements Initializable {
+    private final PlaylistsStore playlistsStore;
+    private final SongsStore songsStore;
     private final UserStore userStore;
     private final IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase;
     private final IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase;
-    public final ArrayList<Song> songs;
-    public final ArrayList<Playlist> playlists;
+
 
     public HomeController(IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase, IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase) {
-        songs = new ArrayList<>();
-        playlists = new ArrayList<>();
         this.getAllSongsOfPlaylistUseCase = getAllSongsOfPlaylistUseCase;
         this.findAllPlaylistOfUserUseCase = findAllPlaylistOfUserUseCase;
         this.userStore = UserStore.getInstance();
+        this.playlistsStore = PlaylistsStore.getInstance();
+        this.songsStore = SongsStore.getInstance();
     }
 
     public HomeController() {
-        songs = new ArrayList<>();
-        playlists = new ArrayList<>();
         this.getAllSongsOfPlaylistUseCase = new GetAllSongsOfPlaylistUseCaseImpl();
         this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
         this.userStore = UserStore.getInstance();
+        this.playlistsStore = PlaylistsStore.getInstance();
+        this.songsStore = SongsStore.getInstance();
     }
 
     public void getAllPlaylistsOfUser(String userId) {
-        playlists.clear();
+        playlistsStore.clear();
 
-        playlists.addAll(findAllPlaylistOfUserUseCase.execute(UUID.fromString(userId)));
+        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(UUID.fromString(userId)));
     }
 
     public void getAllSongsOfPlaylist(String playlistId) {
-        songs.clear();
+        songsStore.clear();
 
-        songs.addAll(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
+        songsStore.addSongs(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
     }
 
     @Override
@@ -57,10 +60,10 @@ public class HomeController implements Initializable {
             this.getAllPlaylistsOfUser(user.getId().toString());
 
 
-            if(!playlists.isEmpty()) {
-                this.getAllSongsOfPlaylist(playlists.get(0).getId().toString());
-                System.out.println(playlists);
-                System.out.println(songs);
+            if(!playlistsStore.getPlaylists().isEmpty()) {
+                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
+                System.out.println(playlistsStore.getPlaylists());
+                System.out.println(songsStore.getSongs());
 
             }
 
