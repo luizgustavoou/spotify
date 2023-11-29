@@ -28,8 +28,8 @@
    <left>
       <AnchorPane prefHeight="435.0" prefWidth="10.0" style="-fx-background-color: #333; -fx-border-width: 0px 2px 0px 0px; -fx-border-color: #444;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-background-radius: 100; -fx-cursor: hand;" text="+" />
-            <Button layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#loadFileMusic" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
+            <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#addFolder" style="-fx-background-color: #fff; -fx-background-radius: 100; -fx-cursor: hand;" text="+" />
+            <Button layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#addSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="8.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="2.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar arquivo" textAlignment="CENTER" />
          </children>

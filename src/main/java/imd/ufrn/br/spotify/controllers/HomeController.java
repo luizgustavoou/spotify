@@ -103,7 +103,7 @@ public class HomeController implements Initializable {
 
 
     @FXML
-    void loadFileMusic(MouseEvent event) {
+    void addSong(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
         String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
@@ -115,7 +115,10 @@ public class HomeController implements Initializable {
         Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(strPlaylistId));
 
         createSongUseCase.execute(newSong);
+    }
 
+    @FXML
+    void addFolder(MouseEvent event) {
 
     }
 
