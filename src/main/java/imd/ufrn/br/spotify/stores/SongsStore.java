@@ -2,14 +2,17 @@ package imd.ufrn.br.spotify.stores;
 
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SongsStore {
-    private ArrayList<Song> songs;
+    private final SimpleListProperty<Song> songs;
     private SongsStore() {
-        this.songs = new ArrayList<>();
+        this.songs = new SimpleListProperty<>(FXCollections.observableArrayList());
     }
     static public SongsStore instance;
     static public SongsStore getInstance() {
@@ -19,19 +22,15 @@ public class SongsStore {
         return instance;
     }
 
-    public ArrayList<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
-
     public void clear() {
         songs.clear();
     }
 
     public void addSongs(List<Song> songs) {
         this.songs.addAll(songs);
+    }
+
+    public void addListener(ListChangeListener<Song> listener) {
+        songs.addListener(listener);
     }
 }
