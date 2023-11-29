@@ -16,15 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
     private final ILoginUseCase loginUseCase;
     Navigator navigator;
-
-    private Stage stage;
 
     @FXML
     private PasswordField password;
