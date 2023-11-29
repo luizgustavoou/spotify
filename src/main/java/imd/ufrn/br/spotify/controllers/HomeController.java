@@ -115,18 +115,16 @@ public class HomeController implements Initializable {
         });
 
         User user = userStore.getUser();
-        if (user != null) {
-            this.getAllPlaylistsOfUser(user.getId().toString());
+
+        this.getAllPlaylistsOfUser(user.getId().toString());
 
 
-            if(!playlistsStore.getPlaylists().isEmpty()) {
-                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
+        if(!playlistsStore.getPlaylists().isEmpty()) {
+            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(0).getId().toString());
 
-            }
-
-        } else {
-            System.out.println("User is null");
         }
+
+
     }
 
     public static void main(String[] args) {
