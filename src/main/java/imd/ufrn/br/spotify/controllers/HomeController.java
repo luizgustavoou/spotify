@@ -20,6 +20,7 @@ import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -41,6 +42,7 @@ public class HomeController implements Initializable {
 
     //
     FileChooser musicFileChooser = new FileChooser();
+    DirectoryChooser directoryChooser = new DirectoryChooser();
 
 
 
@@ -90,24 +92,13 @@ public class HomeController implements Initializable {
 
     }
 
-    public void createFolder() {
-        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
-        String strPathFolder = "/folderteste/";
-
-        Folder folder = new Folder(strPathFolder, UUID.fromString(strPlaylistId));
-
-        this.createFolderUseCase.execute(folder);
-    }
-
-    //
-
-
     @FXML
     void addSong(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
         String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
+        musicFileChooser.setTitle("Escolha uma música");
         File file = musicFileChooser.showOpenDialog(new Stage());
 
         if(file == null) return;
@@ -115,10 +106,28 @@ public class HomeController implements Initializable {
         Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(strPlaylistId));
 
         createSongUseCase.execute(newSong);
+
+        System.out.println("Música adicionada a playlist " + strPlaylistId);
+
     }
 
     @FXML
     void addFolder(MouseEvent event) {
+        // TODO: Selecionar o playlistId atual do usuário
+        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+
+        directoryChooser.setTitle("Escolha um diretório");
+        directoryChooser.setInitialDirectory(new java.io.File("."));
+
+        File folder = directoryChooser.showDialog(new Stage());
+        if (folder == null) return;
+
+        Folder newFolder = new Folder(folder.getAbsolutePath(), UUID.fromString(strPlaylistId));
+
+        createFolderUseCase.execute(newFolder);
+
+        System.out.println("Folder adicionado a playlist " + strPlaylistId);
+
 
     }
 
