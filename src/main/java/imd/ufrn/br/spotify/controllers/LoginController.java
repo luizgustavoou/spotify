@@ -8,6 +8,7 @@ import imd.ufrn.br.spotify.services.user.ILoginUseCase;
 import imd.ufrn.br.spotify.services.user.impl.LoginUseCaseImpl;
 
 
+import imd.ufrn.br.spotify.stores.UserStore;
 import imd.ufrn.br.spotify.utils.Navigator;
 import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.TitleViews;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class LoginController {
+    private final UserStore userStore;
     private final ILoginUseCase loginUseCase;
     Navigator navigator;
 
@@ -34,10 +36,12 @@ public class LoginController {
 
     private LoginController(ILoginUseCase loginUseCase) {
         this.loginUseCase = loginUseCase;
+        this.userStore = UserStore.getInstance();
     }
     public LoginController() {
         this.loginUseCase = new LoginUseCaseImpl();
         this.navigator = Navigator.getInstance();
+        this.userStore = UserStore.getInstance();
     }
 
     private void login() {
@@ -46,6 +50,8 @@ public class LoginController {
 
         try {
             User user = this.loginUseCase.execute(strUsername, strPassword);
+
+            userStore.setUser(user);
 
             this.navigator.to(btnLogin, TitleViews.HOME_VIEW, PathViews.HOME_VIEW);
 

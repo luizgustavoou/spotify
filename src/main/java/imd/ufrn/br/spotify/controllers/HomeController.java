@@ -2,16 +2,21 @@ package imd.ufrn.br.spotify.controllers;
 
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
+import imd.ufrn.br.spotify.entities.User;
 import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
 import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.stores.UserStore;
+import javafx.fxml.Initializable;
 
-import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class HomeController {
+public class HomeController implements Initializable {
+    private final UserStore userStore;
     private final IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase;
     private final IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase;
     public final ArrayList<Song> songs;
@@ -23,6 +28,7 @@ public class HomeController {
         playlists = new ArrayList<>();
         this.getAllSongsOfPlaylistUseCase = getAllSongsOfPlaylistUseCase;
         this.findAllPlaylistOfUserUseCase = findAllPlaylistOfUserUseCase;
+        this.userStore = UserStore.getInstance();
     }
 
     public HomeController() {
@@ -30,6 +36,7 @@ public class HomeController {
         playlists = new ArrayList<>();
         this.getAllSongsOfPlaylistUseCase = new GetAllSongsOfPlaylistUseCaseImpl();
         this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
+        this.userStore = UserStore.getInstance();
     }
 
     public void getAllPlaylistsOfUser(String userId) {
@@ -43,20 +50,16 @@ public class HomeController {
         songs.clear();
 
         songs.addAll(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
-
-
     }
 
-    public static void main(String[] args) {
-        HomeController homeController = new HomeController();
 
-        homeController.getAllPlaylistsOfUser("12b2a592-722b-44db-ad94-3540658abeab"); // pegar playlists do joaozin10
-
-        homeController.getAllSongsOfPlaylist(homeController.playlists.get(3).getId().toString());
-
-
-
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        User user = userStore.getUser();
+        if (user != null) {
+            System.out.println(user.getId());
+        } else {
+            System.out.println("User is null");
+        }
     }
-
 }
