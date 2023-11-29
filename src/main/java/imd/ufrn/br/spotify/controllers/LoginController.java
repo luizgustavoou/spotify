@@ -22,7 +22,9 @@ import java.io.IOException;
 
 public class LoginController {
     private final UserStore userStore;
+
     private final ILoginUseCase loginUseCase;
+
     Navigator navigator;
 
     @FXML
@@ -38,6 +40,7 @@ public class LoginController {
         this.loginUseCase = loginUseCase;
         this.userStore = UserStore.getInstance();
     }
+
     public LoginController() {
         this.loginUseCase = new LoginUseCaseImpl();
         this.navigator = Navigator.getInstance();

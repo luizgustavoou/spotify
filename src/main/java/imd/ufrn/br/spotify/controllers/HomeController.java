@@ -22,7 +22,6 @@ public class HomeController implements Initializable {
     public final ArrayList<Song> songs;
     public final ArrayList<Playlist> playlists;
 
-
     public HomeController(IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase, IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase) {
         songs = new ArrayList<>();
         playlists = new ArrayList<>();
@@ -43,7 +42,6 @@ public class HomeController implements Initializable {
         playlists.clear();
 
         playlists.addAll(findAllPlaylistOfUserUseCase.execute(UUID.fromString(userId)));
-
     }
 
     public void getAllSongsOfPlaylist(String playlistId) {
@@ -52,12 +50,20 @@ public class HomeController implements Initializable {
         songs.addAll(getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId)));
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User user = userStore.getUser();
         if (user != null) {
-            System.out.println(user.getId());
+            this.getAllPlaylistsOfUser(user.getId().toString());
+
+
+            if(!playlists.isEmpty()) {
+                this.getAllSongsOfPlaylist(playlists.get(0).getId().toString());
+                System.out.println(playlists);
+                System.out.println(songs);
+
+            }
+
         } else {
             System.out.println("User is null");
         }
