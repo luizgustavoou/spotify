@@ -176,8 +176,26 @@ public class HomeController implements Initializable {
     @FXML
     public void nextPlaylist() {
 //        this.mediaStop();
-        currentPlaylist.set((currentPlaylist.get() + 1) % playlistsStore.getPlaylists().size());
+        this.updateCurrentPlaylist(currentPlaylist.get() + 1);
         listViewPlaylists.getSelectionModel().select(currentPlaylist.get());
+    }
+
+    @FXML
+    public void nextSong() {
+        this.updateCurrentSong(currentSong.get() + 1);
+        listViewSongs.getSelectionModel().select(currentSong.get());
+
+    }
+
+    private void updateCurrentPlaylist(int index) {
+        if(playlistsStore.getPlaylists().isEmpty()) return;
+
+        currentPlaylist.set(index % playlistsStore.getPlaylists().size());
+    }
+
+    private void updateCurrentSong(int index) {
+        if(songsStore.getSongs().isEmpty()) return;
+        currentSong.set(index % songsStore.getSongs().size());
     }
 
     public void mediaStop() {
@@ -185,15 +203,6 @@ public class HomeController implements Initializable {
 
         this.running = false;
         mediaPlayer.stop();
-    }
-
-    @FXML
-    public void nextSong() {
-
-//        this.mediaStop();
-        currentSong.set((currentSong.get() + 1) % songsStore.getSongs().size() );
-        listViewSongs.getSelectionModel().select(currentSong.get());
-
     }
 
     @FXML
@@ -224,7 +233,7 @@ public class HomeController implements Initializable {
     }
 
     public void loadedNewPlaylist() {
-        currentSong.set(0);
+        this.updateCurrentSong(0);
     }
 
     @Override
@@ -239,14 +248,14 @@ public class HomeController implements Initializable {
         listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
             int playlistIndex = listViewPlaylists.getSelectionModel().getSelectedIndex();
 
-            currentPlaylist.set(playlistIndex);
+            this.updateCurrentPlaylist(playlistIndex);
 
         });
 
         listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
             int songIndex = listViewSongs.getSelectionModel().getSelectedIndex();
 
-            currentSong.set(songIndex);
+            this.updateCurrentSong(songIndex);
         });
 
         // Lógica de tocar música
