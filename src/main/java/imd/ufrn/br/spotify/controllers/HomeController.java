@@ -64,8 +64,8 @@ public class HomeController implements Initializable {
     // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty(0);
+    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty(0);
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
@@ -176,7 +176,26 @@ public class HomeController implements Initializable {
     @FXML
     public void nextPlaylist() {
 //        this.mediaStop();
-        currentPlaylist.set(currentPlaylist.get() + 1);
+        this.updateCurrentPlaylist(currentPlaylist.get() + 1);
+        listViewPlaylists.getSelectionModel().select(currentPlaylist.get());
+    }
+
+    @FXML
+    public void nextSong() {
+        this.updateCurrentSong(currentSong.get() + 1);
+        listViewSongs.getSelectionModel().select(currentSong.get());
+
+    }
+
+    private void updateCurrentPlaylist(int index) {
+        if(playlistsStore.getPlaylists().isEmpty()) return;
+
+        currentPlaylist.set(index % playlistsStore.getPlaylists().size());
+    }
+
+    private void updateCurrentSong(int index) {
+        if(songsStore.getSongs().isEmpty()) return;
+        currentSong.set(index % songsStore.getSongs().size());
     }
 
     public void mediaStop() {
@@ -187,13 +206,13 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void nextSong() {
+    public void playMedia() {
+        int indexSong = currentSong.get();
 
-//        this.mediaStop();
-        currentSong.set(currentSong.get() + 1);
-    }
+        System.out.println(indexSong);
 
-    public void playMedia(int indexSong) {
+        if(songsStore.getSongs().isEmpty()) return;
+
         if(!this.running) this.running = true;
 
         this.mediaStop();
@@ -214,22 +233,29 @@ public class HomeController implements Initializable {
     }
 
     public void loadedNewPlaylist() {
-        currentSong.set(0);
+        this.updateCurrentSong(0);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Escutar quando o usuario clica em alguma playlist ou musica
+
 
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
         listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            System.out.println(t1);
+            int playlistIndex = listViewPlaylists.getSelectionModel().getSelectedIndex();
+
+            this.updateCurrentPlaylist(playlistIndex);
+
         });
 
         listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            System.out.println(t1);
+            int songIndex = listViewSongs.getSelectionModel().getSelectedIndex();
+
+            this.updateCurrentSong(songIndex);
         });
 
         // Lógica de tocar música
@@ -239,7 +265,7 @@ public class HomeController implements Initializable {
             System.out.println("observable de playlistsStore");
 
 
-            currentPlaylist.set(0);
+            this.loadedNewPlaylist();
             currentSong.set(0);
 
             this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
@@ -254,15 +280,15 @@ public class HomeController implements Initializable {
             }
 
             // tocar musica...
-            int indexSong = currentSong.get() % newSongs.size();
-            this.playMedia(indexSong);
+//            int indexSong = currentSong.get();
+//            this.playMedia(indexSong);
 
 
         });
 
         currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
             System.out.println("observable de currentPlaylist");
-            int indexPlaylist = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
+            int indexPlaylist = newCurrentPlaylist.intValue();
             this.loadedNewPlaylist();
             this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(indexPlaylist).getId().toString());
         });
@@ -275,9 +301,9 @@ public class HomeController implements Initializable {
             }
 
             // chamaria a funcao de tocar musica aqui...
-            int index = currentSong.get() % songsStore.getSongs().size();
+//            int index = currentSong.get();
 
-            this.playMedia(index);
+//            this.playMedia(index);
         });
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
@@ -287,10 +313,6 @@ public class HomeController implements Initializable {
     void testeClick(MouseEvent event) {
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
     }
-
-
-
-
 
     public static void main(String[] args) throws EntityNotFoundException {
 

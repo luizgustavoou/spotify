@@ -4,5 +4,3 @@ e0e0c95d-9453-4c2e-8940-2fe3bf090097,Anime music Lo-Fi slowed and rain,12b2a592-
 7230aaab-5840-4133-9790-23658fbf8aa8,JazzHoop with ambience + rain,12b2a592-722b-44db-ad94-3540658abeab
 881a3904-2c20-475c-a10b-0e1f272b2e22,Playlist das piores,11498d8b-97ec-4907-a174-ae4f9e7596d2
 2fee7c36-cc4a-40fa-bb85-958904e1fca3,Playlist padrão,d2add4ac-5509-45ef-87a5-d6c407f29a30
-c130a1d7-502e-48d5-a9e0-3e05fc659cd1,Playlist padrão,d2add4ac-5509-45ef-87a5-d6c407f29a30
-eaca9738-2810-4db1-8732-0e947490dad1,Playlist padrão,d2add4ac-5509-45ef-87a5-d6c407f29a30

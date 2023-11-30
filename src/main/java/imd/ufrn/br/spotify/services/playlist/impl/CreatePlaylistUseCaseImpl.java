@@ -24,7 +24,7 @@ public class CreatePlaylistUseCaseImpl implements ICreatePlaylistUseCase {
     }
 
     public static void main(String[] args) {
-        Playlist playlist = new Playlist("Playlist padrão", UUID.fromString("d2add4ac-5509-45ef-87a5-d6c407f29a30"));
+        Playlist playlist = new Playlist("Playlist triste do joaozin62", UUID.fromString("d2add4ac-5509-45ef-87a5-d6c407f29a30"));
 
         ICreatePlaylistUseCase createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
 
