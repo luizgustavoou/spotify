@@ -64,8 +64,8 @@ public class HomeController implements Initializable {
     // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty(0);
+    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty(0);
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
@@ -176,7 +176,8 @@ public class HomeController implements Initializable {
     @FXML
     public void nextPlaylist() {
 //        this.mediaStop();
-        currentPlaylist.set(currentPlaylist.get() + 1);
+        currentPlaylist.set((currentPlaylist.get() + 1) % playlistsStore.getPlaylists().size());
+        listViewPlaylists.getSelectionModel().select(currentPlaylist.get());
     }
 
     public void mediaStop() {
@@ -190,7 +191,9 @@ public class HomeController implements Initializable {
     public void nextSong() {
 
 //        this.mediaStop();
-        currentSong.set(currentSong.get() + 1);
+        currentSong.set((currentSong.get() + 1) % songsStore.getSongs().size() );
+        listViewSongs.getSelectionModel().select(currentSong.get());
+
     }
 
     public void playMedia(int indexSong) {
@@ -219,17 +222,24 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Escutar quando o usuario clica em alguma playlist ou musica
+
 
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
         listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            System.out.println(t1);
+            int playlistIndex = listViewPlaylists.getSelectionModel().getSelectedIndex();
+
+            currentPlaylist.set(playlistIndex);
+
         });
 
         listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            System.out.println(t1);
+            int songIndex = listViewSongs.getSelectionModel().getSelectedIndex();
+
+            currentSong.set(songIndex);
         });
 
         // Lógica de tocar música
@@ -287,10 +297,6 @@ public class HomeController implements Initializable {
     void testeClick(MouseEvent event) {
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
     }
-
-
-
-
 
     public static void main(String[] args) throws EntityNotFoundException {
 
