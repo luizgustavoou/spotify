@@ -4,16 +4,24 @@ import imd.ufrn.br.spotify.entities.Folder;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.entities.User;
+import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
+import imd.ufrn.br.spotify.services.folder.IRemoveFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
+import imd.ufrn.br.spotify.services.folder.impl.RemoveFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
+import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
+import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
+import imd.ufrn.br.spotify.services.song.IFindAllSongsOfFolderUseCase;
 import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
+import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
 import imd.ufrn.br.spotify.services.song.impl.CreateSongUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
@@ -37,32 +45,26 @@ public class HomeController implements Initializable {
     private final IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase;
     private final IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase;
     private final ICreateSongUseCase createSongUseCase;
+    private final IRemoveSongUseCase removeSongUseCase;
     private final ICreatePlaylistUseCase createPlaylistUseCase;
+    private final IRemovePlaylistUseCase removePlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
+    private final IRemoveFolderUseCase removeFolderUseCase;
 
     //
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
 
 
-
-    public HomeController(IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase, IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase, ICreateSongUseCase createSongUseCase, ICreatePlaylistUseCase createPlaylistUseCase, ICreateFolderUseCase createFolderUseCase) {
-        this.getAllSongsOfPlaylistUseCase = getAllSongsOfPlaylistUseCase;
-        this.findAllPlaylistOfUserUseCase = findAllPlaylistOfUserUseCase;
-        this.createSongUseCase = createSongUseCase;
-        this.createPlaylistUseCase = createPlaylistUseCase;
-        this.createFolderUseCase = createFolderUseCase;
-        this.userStore = UserStore.getInstance();
-        this.playlistsStore = PlaylistsStore.getInstance();
-        this.songsStore = SongsStore.getInstance();
-    }
-
     public HomeController() {
         this.getAllSongsOfPlaylistUseCase = new GetAllSongsOfPlaylistUseCaseImpl();
         this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
         this.createSongUseCase = new CreateSongUseCaseImpl();
+        this.removeSongUseCase = new RemoveSongUseCaseImpl();
         this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
+        this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
         this.createFolderUseCase = new CreateFolderUseCaseImpl();
+        this.removeFolderUseCase = new RemoveFolderUseCaseImpl();
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
@@ -82,7 +84,7 @@ public class HomeController implements Initializable {
         songsStore.addSongs(newSongs);
     }
 
-    public void createPlaylist() {
+    public void addPlaylist() {
         String strNamePlaylist = "playlist teste";
         String userId = "12b2a592-722b-44db-ad94-3540658abeab";
 
@@ -103,7 +105,11 @@ public class HomeController implements Initializable {
 
         if(file == null) return;
 
-        Song newSong = new Song(file.getName(), file.getPath(), UUID.fromString(strPlaylistId));
+        String[] parts = file.getName().split("\\.");
+        String name = parts[0];
+        String extension = parts[1];
+
+        Song newSong = new Song(name, file.getPath(), UUID.fromString(strPlaylistId));
 
         createSongUseCase.execute(newSong);
 
@@ -128,11 +134,32 @@ public class HomeController implements Initializable {
 
         System.out.println("Folder adicionado a playlist " + strPlaylistId);
 
+    }
 
+    void removePlaylist() throws EntityNotFoundException {
+        String playlistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        this.removePlaylistUseCase.execute(UUID.fromString(playlistId));
+    }
+
+    void removeSong() throws EntityNotFoundException {
+        String songId = "7f32a9cb-23b9-47f2-b83d-b02af47d5969";
+        this.removeSongUseCase.execute(UUID.fromString(songId));
+    }
+
+    void removeFolder() throws EntityNotFoundException {
+        String folderId = "1a961bb4-6378-43db-82cd-29a8d199e5de";
+        this.removeFolderUseCase.execute(UUID.fromString(folderId));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public static void main(String[] args) throws EntityNotFoundException {
+        HomeController homeController = new HomeController();
+        homeController.removePlaylist();
+        homeController.removeSong();
+        homeController.removeFolder();
     }
 }

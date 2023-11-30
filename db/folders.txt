@@ -1,4 +1,3 @@
-1a961bb4-6378-43db-82cd-29a8d199e5de,caminho diretorio pra playlist metalzao 1,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 a885d9f3-7af5-460e-8897-a02826f26ed8,caminho diretorio pra playlist metalzao 2,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 cfb6c74b-d1b4-4e1f-a03f-92d3d30f0c35,caminho diretorio pra playlist metalzao 3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 28edc671-ef58-401d-a252-7ea5670b85b7,caminho diretorio pra playlist metalzao 4,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
