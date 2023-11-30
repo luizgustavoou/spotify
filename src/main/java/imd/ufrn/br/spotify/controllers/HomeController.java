@@ -200,7 +200,7 @@ public class HomeController implements Initializable {
         System.out.println("tocando musica: " + songsStore.getSongs().get(indexSong));
     }
 
-    public void loadNewPlaylist() {
+    public void loadedNewPlaylist() {
         currentSong.set(0);
     }
 
@@ -236,7 +236,7 @@ public class HomeController implements Initializable {
         currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
             System.out.println("observable de currentPlaylist");
             int indexPlaylist = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
-            this.loadNewPlaylist();
+            this.loadedNewPlaylist();
             this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(indexPlaylist).getId().toString());
         });
 
