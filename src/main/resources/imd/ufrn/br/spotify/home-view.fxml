@@ -54,6 +54,7 @@
             <AnchorPane prefHeight="435.0" prefWidth="243.0" style="-fx-background-color: #333; -fx-border-color: #444; -fx-border-width: 0px 1px 0px 0px;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musicas" />
+                  <ListView fx:id="listViewSongs" layoutX="14.0" layoutY="72.0" prefHeight="355.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </left>
@@ -61,7 +62,7 @@
             <AnchorPane prefHeight="435.0" prefWidth="258.0" style="-fx-background-color: #333; -fx-border-width: 0px 0px 0px 1px; -fx-border-color: #444;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
-                  <ListView fx:id="listOfPlaylists" layoutX="15.0" layoutY="65.0" prefHeight="355.0" prefWidth="200.0" />
+                  <ListView fx:id="listViewPlaylists" layoutX="15.0" layoutY="65.0" prefHeight="355.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </center>

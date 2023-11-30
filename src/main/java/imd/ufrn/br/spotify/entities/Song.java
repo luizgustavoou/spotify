@@ -45,18 +45,18 @@ public class Song extends Entity{
         this.playlistId = playlistId;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Song{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", path='" + path + '\'' +
-//                ", playlistId=" + playlistId +
-//                '}';
-//    }
-
     @Override
     public String toString() {
-        return name;
+        return "Song{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", playlistId=" + playlistId +
+                '}';
     }
+
+//    @Override
+//    public String toString() {
+//        return name;
+//    }
 }

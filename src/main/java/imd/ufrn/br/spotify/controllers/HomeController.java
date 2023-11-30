@@ -26,7 +26,9 @@ import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
@@ -42,6 +44,7 @@ import java.util.UUID;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 
@@ -69,7 +72,9 @@ public class HomeController implements Initializable {
 
     // Variáveis da interface
     @FXML
-    private ListView<Playlist> listOfPlaylists;
+    private ListView<Playlist> listViewPlaylists;
+    @FXML
+    private ListView<Song> listViewSongs;
 
 
 
@@ -214,22 +219,16 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        listOfPlaylists.setCellFactory(playlistListView -> new TextFieldListCell<>(new StringConverter<Playlist>() {
-//            @Override
-//            public String toString(Playlist playlist) {
-//                return playlist.getName();
-//            }
-//
-//            @Override
-//            public Playlist fromString(String s) {
-//                return null;
-//            }
-//        }));
 
+        listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
-        listOfPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
+        listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
-        listOfPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
+        listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
+            System.out.println(t1);
+        });
+
+        listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
             System.out.println(t1);
         });
 
