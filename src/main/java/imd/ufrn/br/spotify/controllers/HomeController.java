@@ -26,6 +26,8 @@ import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -40,6 +42,7 @@ import java.util.UUID;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.StringConverter;
 
 
 public class HomeController implements Initializable {
@@ -55,7 +58,7 @@ public class HomeController implements Initializable {
     private final ICreateFolderUseCase createFolderUseCase;
     private final IRemoveFolderUseCase removeFolderUseCase;
 
-    //
+    // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
     private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
@@ -63,6 +66,10 @@ public class HomeController implements Initializable {
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
+
+    // Variáveis da interface
+    @FXML
+    private ListView<Playlist> listOfPlaylists;
 
 
 
@@ -207,6 +214,26 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        listOfPlaylists.setCellFactory(playlistListView -> new TextFieldListCell<>(new StringConverter<Playlist>() {
+//            @Override
+//            public String toString(Playlist playlist) {
+//                return playlist.getName();
+//            }
+//
+//            @Override
+//            public Playlist fromString(String s) {
+//                return null;
+//            }
+//        }));
+
+
+        listOfPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
+
+        listOfPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
+            System.out.println(t1);
+        });
+
+        // Lógica de tocar música
         playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
             if(newPlaylists.isEmpty()) return;
 

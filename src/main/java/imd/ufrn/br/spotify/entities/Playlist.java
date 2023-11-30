@@ -31,12 +31,17 @@ public class Playlist extends Entity {
         return userId;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Playlist{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", userId=" + userId +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "Playlist{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", userId=" + userId +
-                '}';
+        return name;
     }
 }

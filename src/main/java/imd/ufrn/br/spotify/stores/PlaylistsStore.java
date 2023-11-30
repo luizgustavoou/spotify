@@ -1,11 +1,10 @@
 package imd.ufrn.br.spotify.stores;
 
 import imd.ufrn.br.spotify.entities.Playlist;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -33,6 +32,10 @@ public class PlaylistsStore {
 
     public ObservableList<Playlist> getPlaylists() {
         return playlists.get();
+    }
+
+    public Property<ObservableList<Playlist>> getObservablePlaylist() {
+        return this.playlists;
     }
 
     public SimpleListProperty<Playlist> playlistsProperty() {
