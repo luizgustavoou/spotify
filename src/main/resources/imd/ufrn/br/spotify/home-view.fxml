@@ -20,7 +20,7 @@
          <children>
             <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Voltar" />
             <Button layoutX="72.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;" text="Play/Pause" />
-            <Button layoutX="156.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
+            <Button layoutX="156.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#nextSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
             <AnchorPane layoutX="234.0" layoutY="13.0" prefHeight="15.0" prefWidth="451.0" style="-fx-background-color: #fff;" />
          </children>
       </AnchorPane>
@@ -58,6 +58,7 @@
                   <Text fill="WHITE" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
                   <Button layoutX="77.0" layoutY="188.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
                   <Text fill="WHITE" layoutX="104.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
+                  <Button layoutX="83.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#nextPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
                </children>
             </AnchorPane>
          </center>

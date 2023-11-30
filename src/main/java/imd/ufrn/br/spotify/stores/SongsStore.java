@@ -3,6 +3,7 @@ package imd.ufrn.br.spotify.stores;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -39,7 +40,7 @@ public class SongsStore {
         return songs;
     }
 
-    public void addListener(ListChangeListener<Song> listener) {
+    public void addListener(ChangeListener<ObservableList<Song>> listener) {
         songs.addListener(listener);
     }
 }

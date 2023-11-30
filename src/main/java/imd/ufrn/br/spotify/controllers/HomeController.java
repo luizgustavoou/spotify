@@ -25,15 +25,18 @@ import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -54,6 +57,8 @@ public class HomeController implements Initializable {
     //
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
+    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
 
 
     public HomeController() {
@@ -151,15 +156,78 @@ public class HomeController implements Initializable {
         this.removeFolderUseCase.execute(UUID.fromString(folderId));
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    @FXML
+    public void nextPlaylist() {
+        currentPlaylist.set(currentPlaylist.get() + 1);
     }
 
+    @FXML
+    public void nextSong() {
+        currentSong.set(currentSong.get() + 1);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
+            if(newPlaylists.isEmpty()) return;
+
+            System.out.println("observable de playlistsStore");
+
+
+            currentPlaylist.set(0);
+            currentSong.set(0);
+            this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
+
+
+
+        });
+
+        songsStore.addListener((observableValue, oldSongs, newSongs) -> {
+            if(newSongs.isEmpty()) return;
+
+            System.out.println("observable de songsStore");
+
+            int index = currentSong.get() % newSongs.size();
+
+            // chamaria a funcao de tocar musica aqui...
+            System.out.println(newSongs.get(index));
+
+
+
+        });
+
+        currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
+            System.out.println("observable de currentPlaylist");
+            int index = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
+
+            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(index).getId().toString());
+
+
+
+        });
+
+        currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
+            if(songsStore.getSongs().isEmpty()) return;
+
+            System.out.println("observable de currentSong");
+
+            int index = currentSong.get() % songsStore.getSongs().size();
+
+            // chamaria a funcao de tocar musica aqui...
+
+            System.out.println(songsStore.getSongs().get(index));
+
+
+
+
+        });
+
+        this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
+    }
+
+
+
     public static void main(String[] args) throws EntityNotFoundException {
-        HomeController homeController = new HomeController();
-        homeController.removePlaylist();
-        homeController.removeSong();
-        homeController.removeFolder();
+
     }
 }
