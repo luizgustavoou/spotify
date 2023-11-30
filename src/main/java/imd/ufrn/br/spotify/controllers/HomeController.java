@@ -171,8 +171,8 @@ public class HomeController implements Initializable {
         currentSong.set(currentSong.get() + 1);
     }
 
-    public void playMedia(int index) {
-        File file = new File(songsStore.getSongs().get(index).getPath());
+    public void playMedia(int indexSong) {
+        File file = new File(songsStore.getSongs().get(indexSong).getPath());
 
         media = new Media(file.toURI().toString());
 
@@ -183,6 +183,8 @@ public class HomeController implements Initializable {
         mediaPlayer = new MediaPlayer(media);
 
         mediaPlayer.play();
+
+        System.out.println("tocando musica: " + songsStore.getSongs().get(indexSong));
     }
 
     public void loadNewPlaylist() {
@@ -212,9 +214,6 @@ public class HomeController implements Initializable {
 
             // tocar musica...
             int indexSong = currentSong.get() % newSongs.size();
-            System.out.println(songsStore.getSongs());
-            System.out.println("tocando musica: " + songsStore.getSongs().get(indexSong));
-
             this.playMedia(indexSong);
 
 
@@ -236,7 +235,6 @@ public class HomeController implements Initializable {
 
             // chamaria a funcao de tocar musica aqui...
             int index = currentSong.get() % songsStore.getSongs().size();
-            System.out.println("tocando musica: " + songsStore.getSongs().get(index));
 
             this.playMedia(index);
         });
