@@ -256,7 +256,7 @@ public class HomeController implements Initializable {
             System.out.println("observable de playlistsStore");
 
 
-            currentPlaylist.set(0);
+            this.loadedNewPlaylist();
             currentSong.set(0);
 
             this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
