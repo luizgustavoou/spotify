@@ -3,7 +3,6 @@ package imd.ufrn.br.spotify.controllers;
 import imd.ufrn.br.spotify.entities.Folder;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
-import imd.ufrn.br.spotify.entities.User;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.IRemoveFolderUseCase;
@@ -16,7 +15,6 @@ import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
-import imd.ufrn.br.spotify.services.song.IFindAllSongsOfFolderUseCase;
 import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
 import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
 import imd.ufrn.br.spotify.services.song.impl.CreateSongUseCaseImpl;
@@ -32,14 +30,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 
 public class HomeController implements Initializable {
     private final PlaylistsStore playlistsStore;
@@ -59,6 +60,8 @@ public class HomeController implements Initializable {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
     private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
+    private Media media;
+    private MediaPlayer mediaPlayer;
 
 
     public HomeController() {
@@ -91,7 +94,7 @@ public class HomeController implements Initializable {
 
     public void addPlaylist() {
         String strNamePlaylist = "playlist teste";
-        String userId = "12b2a592-722b-44db-ad94-3540658abeab";
+        String userId = "d2add4ac-5509-45ef-87a5-d6c407f29a30";
 
         Playlist playlist = new Playlist(strNamePlaylist, UUID.fromString(userId));
 
@@ -102,7 +105,7 @@ public class HomeController implements Initializable {
     @FXML
     void addSong(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
-        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        String strPlaylistId = "2fee7c36-cc4a-40fa-bb85-958904e1fca3";
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
         musicFileChooser.setTitle("Escolha uma música");
@@ -125,7 +128,7 @@ public class HomeController implements Initializable {
     @FXML
     void addFolder(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
-        String strPlaylistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        String strPlaylistId = "2fee7c36-cc4a-40fa-bb85-958904e1fca3";
 
         directoryChooser.setTitle("Escolha um diretório");
         directoryChooser.setInitialDirectory(new java.io.File("."));
@@ -142,7 +145,7 @@ public class HomeController implements Initializable {
     }
 
     void removePlaylist() throws EntityNotFoundException {
-        String playlistId = "ab2acce0-30ca-4aa9-98cb-315781d0c2b9";
+        String playlistId = "2fee7c36-cc4a-40fa-bb85-958904e1fca3";
         this.removePlaylistUseCase.execute(UUID.fromString(playlistId));
     }
 
@@ -158,12 +161,22 @@ public class HomeController implements Initializable {
 
     @FXML
     public void nextPlaylist() {
+        mediaPlayer.stop();
         currentPlaylist.set(currentPlaylist.get() + 1);
     }
 
     @FXML
     public void nextSong() {
+        mediaPlayer.stop();
         currentSong.set(currentSong.get() + 1);
+    }
+
+    public void playMedia() {
+
+//        beginTimer();
+//        changeSpeed(null);
+//        mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+        mediaPlayer.play();
     }
 
     @Override
@@ -196,6 +209,12 @@ public class HomeController implements Initializable {
 
             // chamaria a funcao de tocar musica aqui...
             System.out.println("tocando musica: " + newSongs.get(index));
+             File file = new File(newSongs.get(index).getPath());
+
+            media = new Media(file.toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayer.play();
 
 
 
@@ -233,6 +252,8 @@ public class HomeController implements Initializable {
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
     }
+
+
 
 
 

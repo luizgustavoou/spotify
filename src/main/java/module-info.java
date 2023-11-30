@@ -5,6 +5,7 @@ module imd.ufrn.br.spotify {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires jbcrypt;
+    requires javafx.media;
 
     opens imd.ufrn.br.spotify to javafx.fxml;
     exports imd.ufrn.br.spotify;
