@@ -171,11 +171,17 @@ public class HomeController implements Initializable {
         currentSong.set(currentSong.get() + 1);
     }
 
-    public void playMedia() {
+    public void playMedia(int index) {
+        File file = new File(songsStore.getSongs().get(index).getPath());
 
-//        beginTimer();
-//        changeSpeed(null);
-//        mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+        media = new Media(file.toURI().toString());
+
+        //beginTimer();
+        //changeSpeed(null);
+        //mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+
+        mediaPlayer = new MediaPlayer(media);
+
         mediaPlayer.play();
     }
 
@@ -203,20 +209,11 @@ public class HomeController implements Initializable {
 
             }
 
-
-
+            // tocar musica...
             int index = currentSong.get() % newSongs.size();
+            System.out.println("tocando musica: " + songsStore.getSongs().get(index));
 
-            // chamaria a funcao de tocar musica aqui...
-            System.out.println("tocando musica: " + newSongs.get(index));
-             File file = new File(newSongs.get(index).getPath());
-
-            media = new Media(file.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-
-            mediaPlayer.play();
-
-
+            this.playMedia(index);
 
 
         });
@@ -226,9 +223,6 @@ public class HomeController implements Initializable {
             int index = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
 
             this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(index).getId().toString());
-
-
-
         });
 
         currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
@@ -238,16 +232,11 @@ public class HomeController implements Initializable {
                 return;
             }
 
-
-            int index = currentSong.get() % songsStore.getSongs().size();
-
             // chamaria a funcao de tocar musica aqui...
-
+            int index = currentSong.get() % songsStore.getSongs().size();
             System.out.println("tocando musica: " + songsStore.getSongs().get(index));
 
-
-
-
+            this.playMedia(index);
         });
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
