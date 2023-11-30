@@ -170,6 +170,7 @@ public class HomeController implements Initializable {
     public void mediaStop() {
         if(!this.running || this.mediaPlayer == null) return;
 
+        this.running = false;
         mediaPlayer.stop();
     }
 
@@ -259,7 +260,6 @@ public class HomeController implements Initializable {
     @FXML
     void testeClick(MouseEvent event) {
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
-
     }
 
 
