@@ -196,7 +196,14 @@ public class HomeController implements Initializable {
 
     }
 
-    public void playMedia(int indexSong) {
+    @FXML
+    public void playMedia() {
+        int indexSong = currentSong.get();
+
+        System.out.println(indexSong);
+
+        if(songsStore.getSongs().isEmpty()) return;
+
         if(!this.running) this.running = true;
 
         this.mediaStop();
@@ -264,8 +271,8 @@ public class HomeController implements Initializable {
             }
 
             // tocar musica...
-            int indexSong = currentSong.get();
-            this.playMedia(indexSong);
+//            int indexSong = currentSong.get();
+//            this.playMedia(indexSong);
 
 
         });
@@ -285,9 +292,9 @@ public class HomeController implements Initializable {
             }
 
             // chamaria a funcao de tocar musica aqui...
-            int index = currentSong.get();
+//            int index = currentSong.get();
 
-            this.playMedia(index);
+//            this.playMedia(index);
         });
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
