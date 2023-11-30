@@ -30,6 +30,7 @@ public class Playlist extends Entity {
     public UUID getUserId() {
         return userId;
     }
+    public void setUserId(UUID userId) {this.userId = userId;}
 
     @Override
     public String toString() {

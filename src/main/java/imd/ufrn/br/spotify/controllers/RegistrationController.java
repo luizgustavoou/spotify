@@ -1,6 +1,12 @@
 package imd.ufrn.br.spotify.controllers;
 
+import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.User;
+import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
+import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
+import imd.ufrn.br.spotify.services.playlist.IFindOnePlaylistByIdUseCase;
+import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.services.playlist.impl.FindOnePlaylistByIdUseCaseImpl;
 import imd.ufrn.br.spotify.services.user.ICreateUserUseCase;
 import imd.ufrn.br.spotify.services.user.impl.CreateUserUseCaseImpl;
 
@@ -43,13 +49,27 @@ public class RegistrationController implements Initializable {
         this.createUserUseCase = new CreateUserUseCaseImpl();
     }
 
-    public void register() {
+    public void register() throws EntityNotFoundException {
         String strUsername = this.username.getText();
         String strPassword = this.password.getText();
         String strFullName = this.fullName.getText();
         String strTypeUser = this.typeUserBox.getValue();
 
-        User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"));
+        Playlist playlistPadrao = new Playlist("Playlist padrão", UUID.fromString("d2add4ac-5509-45ef-87a5-d6c407f29a30"));
+
+        ICreatePlaylistUseCase createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
+
+        System.out.println(createPlaylistUseCase.execute(playlistPadrao));
+
+        User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"), playlistPadrao.getId());
+
+        IFindOnePlaylistByIdUseCase findOnePlaylistByIdUseCase = new FindOnePlaylistByIdUseCaseImpl();
+
+        Playlist foundPlaylist = findOnePlaylistByIdUseCase.execute(playlistPadrao.getId());
+
+        if (foundPlaylist != null) {
+            foundPlaylist.setUserId(user.getId());
+        }
 
         this.createUserUseCase.execute(user);
         this.formClear();
@@ -61,11 +81,15 @@ public class RegistrationController implements Initializable {
         this.fullName.clear();
 //        this.typeUserBox
     }
-
     @FXML
     void handleMouseClicked(MouseEvent event) {
-        this.register();
+        try {
+            this.register();
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

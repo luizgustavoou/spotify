@@ -7,3 +7,4 @@
 12b2a592-722b-44db-ad94-3540658abeab,joaozin10,$2a$10$cUkKtwUgdNm134ZCEDas3u.ABmUFKytzkf3U6xG8nwXztr137S8fC,João,0
 7f438a9d-305e-4e7f-881e-b64270662c7a,joaozin11,$2a$10$G2Bzzs7TW4eaTqOWAKc4nuv60kMoNa.v2xH8b9haGoj1Y9oCzMGRC,João Da Silva 11,0
 d2add4ac-5509-45ef-87a5-d6c407f29a30,joaozin62,$2a$10$UZ3k6e4pFuxs5HNhQjAiZum/sKvVhBLougIpXcLR7F0O28DuaUD8W,João Da Silva 62,0
+937a51a8-8ea8-48d4-9cd1-206e4446b0c2,Pato Agiota Fisiculturista88,$2a$10$y5Flp2Fi714DqXZZ1RNi...Boh9mK9Gd2YqytNcUe0zLW9hxBh0nC,João,0
