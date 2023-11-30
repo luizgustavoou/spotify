@@ -32,6 +32,10 @@
             <Button layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#addSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="8.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="2.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar arquivo" textAlignment="CENTER" />
+            <Button layoutX="14.0" layoutY="171.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
+            <Text fill="WHITE" layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
+            <Button layoutX="10.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#nextPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
+            <Button fx:id="teste" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#testeClick" text="Button" />
          </children>
       </AnchorPane>
    </left>
@@ -56,9 +60,6 @@
             <AnchorPane prefHeight="435.0" prefWidth="258.0" style="-fx-background-color: #333; -fx-border-width: 0px 0px 0px 1px; -fx-border-color: #444;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
-                  <Button layoutX="77.0" layoutY="188.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
-                  <Text fill="WHITE" layoutX="104.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
-                  <Button layoutX="83.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#nextPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
                </children>
             </AnchorPane>
          </center>

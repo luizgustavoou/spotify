@@ -62,6 +62,8 @@ public class HomeController implements Initializable {
     private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
     private Media media;
     private MediaPlayer mediaPlayer;
+    private boolean running;
+
 
 
     public HomeController() {
@@ -161,17 +163,28 @@ public class HomeController implements Initializable {
 
     @FXML
     public void nextPlaylist() {
-        mediaPlayer.stop();
+//        this.mediaStop();
         currentPlaylist.set(currentPlaylist.get() + 1);
+    }
+
+    public void mediaStop() {
+        if(!this.running || this.mediaPlayer == null) return;
+
+        mediaPlayer.stop();
     }
 
     @FXML
     public void nextSong() {
-        mediaPlayer.stop();
+
+//        this.mediaStop();
         currentSong.set(currentSong.get() + 1);
     }
 
     public void playMedia(int indexSong) {
+        if(!this.running) this.running = true;
+
+        this.mediaStop();
+
         File file = new File(songsStore.getSongs().get(indexSong).getPath());
 
         media = new Media(file.toURI().toString());
@@ -201,6 +214,7 @@ public class HomeController implements Initializable {
 
             currentPlaylist.set(0);
             currentSong.set(0);
+
             this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
         });
 
@@ -240,6 +254,12 @@ public class HomeController implements Initializable {
         });
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
+    }
+
+    @FXML
+    void testeClick(MouseEvent event) {
+        this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
+
     }
 
 
