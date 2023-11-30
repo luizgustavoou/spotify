@@ -185,6 +185,10 @@ public class HomeController implements Initializable {
         mediaPlayer.play();
     }
 
+    public void loadNewPlaylist() {
+        currentSong.set(0);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
@@ -196,9 +200,6 @@ public class HomeController implements Initializable {
             currentPlaylist.set(0);
             currentSong.set(0);
             this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
-
-
-
         });
 
         songsStore.addListener((observableValue, oldSongs, newSongs) -> {
@@ -210,19 +211,20 @@ public class HomeController implements Initializable {
             }
 
             // tocar musica...
-            int index = currentSong.get() % newSongs.size();
-            System.out.println("tocando musica: " + songsStore.getSongs().get(index));
+            int indexSong = currentSong.get() % newSongs.size();
+            System.out.println(songsStore.getSongs());
+            System.out.println("tocando musica: " + songsStore.getSongs().get(indexSong));
 
-            this.playMedia(index);
+            this.playMedia(indexSong);
 
 
         });
 
         currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
             System.out.println("observable de currentPlaylist");
-            int index = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
-
-            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(index).getId().toString());
+            int indexPlaylist = newCurrentPlaylist.intValue() % playlistsStore.getPlaylists().size();
+            this.loadNewPlaylist();
+            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(indexPlaylist).getId().toString());
         });
 
         currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
