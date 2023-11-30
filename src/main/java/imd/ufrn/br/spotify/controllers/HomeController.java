@@ -183,14 +183,20 @@ public class HomeController implements Initializable {
         });
 
         songsStore.addListener((observableValue, oldSongs, newSongs) -> {
-            if(newSongs.isEmpty()) return;
-
             System.out.println("observable de songsStore");
+            if(newSongs.isEmpty()) {
+                System.out.println("Tem nenhuma musica!");
+                return;
+
+            }
+
+
 
             int index = currentSong.get() % newSongs.size();
 
             // chamaria a funcao de tocar musica aqui...
-            System.out.println(newSongs.get(index));
+            System.out.println("tocando musica: " + newSongs.get(index));
+
 
 
 
@@ -207,15 +213,18 @@ public class HomeController implements Initializable {
         });
 
         currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
-            if(songsStore.getSongs().isEmpty()) return;
-
             System.out.println("observable de currentSong");
+            if(songsStore.getSongs().isEmpty()) {
+                System.out.println("Tem nenhuma musica!");
+                return;
+            }
+
 
             int index = currentSong.get() % songsStore.getSongs().size();
 
             // chamaria a funcao de tocar musica aqui...
 
-            System.out.println(songsStore.getSongs().get(index));
+            System.out.println("tocando musica: " + songsStore.getSongs().get(index));
 
 
 
