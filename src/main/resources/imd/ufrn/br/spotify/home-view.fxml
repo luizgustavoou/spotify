@@ -19,7 +19,7 @@
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #333; -fx-border-color: #333; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Voltar" />
+            <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#previousSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Voltar" />
             <Button layoutX="72.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#playMedia" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;" text="Play/Pause" />
             <Button layoutX="156.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#nextSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
             <AnchorPane layoutX="234.0" layoutY="13.0" prefHeight="15.0" prefWidth="451.0" style="-fx-background-color: #fff;" />
@@ -35,8 +35,6 @@
             <Text fill="WHITE" layoutX="2.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar arquivo" textAlignment="CENTER" />
             <Button layoutX="14.0" layoutY="171.0" mnemonicParsing="false" onMouseClicked="#addPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
-            <Button layoutX="10.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#nextPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
-            <Button fx:id="teste" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#testeClick" text="Button" />
          </children>
       </AnchorPane>
    </left>
