@@ -32,12 +32,13 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import java.util.UUID;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.ProgressBar;
-
+import java.util.TimerTask;
 
 
 public class HomeController implements Initializable {
@@ -67,6 +68,8 @@ public class HomeController implements Initializable {
     private ListView<Song> listViewSongs;
     @FXML
     private ProgressBar songProgressBar;
+    private Timer timer;
+    private TimerTask task;
 
 
 
@@ -228,6 +231,7 @@ public class HomeController implements Initializable {
         if(this.running == false) return;
         this.running = false;
         this.mediaPlayer.stop();
+        this.cancelTimer();
         return;
     }
 
@@ -237,6 +241,32 @@ public class HomeController implements Initializable {
         media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        this.beginTimer();
+    }
+
+    public void beginTimer() {
+
+        timer = new Timer();
+
+        task = new TimerTask() {
+
+            public void run() {
+                double current = mediaPlayer.getCurrentTime().toSeconds();
+                double end = media.getDuration().toSeconds();
+                songProgressBar.setProgress(current/end);
+
+                if(current/end == 1) {
+
+                    cancelTimer();
+                }
+            }
+        };
+
+        timer.scheduleAtFixedRate(task, 0, 1000);
+    }
+
+    public void cancelTimer() {
+        timer.cancel();
     }
 
 
