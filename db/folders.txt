@@ -5,3 +5,4 @@ cfb6c74b-d1b4-4e1f-a03f-92d3d30f0c35,caminho diretorio pra playlist metalzao 3,a
 54a409cb-fe62-4612-8c17-acc2f31070e4,/folderteste/,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 2d10b767-56fe-46da-be95-e9566238b7f8,/folderteste/,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 d3809e81-5857-4130-a69d-b19b70d4f448,/home/luizgustavoou/Área de Trabalho/testmusicas,a71b1741-ff6b-4ed3-b9e2-0c798ea679e2
+6805df1b-bdc6-45a0-b139-c696f0a2ba34,C:\Users\Joab\Desktop\teste,1d5e8cdf-0661-4f71-9980-6623b2373100

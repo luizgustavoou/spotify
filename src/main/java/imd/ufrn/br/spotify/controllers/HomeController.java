@@ -115,7 +115,7 @@ public class HomeController implements Initializable {
     @FXML
     void addFolder(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
-        UUID playlistId = UUID.fromString("a71b1741-ff6b-4ed3-b9e2-0c798ea679e2");
+        UUID playlistId = UUID.fromString("1d5e8cdf-0661-4f71-9980-6623b2373100");
 
         directoryChooser.setTitle("Escolha um diretório");
         directoryChooser.setInitialDirectory(new java.io.File("."));
@@ -190,20 +190,34 @@ public class HomeController implements Initializable {
     }
     @FXML
     public void nextSong() {
+        this.stopMusic();
         this.updateIndexSong(this.currentSong + 1);
+        this.playMusic();
     }
 
 
     @FXML
     public void playMedia() {
+        if(this.running == true) {
+            this.stopMusic();
+        }
+        else {
+            this.playMusic();
+        }
+    }
+
+    public void stopMusic() {
+        this.running = false;
+        this.mediaPlayer.stop();
+        return;
+    }
+
+    public void playMusic() {
+        this.running = true;
         File file = new File(songsStore.getSongs().get(currentSong).getPath());
-
         media = new Media(file.toURI().toString());
-
         mediaPlayer = new MediaPlayer(media);
-
         mediaPlayer.play();
-
     }
 
 

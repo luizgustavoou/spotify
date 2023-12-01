@@ -48,7 +48,7 @@ public class CreateUserUseCaseImpl implements ICreateUserUseCase {
     public static void main(String[] args) throws EntityNotFoundException {
         int randomNumber = (int) (Math.random() * 100 + 1);
 
-        User user = new User(UUID.randomUUID(), "joaozin" + randomNumber, "senha", "João", false);
+        User user = new User(UUID.randomUUID(), "Pato Agiota Maromba Sheypado Mr Olympia" + randomNumber, "senha", "Pato Agiota Maromba Silva Da Costa Pereira CBUM URS DINO", true);
 
         ICreateUserUseCase createUserUseCase = new CreateUserUseCaseImpl();
 

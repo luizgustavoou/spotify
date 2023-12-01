@@ -22,4 +22,8 @@ public class CreateFolderUseCaseImpl implements ICreateFolderUseCase {
     public Folder execute(Folder value) {
         return this.folderRepository.create(value);
     }
+
+    public static void main(String[] args) {
+
+    }
 }
