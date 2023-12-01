@@ -66,7 +66,7 @@ public class HomeController implements Initializable {
     @FXML
     private ListView<Song> listViewSongs;
     @FXML
-    private ProgressBar volumeSlider;
+    private ProgressBar songProgressBar;
 
 
 
@@ -225,6 +225,7 @@ public class HomeController implements Initializable {
     }
 
     public void stopMusic() {
+        if(this.running == false) return;
         this.running = false;
         this.mediaPlayer.stop();
         return;
@@ -241,6 +242,10 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+
+
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
