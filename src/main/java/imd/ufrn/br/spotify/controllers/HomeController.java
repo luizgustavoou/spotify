@@ -92,7 +92,7 @@ public class HomeController implements Initializable {
 
     @FXML
     void addSong(MouseEvent event) {
-        UUID playlistId = UUID.fromString("a71b1741-ff6b-4ed3-b9e2-0c798ea679e2");
+        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist).getId();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
         musicFileChooser.setTitle("Escolha uma música");
@@ -110,12 +110,14 @@ public class HomeController implements Initializable {
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
+        this.getAllPlaylistsOfUser(this.userStore.getUser().getId());
     }
 
     @FXML
     void addFolder(MouseEvent event) {
+        if(this.currentPlaylist < 0) return;
         // TODO: Selecionar o playlistId atual do usuário
-        UUID playlistId = UUID.fromString("1d5e8cdf-0661-4f71-9980-6623b2373100");
+        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist).getId();
 
         directoryChooser.setTitle("Escolha um diretório");
         directoryChooser.setInitialDirectory(new java.io.File("."));
@@ -128,6 +130,7 @@ public class HomeController implements Initializable {
         createFolderUseCase.execute(newFolder);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
+        this.getAllPlaylistsOfUser(this.userStore.getUser().getId());
     }
 
     public void updateIndexPlaylist(int index) {
@@ -186,6 +189,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void previousSong() {
+        if(this.currentSong == -1) return;
         if(this.currentSong == 0) {
             this.stopMusic();
             this.updateIndexSong(songsStore.getSongs().size() -1);
@@ -199,6 +203,7 @@ public class HomeController implements Initializable {
     }
     @FXML
     public void nextSong() {
+        if(this.currentSong == -1) return;
         this.stopMusic();
         this.updateIndexSong(this.currentSong + 1);
         this.playMusic();
@@ -207,6 +212,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void playMedia() {
+        if(this.currentSong == -1) return;
         if(this.running == true) {
             this.stopMusic();
         }
