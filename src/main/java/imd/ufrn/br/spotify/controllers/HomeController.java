@@ -191,20 +191,18 @@ public class HomeController implements Initializable {
     @FXML
     public void nextSong() {
         this.updateIndexSong(this.currentSong + 1);
-
     }
 
 
     @FXML
     public void playMedia() {
-//        File file = new File(songsStore.getSongs().get(indexSong).getPath());
+        File file = new File(songsStore.getSongs().get(currentSong).getPath());
 
-//        media = new Media(file.toURI().toString());
+        media = new Media(file.toURI().toString());
 
+        mediaPlayer = new MediaPlayer(media);
 
-//        mediaPlayer = new MediaPlayer(media);
-
-//        mediaPlayer.play();
+        mediaPlayer.play();
 
     }
 
