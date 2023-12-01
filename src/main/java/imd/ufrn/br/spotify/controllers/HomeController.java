@@ -222,6 +222,7 @@ public class HomeController implements Initializable {
     }
 
     public void stopMusic() {
+        if(this.running == false) return;
         this.running = false;
         this.mediaPlayer.stop();
         return;
