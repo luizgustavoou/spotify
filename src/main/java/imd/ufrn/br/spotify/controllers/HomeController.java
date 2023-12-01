@@ -186,7 +186,16 @@ public class HomeController implements Initializable {
 
     @FXML
     public void previousSong() {
-        this.updateIndexSong(this.currentSong - 1);
+        if(this.currentSong == 0) {
+            this.stopMusic();
+            this.updateIndexSong(songsStore.getSongs().size() -1);
+            this.playMusic();
+        }
+        else {
+            this.stopMusic();
+            this.updateIndexSong(this.currentSong - 1);
+            this.playMusic();
+        }
     }
     @FXML
     public void nextSong() {
