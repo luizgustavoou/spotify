@@ -36,6 +36,7 @@ import java.util.UUID;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.control.ProgressBar;
 
 
 
@@ -64,6 +65,8 @@ public class HomeController implements Initializable {
     private ListView<Playlist> listViewPlaylists;
     @FXML
     private ListView<Song> listViewSongs;
+    @FXML
+    private ProgressBar volumeSlider;
 
 
 
