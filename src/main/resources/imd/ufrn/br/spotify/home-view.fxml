@@ -33,7 +33,7 @@
             <Button layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#addSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="8.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="2.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar arquivo" textAlignment="CENTER" />
-            <Button layoutX="14.0" layoutY="171.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
+            <Button layoutX="14.0" layoutY="171.0" mnemonicParsing="false" onMouseClicked="#addPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
             <Button layoutX="10.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#nextPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="Avançar" />
             <Button fx:id="teste" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#testeClick" text="Button" />

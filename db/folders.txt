@@ -7,3 +7,5 @@ cfb6c74b-d1b4-4e1f-a03f-92d3d30f0c35,caminho diretorio pra playlist metalzao 3,a
 337ceb17-f8c0-4da6-8bf6-3981195d1aad,/home/luizgustavoou/Área de Trabalho/testmusicas,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 ad563e62-5b32-4580-9d41-f38182583127,/home/luizgustavoou/Área de Trabalho/testmusicas,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 03852769-1f82-4b1b-9e9b-0816b93cd925,/home/luizgustavoou/Área de Trabalho/testmusicas,2fee7c36-cc4a-40fa-bb85-958904e1fca3
+48272574-c130-475a-ac88-ac049a3d1313,/home/luizgustavoou/Área de Trabalho/testmusicas,a71b1741-ff6b-4ed3-b9e2-0c798ea679e2
+e151a395-6897-4a34-a8ee-d17688f4c586,/home/luizgustavoou/Área de Trabalho/testmusicas,a71b1741-ff6b-4ed3-b9e2-0c798ea679e2

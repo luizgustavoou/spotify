@@ -64,8 +64,8 @@ public class HomeController implements Initializable {
     // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty(0);
-    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty(0);
+    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty(-1);
+    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty(-1);
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
@@ -106,20 +106,20 @@ public class HomeController implements Initializable {
         songsStore.addSongs(newSongs);
     }
 
+    @FXML
     public void addPlaylist() {
         String strNamePlaylist = "playlist teste";
-        String userId = "d2add4ac-5509-45ef-87a5-d6c407f29a30";
 
-        Playlist playlist = new Playlist(strNamePlaylist, UUID.fromString(userId));
+        Playlist playlist = new Playlist(strNamePlaylist, userStore.getUser().getId());
 
         this.createPlaylistUseCase.execute(playlist);
+
+        this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
 
     }
 
     @FXML
     void addSong(MouseEvent event) {
-        // TODO: Selecionar o playlistId atual do usuário
-        String strPlaylistId = "2fee7c36-cc4a-40fa-bb85-958904e1fca3";
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
         musicFileChooser.setTitle("Escolha uma música");
@@ -131,30 +131,32 @@ public class HomeController implements Initializable {
         String name = parts[0];
         String extension = parts[1];
 
-        Song newSong = new Song(name, file.getPath(), UUID.fromString(strPlaylistId));
+        Song newSong = new Song(name, file.getPath(), playlistsStore.getPlaylists().get(currentPlaylist.get()).getId());
 
         createSongUseCase.execute(newSong);
 
-        System.out.println("Música adicionada a playlist " + strPlaylistId);
+        System.out.println("Música adicionada a playlist " + playlistsStore.getPlaylists().get(currentPlaylist.get()));
+
+        this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist.get()).getId().toString());
 
     }
 
     @FXML
     void addFolder(MouseEvent event) {
         // TODO: Selecionar o playlistId atual do usuário
-        String strPlaylistId = "2fee7c36-cc4a-40fa-bb85-958904e1fca3";
-
         directoryChooser.setTitle("Escolha um diretório");
         directoryChooser.setInitialDirectory(new java.io.File("."));
 
         File folder = directoryChooser.showDialog(new Stage());
         if (folder == null) return;
 
-        Folder newFolder = new Folder(folder.getAbsolutePath(), UUID.fromString(strPlaylistId));
+        Folder newFolder = new Folder(folder.getAbsolutePath(), playlistsStore.getPlaylists().get(currentPlaylist.get()).getId());
 
         createFolderUseCase.execute(newFolder);
 
-        System.out.println("Folder adicionado a playlist " + strPlaylistId);
+        System.out.println("Folder adicionado a playlist " + playlistsStore.getPlaylists().get(currentPlaylist.get()));
+        this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist.get()).getId().toString());
+
 
     }
 
@@ -191,6 +193,7 @@ public class HomeController implements Initializable {
         if(playlistsStore.getPlaylists().isEmpty()) return;
 
         currentPlaylist.set(index % playlistsStore.getPlaylists().size());
+
     }
 
     private void updateCurrentSong(int index) {
@@ -232,15 +235,16 @@ public class HomeController implements Initializable {
         System.out.println("tocando musica: " + songsStore.getSongs().get(indexSong));
     }
 
-    public void loadedNewPlaylist() {
+    public void loadedNewPlaylists() {
+        this.updateCurrentPlaylist(0);
+    }
+
+    public void loadedNewSongs() {
         this.updateCurrentSong(0);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Escutar quando o usuario clica em alguma playlist ou musica
-
-
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
@@ -260,53 +264,36 @@ public class HomeController implements Initializable {
 
         // Lógica de tocar música
         playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
+            System.out.println("observable de playlistsStore");
             if(newPlaylists.isEmpty()) return;
 
-            System.out.println("observable de playlistsStore");
-
-
-            this.loadedNewPlaylist();
-            currentSong.set(0);
-
+            this.loadedNewPlaylists();
             this.getAllSongsOfPlaylist(newPlaylists.get(currentPlaylist.get()).getId().toString());
         });
 
         songsStore.addListener((observableValue, oldSongs, newSongs) -> {
             System.out.println("observable de songsStore");
-            if(newSongs.isEmpty()) {
-                System.out.println("Tem nenhuma musica!");
-                return;
+            if(newSongs.isEmpty()) return;
 
-            }
-
-            // tocar musica...
-//            int indexSong = currentSong.get();
-//            this.playMedia(indexSong);
-
-
+            this.loadedNewSongs();
         });
 
         currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
             System.out.println("observable de currentPlaylist");
             int indexPlaylist = newCurrentPlaylist.intValue();
-            this.loadedNewPlaylist();
+
             this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(indexPlaylist).getId().toString());
         });
 
         currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
             System.out.println("observable de currentSong");
-            if(songsStore.getSongs().isEmpty()) {
-                System.out.println("Tem nenhuma musica!");
-                return;
-            }
-
-            // chamaria a funcao de tocar musica aqui...
-//            int index = currentSong.get();
-
-//            this.playMedia(index);
+            if(songsStore.getSongs().isEmpty()) return;
         });
 
         this.getAllPlaylistsOfUser(userStore.getUser().getId().toString());
+
+        listViewPlaylists.getSelectionModel().select(0);
+        listViewSongs.getSelectionModel().select(0);
     }
 
     @FXML
