@@ -19,14 +19,17 @@ import java.util.UUID;
 public class CreateUserUseCaseImpl implements ICreateUserUseCase {
     IUserRepository userRepository;
     IByCryptUseCase byCryptUseCase;
+    ICreatePlaylistUseCase createPlaylistUseCase;
     public CreateUserUseCaseImpl() {
         this.userRepository = new CSVUserRepositoryImpl();
         this.byCryptUseCase = new ByCryptUseCaseImpl();
+        this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
     }
 
-    public CreateUserUseCaseImpl(IUserRepository userRepository, IByCryptUseCase byCryptUseCase) {
+    public CreateUserUseCaseImpl(IUserRepository userRepository, IByCryptUseCase byCryptUseCase, ICreatePlaylistUseCase createPlaylistUseCase) {
         this.byCryptUseCase = byCryptUseCase;
         this.userRepository = userRepository;
+        this.createPlaylistUseCase = createPlaylistUseCase;
     }
 
     @Override
@@ -35,27 +38,17 @@ public class CreateUserUseCaseImpl implements ICreateUserUseCase {
 
         value.setPassword(hashPassword);
 
-        return this.userRepository.create(value);
+        User user =  this.userRepository.create(value);
+
+        this.createPlaylistUseCase.execute(new Playlist("Playlist Padrão", user.getId()));
+
+        return user;
     }
 
     public static void main(String[] args) throws EntityNotFoundException {
         int randomNumber = (int) (Math.random() * 100 + 1);
 
-        Playlist playlistPadrao = new Playlist("Playlist padrão", UUID.fromString("d2add4ac-5509-45ef-87a5-d6c407f29a30"));
-
-        ICreatePlaylistUseCase createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
-
-        System.out.println(createPlaylistUseCase.execute(playlistPadrao));
-
-        User user = new User(UUID.randomUUID(), "Pato Agiota Fisiculturista" + randomNumber, "senha", "João", false, UUID.fromString("6328bba4-8fc1-11ee-b9d1-0242ac120002"));
-
-        IFindOnePlaylistByIdUseCase findOnePlaylistByIdUseCase = new FindOnePlaylistByIdUseCaseImpl();
-
-        Playlist foundPlaylist = findOnePlaylistByIdUseCase.execute(playlistPadrao.getId());
-
-        if (foundPlaylist != null) {
-            foundPlaylist.setUserId(user.getId());
-        }
+        User user = new User(UUID.randomUUID(), "joaozin" + randomNumber, "senha", "João", false);
 
         ICreateUserUseCase createUserUseCase = new CreateUserUseCaseImpl();
 

@@ -27,6 +27,6 @@ public class UpdateUserUseCaseImpl implements IUpdateUserUseCase {
     public static void main(String[] args) throws EntityNotFoundException {
         IUpdateUserUseCase updateUserUseCase = new UpdateUserUseCaseImpl();
 
-        updateUserUseCase.execute(UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff"), new User(UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff"),"joabpato4", "123", "Joab Pato Agiota", true, UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff")));
+        updateUserUseCase.execute(UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff"), new User(UUID.fromString("137b0fe7-bb20-441b-89c4-40106cce22ff"),"joabpato4", "123", "Joab Pato Agiota", true));
     }
 }
