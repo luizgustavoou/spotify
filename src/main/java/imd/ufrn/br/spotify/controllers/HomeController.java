@@ -53,8 +53,8 @@ public class HomeController implements Initializable {
     // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    private final SimpleIntegerProperty currentPlaylist = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty currentSong = new SimpleIntegerProperty();
+    private int currentPlaylist = -1;
+    private int currentSong = -1;
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
@@ -78,20 +78,6 @@ public class HomeController implements Initializable {
         this.songsStore = SongsStore.getInstance();
     }
 
-    public void getAllPlaylistsOfUser(String userId) {
-        playlistsStore.clear();
-
-        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(UUID.fromString(userId)));
-    }
-
-    public void getAllSongsOfPlaylist(String playlistId) {
-        songsStore.clear();
-
-        List<Song> newSongs = getAllSongsOfPlaylistUseCase.execute(UUID.fromString(playlistId));
-
-        songsStore.addSongs(newSongs);
-    }
-
     @FXML
     public void addPlaylist() {
         String strNamePlaylist = "playlist teste";
@@ -99,6 +85,8 @@ public class HomeController implements Initializable {
         Playlist playlist = new Playlist(strNamePlaylist, userStore.getUser().getId());
 
         this.createPlaylistUseCase.execute(playlist);
+
+        this.getAllPlaylistsOfUser(userStore.getUser().getId());
 
     }
 
@@ -142,19 +130,69 @@ public class HomeController implements Initializable {
         System.out.println("Folder adicionado a playlist " + playlistId);
     }
 
+    public void updateIndexPlaylist(int index) {
+        if(playlistsStore.getPlaylists().isEmpty()) {
+            this.currentPlaylist = -1;
+            this.listViewPlaylists.getSelectionModel().select(-1);
+            return;
+        }
+
+        int newIndex = index % playlistsStore.getPlaylists().size();
+        this.currentPlaylist = newIndex;
+        this.listViewPlaylists.getSelectionModel().select(newIndex);
+
+    }
+
+    public void updateIndexSong(int index) {
+        if(songsStore.getSongs().isEmpty()) {
+            this.currentSong = -1;
+            this.listViewSongs.getSelectionModel().select(-1);
+            return;
+
+        }
+
+        int newIndex = index % songsStore.getSongs().size();
+
+        this.currentSong = newIndex;
+        this.listViewSongs.getSelectionModel().select(newIndex);
+    }
+
+    public void getAllPlaylistsOfUser(UUID userId) {
+        playlistsStore.clear();
+        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(userId));
+
+        if(playlistsStore.getPlaylists().isEmpty()) {
+            this.updateIndexPlaylist(-1);
+            return;
+        }
+
+        this.updateIndexPlaylist(0);
+
+        this.getAllSongsOfPlaylist(this.playlistsStore.getPlaylists().get(currentPlaylist).getId());
+
+    }
+
+    public void getAllSongsOfPlaylist(UUID playlistId) {
+        songsStore.clear();
+        songsStore.addSongs(this.getAllSongsOfPlaylistUseCase.execute(playlistId));
+
+        if(songsStore.getSongs().isEmpty()) {
+            this.updateIndexSong(-1);
+            return;
+        }
+
+        this.updateIndexSong(0);
+    }
+
     @FXML
     public void previousSong() {
-
+        this.updateIndexSong(this.currentSong - 1);
     }
     @FXML
     public void nextSong() {
+        this.updateIndexSong(this.currentSong + 1);
 
     }
-
-
-
-
-
 
 
     @FXML
@@ -178,36 +216,37 @@ public class HomeController implements Initializable {
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
         listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-
-
+            if(t1 == null) {
+                this.updateIndexPlaylist(-1);
+            }else {
+            this.updateIndexPlaylist(listViewPlaylists.getSelectionModel().getSelectedIndex());
+            this.getAllSongsOfPlaylist(t1.getId());
+            this.updateIndexSong(0);
+            }
         });
 
         listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
+            if(t1 == null) {
+                this.updateIndexSong(-1);
+
+            }else {
+                this.updateIndexSong(listViewSongs.getSelectionModel().getSelectedIndex());
+
+            }
 
         });
 
 
-        playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
+//        playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
+//
+//        });
+//
+//        songsStore.addListener((observableValue, oldSongs, newSongs) -> {
+//
+//        });
 
-        });
+        this.getAllPlaylistsOfUser(userStore.getUser().getId());
 
-        songsStore.addListener((observableValue, oldSongs, newSongs) -> {
-
-        });
-
-        currentPlaylist.addListener((observableValue, oldCurrentPlaylist, newCurrentPlaylist) -> {
-
-        });
-
-        currentSong.addListener((observableValue, oldCurrentSong, newCurrentSong) -> {
-
-        });
-
-
-
-    }
-
-    public static void main(String[] args) throws EntityNotFoundException {
 
     }
 }
