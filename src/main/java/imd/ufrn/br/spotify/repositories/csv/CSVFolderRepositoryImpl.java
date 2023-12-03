@@ -21,7 +21,11 @@ public class CSVFolderRepositoryImpl extends CSVRepositoryImpl<Folder> implement
     // private  final String CSV_FILE_NAME = "C:\Users\zanat\IdeaProjects\spotify\db\folders.txt";
 
     // Path luiz
-    private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/folders.txt";
+//    private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/folders.txt";
+
+    // Path luiz windows
+    private final String CSV_FILE_NAME = "D:\\projects\\db\\folders.txt";
+
     private final ICSVApi csvApi;
 
     public CSVFolderRepositoryImpl(ICSVApi csvApi) {
