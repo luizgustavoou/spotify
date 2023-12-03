@@ -13,7 +13,7 @@ public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IU
 //    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\users.txt";
 
     // Path luiz windows
-    private final String CSV_FILE_NAME = "D:\\projects\\db\\users.txt";
+    private final String CSV_FILE_NAME = "D:\\Biblioteca\\Documentos\\projects\\spotify\\db\\users.txt";
     private final ICSVApi csvApi;
 
     public CSVUserRepositoryImpl(ICSVApi csvApi) {
