@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -24,7 +25,6 @@ public class LoginController {
     private final UserStore userStore;
 
     private final ILoginUseCase loginUseCase;
-
 
     Navigator navigator;
 
@@ -36,6 +36,9 @@ public class LoginController {
 
     @FXML
     private Button btnLogin;
+
+    @FXML
+    private Text msgError;
 
     private LoginController(ILoginUseCase loginUseCase) {
         this.loginUseCase = loginUseCase;
@@ -60,11 +63,14 @@ public class LoginController {
             this.navigator.to(btnLogin, TitleViews.HOME_VIEW, PathViews.HOME_VIEW);
 
         } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
+            msgError.setVisible(true);
+            msgError.setText(e.getMessage());
         } catch (UnauthorizedException e) {
-            System.out.println(e.getMessage());
+            msgError.setVisible(true);
+            msgError.setText(e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            msgError.setVisible(true);
+            msgError.setText(e.getMessage());
         }
     }
 
