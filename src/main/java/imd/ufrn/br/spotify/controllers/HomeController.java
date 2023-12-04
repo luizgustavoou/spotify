@@ -157,12 +157,17 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void removePlaylist(MouseEvent event) throws EntityNotFoundException {
+    void removePlaylist(MouseEvent event)  {
         if(this.currentPlaylist < 0) return;
 
-        this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+        try {
+            this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+            this.getAllPlaylistsOfUser(userStore.getUser().getId());
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
-        this.getAllPlaylistsOfUser(userStore.getUser().getId());
+
     }
 
     @FXML
