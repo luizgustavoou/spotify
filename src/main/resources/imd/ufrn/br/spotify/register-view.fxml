@@ -38,6 +38,7 @@
             </Text>
             <TextField fx:id="fullName" layoutX="101.0" layoutY="163.0" promptText="Nome completo" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
             <ChoiceBox fx:id="typeUserBox" layoutX="100.0" layoutY="311.0" prefWidth="150.0" />
+            <Button fx:id="btnLogin1" layoutX="136.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#backToLogin" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #333; -fx-cursor: hand;" text="Voltar" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </AnchorPane>
    </center>

@@ -25,6 +25,7 @@ public class LoginController {
 
     private final ILoginUseCase loginUseCase;
 
+
     Navigator navigator;
 
     @FXML
@@ -72,9 +73,8 @@ public class LoginController {
         this.login();
     }
 
-//    void handleKeyPressed(KeyEvent event) {
-//        if(event.getCode() == KeyCode.ENTER) {
-//            this.login();
-//        }
-//    }
+    @FXML
+    void navigateToRegister(MouseEvent event) throws IOException {
+        navigator.to(btnLogin, TitleViews.REGISTER_VIEW, PathViews.REGISTER_VIEW);
+    }
 }
