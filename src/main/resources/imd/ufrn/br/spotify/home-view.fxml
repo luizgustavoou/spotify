@@ -46,6 +46,16 @@
                   <Font size="10.0" />
                </font>
             </Button>
+            <Button layoutX="3.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#removeSong" prefHeight="25.0" prefWidth="90.0" text="Remover música">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button layoutX="3.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#removePlaylist" prefHeight="25.0" prefWidth="90.0" text="Remover playlist">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </left>

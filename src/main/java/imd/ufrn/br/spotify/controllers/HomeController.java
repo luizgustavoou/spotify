@@ -8,12 +8,16 @@ import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
+import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
+import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
 import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
+import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
 import imd.ufrn.br.spotify.services.song.impl.CreateSongUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
@@ -51,6 +55,8 @@ public class HomeController implements Initializable {
     private final ICreateSongUseCase createSongUseCase;
     private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
+    private final IRemovePlaylistUseCase removePlaylistUseCase;
+    private final IRemoveSongUseCase removeSongUseCase;
 
 
     // Variáveis de tocar música
@@ -86,6 +92,8 @@ public class HomeController implements Initializable {
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
+        this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
+        this.removeSongUseCase = new RemoveSongUseCaseImpl();
     }
 
     @FXML
@@ -146,6 +154,27 @@ public class HomeController implements Initializable {
 
         System.out.println("Folder adicionado a playlist " + playlistId);
         this.getAllPlaylistsOfUser(this.userStore.getUser().getId());
+    }
+
+    @FXML
+    void removePlaylist(MouseEvent event) throws EntityNotFoundException {
+        if(this.currentPlaylist < 0) return;
+
+        this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+
+        this.getAllPlaylistsOfUser(userStore.getUser().getId());
+    }
+
+    @FXML
+    void removeSong(MouseEvent event)  {
+        if(this.currentSong < 0) return;
+
+        try {
+            this.removeSongUseCase.execute(songsStore.getSongs().get(currentSong).getId());
+            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void updateIndexPlaylist(int index) {
@@ -281,10 +310,6 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
