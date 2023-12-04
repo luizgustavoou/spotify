@@ -9,18 +9,7 @@ import imd.ufrn.br.spotify.repositories.ISongRepository;
 import java.util.*;
 
 public class CSVSongRepositoryImpl extends CSVRepositoryImpl<Song> implements ISongRepository {
-
-    // Path fellipe
-    // private  final String CSV_FILE_NAME = "C:\Users\zanat\IdeaProjects\spotify\db\songs.txt";
-
-    // Path Joab
-//    private final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\songs.txt";
-
-
-    // Path luiz
-    // private final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/songs.txt";
-    // Path luiz windows
-    private final String CSV_FILE_NAME = "D:\\Biblioteca\\Documentos\\projects\\spotify\\db\\songs.txt";
+    private  final String CSV_FILE_NAME = "db/songs.txt";
     private final ICSVApi csvApi;
 
     public CSVSongRepositoryImpl(ICSVApi csvApi) {
