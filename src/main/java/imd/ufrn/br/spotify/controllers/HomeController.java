@@ -24,9 +24,8 @@ import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -35,15 +34,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.UUID;
+import java.util.*;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.control.ProgressBar;
-import java.util.TimerTask;
 
 
 public class HomeController implements Initializable {
@@ -161,13 +155,21 @@ public class HomeController implements Initializable {
         if(this.currentPlaylist < 0) return;
 
         try {
-            this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
-            this.getAllPlaylistsOfUser(userStore.getUser().getId());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de remoção de playlist");
+            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(currentPlaylist).getName() + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK) {
+                this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+                this.getAllPlaylistsOfUser(userStore.getUser().getId());
+            }
+
+
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     @FXML
@@ -175,11 +177,22 @@ public class HomeController implements Initializable {
         if(this.currentSong < 0) return;
 
         try {
-            this.removeSongUseCase.execute(songsStore.getSongs().get(currentSong).getId());
-            this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de remoção de música");
+            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(currentSong).getName() + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK) {
+                this.removeSongUseCase.execute(songsStore.getSongs().get(currentSong).getId());
+                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+            }
+
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
+
     }
 
     public void updateIndexPlaylist(int index) {
