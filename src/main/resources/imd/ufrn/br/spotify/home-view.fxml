@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.HomeController">
@@ -36,16 +35,8 @@
             <Button layoutX="32.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#addSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
             <Text fill="WHITE" layoutX="8.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="2.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar arquivo" textAlignment="CENTER" />
-            <TextField layoutX="4.0" layoutY="131.0" prefHeight="25.0" prefWidth="90.0" promptText="Nome da playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </TextField>
-            <Button layoutX="4.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Adicionar Playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
+            <Button layoutX="14.0" layoutY="171.0" mnemonicParsing="false" onMouseClicked="#addPlaylist" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;" text="+" />
+            <Text fill="WHITE" layoutX="41.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nova playlist" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </left>
@@ -72,6 +63,8 @@
                <children>
                   <Text fill="WHITE" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
                   <ListView fx:id="listViewPlaylists" layoutX="15.0" layoutY="65.0" prefHeight="355.0" prefWidth="200.0" />
+                  <TextField layoutX="56.0" layoutY="352.0" prefHeight="25.0" prefWidth="119.0" promptText="Nome da playlist" />
+                  <Button layoutX="56.0" layoutY="385.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Adicionar Playlist" />
                </children>
             </AnchorPane>
          </center>

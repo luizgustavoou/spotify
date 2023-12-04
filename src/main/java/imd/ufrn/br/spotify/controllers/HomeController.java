@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -71,6 +72,9 @@ public class HomeController implements Initializable {
     private Timer timer;
     private TimerTask task;
 
+    @FXML
+    private TextField playlistName;
+
 
 
     public HomeController() {
@@ -86,7 +90,12 @@ public class HomeController implements Initializable {
 
     @FXML
     public void addPlaylist() {
-        String strNamePlaylist = "playlist teste";
+        String strNamePlaylist = playlistName.getText();
+
+        if(strNamePlaylist.isEmpty()) {
+            System.out.println("Nome da playlist vázia!");
+            return;
+        }
 
         Playlist playlist = new Playlist(strNamePlaylist, userStore.getUser().getId());
 

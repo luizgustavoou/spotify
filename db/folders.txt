@@ -9,3 +9,4 @@ a3a5816c-2a2f-4e52-8a8f-9d09824c5f35,C:\Users\Joab\Desktop\teste,1d5e8cdf-0661-4
 6432d009-74fa-4d99-a336-ef4928f791b6,C:\Users\Joab\Desktop\teste,1d5e8cdf-0661-4f71-9980-6623b2373100
 48d4f219-2cba-42da-9eba-4481ce7d2a15,C:\Users\Joab\Desktop\teste,9a54940c-7533-4876-ba4a-3b6336cb63b3
 07dc3852-a893-41c4-8616-0c4afe8f2b20,C:\Users\luizg\Desktop\testmusicas,a71b1741-ff6b-4ed3-b9e2-0c798ea679e2
+51042a6f-57d0-4f3e-9be6-b1cc9245234f,C:\Users\luizg\OneDrive\Desktop\testmusicas,4b808c31-6130-45a0-9b0e-36cf7f5ecb3f
