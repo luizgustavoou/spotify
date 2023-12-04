@@ -9,11 +9,8 @@ import imd.ufrn.br.spotify.repositories.IUserRepository;
 import java.util.*;
 
 public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IUserRepository {
-//    private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/users.txt";
-//    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\users.txt";
-
-    // Path luiz windows
-    private final String CSV_FILE_NAME = "D:\\Biblioteca\\Documentos\\projects\\spotify\\db\\users.txt";
+    //private  final String CSV_FILE_NAME = "/home/luizgustavoou/Documentos/projects/spotify/db/users.txt";
+    private  final String CSV_FILE_NAME = "C:\\Users\\Joab\\IdeaProjects\\spotify\\db\\users.txt";
     private final ICSVApi csvApi;
 
     public CSVUserRepositoryImpl(ICSVApi csvApi) {
@@ -35,6 +32,7 @@ public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IU
             String fullName = userArray[3];
 
             Boolean isVip = Objects.equals(userArray[4], "1");
+
 
             return new User(id, username, password, fullName, isVip);
         }).toList();

@@ -1,5 +1,6 @@
 package imd.ufrn.br.spotify.services.song.impl;
 
+import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.repositories.ISongRepository;
 import imd.ufrn.br.spotify.repositories.csv.CSVSongRepositoryImpl;
@@ -20,5 +21,11 @@ public class RemoveSongUseCaseImpl implements IRemoveSongUseCase {
     public void execute(UUID id) throws EntityNotFoundException {
         this.songRepository.remove(id);
 
+    }
+
+    public static void main(String[] args) throws EntityNotFoundException {
+        IRemoveSongUseCase removeSongUseCase = new RemoveSongUseCaseImpl();
+
+        removeSongUseCase.execute(UUID.fromString("36f3c8e6-7d42-4f64-92f8-510b03d1a827"));
     }
 }
