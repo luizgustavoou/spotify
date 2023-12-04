@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.RegistrationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.RegistrationController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #333;" BorderPane.alignment="CENTER">
          <children>
@@ -39,6 +39,7 @@
             <TextField fx:id="fullName" layoutX="101.0" layoutY="163.0" promptText="Nome completo" style="-fx-background-color: transparent; -fx-border-color: #333; -fx-border-width: 0px 0px 2px 0px;" />
             <ChoiceBox fx:id="typeUserBox" layoutX="100.0" layoutY="311.0" prefWidth="150.0" />
             <Button fx:id="btnLogin1" layoutX="136.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#backToLogin" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #333; -fx-cursor: hand;" text="Voltar" textAlignment="CENTER" textFill="WHITE" />
+            <Text fx:id="msgErrorRegister" layoutX="73.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" wrappingWidth="227.13671875" />
          </children>
       </AnchorPane>
    </center>

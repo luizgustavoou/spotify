@@ -1,7 +1,9 @@
 package imd.ufrn.br.spotify.controllers;
 
 import imd.ufrn.br.spotify.entities.User;
+import imd.ufrn.br.spotify.exceptions.EmptyTextFieldsException;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
+import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
 import imd.ufrn.br.spotify.services.user.ICreateUserUseCase;
 import imd.ufrn.br.spotify.services.user.impl.CreateUserUseCaseImpl;
 
@@ -15,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +42,9 @@ public class RegistrationController implements Initializable {
     private ChoiceBox<String> typeUserBox;
 
     @FXML
+    private Text msgErrorRegister;
+
+    @FXML
     private TextField username;
     private final ICreateUserUseCase createUserUseCase;
 
@@ -52,12 +58,15 @@ public class RegistrationController implements Initializable {
     }
 
 
-    public void register() throws EntityNotFoundException, IOException {
+    public void register() throws EmptyTextFieldsException, IOException {
         String strUsername = this.username.getText();
         String strPassword = this.password.getText();
         String strFullName = this.fullName.getText();
         String strTypeUser = this.typeUserBox.getValue();
 
+        if(strUsername.isEmpty() || strPassword.isEmpty() || strFullName.isEmpty() || strTypeUser == null) {
+            throw new EmptyTextFieldsException("Algum campo está vazio!");
+        }
 
         User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"));
 
@@ -79,10 +88,12 @@ public class RegistrationController implements Initializable {
     void handleMouseClicked(MouseEvent event) {
         try {
             this.register();
-        } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+        } catch (EmptyTextFieldsException e) {
+            msgErrorRegister.setVisible(true);
+            msgErrorRegister.setText(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            msgErrorRegister.setVisible(true);
+            msgErrorRegister.setText(e.getMessage());
         }
     }
 
