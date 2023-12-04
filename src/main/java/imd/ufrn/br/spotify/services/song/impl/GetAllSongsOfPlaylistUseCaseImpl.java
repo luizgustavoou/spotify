@@ -1,7 +1,7 @@
 package imd.ufrn.br.spotify.services.song.impl;
 
 import imd.ufrn.br.spotify.entities.Song;
-import imd.ufrn.br.spotify.services.folder.IFindAllFoldersOfPlaylist;
+import imd.ufrn.br.spotify.services.folder.IFindAllFoldersOfPlaylistUseCase;
 import imd.ufrn.br.spotify.services.song.IFindAllSongsOfFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.FindAllFoldersOfPlaylistImpl;
 import imd.ufrn.br.spotify.services.song.IFindAllSongsOfPlaylistUseCase;
@@ -15,10 +15,10 @@ public class GetAllSongsOfPlaylistUseCaseImpl implements IGetAllSongsOfPlaylistU
 
 
     IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylistUseCase;
-    IFindAllFoldersOfPlaylist findAllFoldersOfPlaylist;
+    IFindAllFoldersOfPlaylistUseCase findAllFoldersOfPlaylist;
     IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase;
 
-    GetAllSongsOfPlaylistUseCaseImpl(IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase, IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylist, IFindAllFoldersOfPlaylist findAllFoldersOfPlaylist) {
+    GetAllSongsOfPlaylistUseCaseImpl(IFindAllSongsOfFolderUseCase findAllSongsOfFolderUseCase, IFindAllSongsOfPlaylistUseCase findAllSongsOfPlaylist, IFindAllFoldersOfPlaylistUseCase findAllFoldersOfPlaylist) {
         this.findAllSongsOfPlaylistUseCase = findAllSongsOfPlaylist;
         this.findAllFoldersOfPlaylist = findAllFoldersOfPlaylist;
         this.findAllSongsOfFolderUseCase = findAllSongsOfFolderUseCase;

@@ -3,12 +3,12 @@ package imd.ufrn.br.spotify.services.folder.impl;
 import imd.ufrn.br.spotify.entities.Folder;
 import imd.ufrn.br.spotify.repositories.IFolderRepository;
 import imd.ufrn.br.spotify.repositories.csv.CSVFolderRepositoryImpl;
-import imd.ufrn.br.spotify.services.folder.IFindAllFoldersOfPlaylist;
+import imd.ufrn.br.spotify.services.folder.IFindAllFoldersOfPlaylistUseCase;
 
 import java.util.List;
 import java.util.UUID;
 
-public class FindAllFoldersOfPlaylistImpl implements IFindAllFoldersOfPlaylist {
+public class FindAllFoldersOfPlaylistImpl implements IFindAllFoldersOfPlaylistUseCase {
     IFolderRepository folderRepository;
     public FindAllFoldersOfPlaylistImpl() {
         this.folderRepository = new CSVFolderRepositoryImpl();
