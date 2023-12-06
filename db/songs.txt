@@ -5,3 +5,4 @@ b1a8ec9f-3145-46b5-a252-861cb39c5f25,musica metalzao 2,caminho2,ab2acce0-30ca-4a
 832567c0-1da9-4690-a14c-e74b735acd45,music2.mp3,/home/luizgustavoou/Área de Trabalho/testmusicas/music2.mp3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 3c8b49b6-0510-45e3-8e96-0c9afc6a5e26,James_Bond_007_Theme_Tune.mp3,C:\Users\Joab\Desktop\teste\James_Bond_007_Theme_Tune.mp3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 85c5d9a2-b5c1-4e87-9a63-450cefa209f0,James_Bond_007_Theme_Tune,C:\Users\Joab\Desktop\teste\James_Bond_007_Theme_Tune.mp3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
+f65a46ae-e23c-4df3-bed4-caaa4484b926,sample-3s,C:\Users\luizg\OneDrive\Desktop\testmusicas\sample-3s.mp3,795cca46-13c2-4421-8dac-8281e258e6f5

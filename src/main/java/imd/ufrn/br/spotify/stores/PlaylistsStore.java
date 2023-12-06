@@ -1,6 +1,8 @@
 package imd.ufrn.br.spotify.stores;
 
 import imd.ufrn.br.spotify.entities.Playlist;
+import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
+import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
@@ -8,11 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PlaylistsStore {
+    private final IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase;
     private final SimpleListProperty<Playlist> playlists;
     private PlaylistsStore() {
         this.playlists = new SimpleListProperty<>(FXCollections.observableArrayList());
+        this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
     }
     static public PlaylistsStore instance;
     static public PlaylistsStore getInstance() {
@@ -44,5 +49,10 @@ public class PlaylistsStore {
 
     public void addListener(ChangeListener<ObservableList<Playlist>> listener) {
         playlists.addListener(listener);
+    }
+
+    public void updateAllPlaylistsOfUser(UUID userId) {
+        this.playlists.clear();
+        this.addPlaylists(findAllPlaylistOfUserUseCase.execute(userId));
     }
 }

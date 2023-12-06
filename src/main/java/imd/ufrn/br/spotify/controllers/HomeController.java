@@ -21,6 +21,10 @@ import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.SongsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
+import imd.ufrn.br.spotify.utils.PathViews;
+import imd.ufrn.br.spotify.utils.ShowModal;
+import imd.ufrn.br.spotify.utils.TitleViews;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,6 +37,7 @@ import javafx.stage.Stage;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -103,7 +108,7 @@ public class HomeController implements Initializable {
 
         this.createPlaylistUseCase.execute(playlist);
 
-        this.getAllPlaylistsOfUser(userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
 
     }
 
@@ -127,7 +132,7 @@ public class HomeController implements Initializable {
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
-        this.getAllPlaylistsOfUser(this.userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getUser().getId());
     }
 
     @FXML
@@ -147,7 +152,7 @@ public class HomeController implements Initializable {
         createFolderUseCase.execute(newFolder);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
-        this.getAllPlaylistsOfUser(this.userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getUser().getId());
     }
 
     @FXML
@@ -163,7 +168,7 @@ public class HomeController implements Initializable {
 
             if(result.get() == ButtonType.OK) {
                 this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
-                this.getAllPlaylistsOfUser(userStore.getUser().getId());
+                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
             }
 
 
@@ -185,7 +190,7 @@ public class HomeController implements Initializable {
 
             if(result.get() == ButtonType.OK) {
                 this.removeSongUseCase.execute(songsStore.getSongs().get(currentSong).getId());
-                this.getAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
             }
 
         } catch (EntityNotFoundException e) {
@@ -196,58 +201,64 @@ public class HomeController implements Initializable {
     }
 
     public void updateIndexPlaylist(int index) {
-        if(playlistsStore.getPlaylists().isEmpty()) {
-            this.currentPlaylist = -1;
-            this.listViewPlaylists.getSelectionModel().select(-1);
-            return;
-        }
+        Platform.runLater(() -> {
+            if(playlistsStore.getPlaylists().isEmpty()) {
+                this.currentPlaylist = -1;
+                this.listViewPlaylists.getSelectionModel().select(-1);
+                return;
+            }
 
-        int newIndex = index % playlistsStore.getPlaylists().size();
-        this.currentPlaylist = newIndex;
-        this.listViewPlaylists.getSelectionModel().select(newIndex);
+            int newIndex = index % playlistsStore.getPlaylists().size();
+            this.currentPlaylist = newIndex;
+            this.listViewPlaylists.getSelectionModel().select(newIndex);
+        });
+
 
     }
 
     public void updateIndexSong(int index) {
-        if(songsStore.getSongs().isEmpty()) {
-            this.currentSong = -1;
-            this.listViewSongs.getSelectionModel().select(-1);
-            return;
+        Platform.runLater(() -> {
+            if(songsStore.getSongs().isEmpty()) {
+                this.currentSong = -1;
+                this.listViewSongs.getSelectionModel().select(-1);
+                return;
 
-        }
+            }
 
-        int newIndex = index % songsStore.getSongs().size();
+            int newIndex = index % songsStore.getSongs().size();
 
-        this.currentSong = newIndex;
-        this.listViewSongs.getSelectionModel().select(newIndex);
-    }
-
-    public void getAllPlaylistsOfUser(UUID userId) {
-        playlistsStore.clear();
-        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(userId));
-
-        if(playlistsStore.getPlaylists().isEmpty()) {
-            this.updateIndexPlaylist(-1);
-            return;
-        }
-
-        this.updateIndexPlaylist(0);
-
-        this.getAllSongsOfPlaylist(this.playlistsStore.getPlaylists().get(currentPlaylist).getId());
+            this.currentSong = newIndex;
+            this.listViewSongs.getSelectionModel().select(newIndex);
+        });
 
     }
 
-    public void getAllSongsOfPlaylist(UUID playlistId) {
-        songsStore.clear();
-        songsStore.addSongs(this.getAllSongsOfPlaylistUseCase.execute(playlistId));
+//    public void getAllPlaylistsOfUser(UUID userId) {
+//        playlistsStore.clear();
+//        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(userId));
+//
+//        if(playlistsStore.getPlaylists().isEmpty()) {
+//            this.updateIndexPlaylist(-1);
+//            return;
+//        }
+//
+//        this.updateIndexPlaylist(0);
+//
+//        this.getAllSongsOfPlaylist(this.playlistsStore.getPlaylists().get(currentPlaylist).getId());
+//
+//    }
 
-        if(songsStore.getSongs().isEmpty()) {
-            this.updateIndexSong(-1);
-            return;
-        }
-
-        this.updateIndexSong(0);
-    }
+//    public void getAllSongsOfPlaylist(UUID playlistId) {
+//        songsStore.clear();
+//        songsStore.addSongs(this.getAllSongsOfPlaylistUseCase.execute(playlistId));
+//
+//        if(songsStore.getSongs().isEmpty()) {
+//            this.updateIndexSong(-1);
+//            return;
+//        }
+//
+//        this.updateIndexSong(0);
+//    }
 
     @FXML
     public void previousSong() {
@@ -325,6 +336,10 @@ public class HomeController implements Initializable {
         timer.cancel();
     }
 
+    @FXML
+    public void createPlaylist(MouseEvent event) throws IOException {
+        ShowModal.getInstance().execute(playlistName, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -332,18 +347,18 @@ public class HomeController implements Initializable {
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
-        listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            if(t1 == null) {
+        listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, oldPlaylist, newPlaylist) -> {
+            if(newPlaylist == null) {
                 this.updateIndexPlaylist(-1);
             }else {
             this.updateIndexPlaylist(listViewPlaylists.getSelectionModel().getSelectedIndex());
-            this.getAllSongsOfPlaylist(t1.getId());
+            this.songsStore.updateAllSongsOfPlaylist(newPlaylist.getId());
             this.updateIndexSong(0);
             }
         });
 
-        listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, playlist, t1) -> {
-            if(t1 == null) {
+        listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSong, newSong) -> {
+            if(newSong == null) {
                 this.updateIndexSong(-1);
 
             }else {
@@ -354,15 +369,25 @@ public class HomeController implements Initializable {
         });
 
 
-//        playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
-//
-//        });
-//
-//        songsStore.addListener((observableValue, oldSongs, newSongs) -> {
-//
-//        });
+        playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
+            if(newPlaylists.isEmpty()) {
+                this.updateIndexPlaylist(-1);
+                return;
+            }
 
-        this.getAllPlaylistsOfUser(userStore.getUser().getId());
+            this.updateIndexPlaylist(0);
+        });
+
+        songsStore.addListener((observableValue, oldSongs, newSongs) -> {
+            if(newSongs.isEmpty()) {
+                this.updateIndexSong(-1);
+                return;
+            }
+
+            this.updateIndexSong(0);
+        });
+
+        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
 
 
     }
