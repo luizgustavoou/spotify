@@ -28,7 +28,7 @@ public class LoginUseCaseImpl implements ILoginUseCase {
         User user = this.userRepository.findUserByUsername(username);
 
         if(!byCryptUseCase.compareContent(password, user.getPassword())) {
-            throw new UnauthorizedException("Erro ao efetuar login: senha incorreta");
+            throw new UnauthorizedException("Senha incorreta ou inválida. Tente novamente");
         }
 
         return user;

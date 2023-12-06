@@ -61,7 +61,7 @@ public class CSVUserRepositoryImpl extends CSVRepositoryImpl<User> implements IU
         Optional<User> user = users.stream().filter(us -> us.getUsername().equals(username)).findFirst();
 
         if(user.isEmpty()) {
-            throw new EntityNotFoundException("Erro ao buscar usuário pelo username: usuário não encontrado.");
+            throw new EntityNotFoundException("Digite um nome de usuário válido.");
         }
         return user.get();
     }
