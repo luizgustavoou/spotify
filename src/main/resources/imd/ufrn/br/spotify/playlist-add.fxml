@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.PlaylistAddController">
+   <children>
+      <TextField fx:id="playlistName" layoutX="75.0" layoutY="107.0" />
+      <Button layoutX="75.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#addPlaylist" prefHeight="26.0" prefWidth="150.0" text="Criar" />
+   </children>
+</AnchorPane>

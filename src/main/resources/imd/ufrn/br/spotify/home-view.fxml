@@ -58,6 +58,11 @@
                   <Font size="10.0" />
                </font>
             </Button>
+            <Button layoutX="3.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#createPlaylist" prefHeight="25.0" prefWidth="90.0" text="Criar playlist">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </left>

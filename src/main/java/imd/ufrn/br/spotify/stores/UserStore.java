@@ -2,6 +2,8 @@ package imd.ufrn.br.spotify.stores;
 
 import imd.ufrn.br.spotify.entities.User;
 
+import java.util.UUID;
+
 public class UserStore {
     private User user;
     private UserStore() {}
@@ -19,5 +21,9 @@ public class UserStore {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public UUID getId() {
+        return this.user.getId();
     }
 }

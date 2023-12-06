@@ -4,4 +4,5 @@ public class TitleViews {
     static public String LOGIN_VIEW = "Login";
     static public String REGISTER_VIEW = "Register";
     static public String HOME_VIEW = "Home";
+    static public String ADD_PLAYLIST_VIEW = "Criar playlist";
 }
