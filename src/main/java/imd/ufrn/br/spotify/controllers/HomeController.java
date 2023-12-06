@@ -104,11 +104,11 @@ public class HomeController implements Initializable {
             return;
         }
 
-        Playlist playlist = new Playlist(strNamePlaylist, userStore.getUser().getId());
+        Playlist playlist = new Playlist(strNamePlaylist, userStore.getId());
 
         this.createPlaylistUseCase.execute(playlist);
 
-        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
 
     }
 
@@ -132,7 +132,7 @@ public class HomeController implements Initializable {
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
-        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
 
     @FXML
@@ -152,7 +152,7 @@ public class HomeController implements Initializable {
         createFolderUseCase.execute(newFolder);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
-        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
 
     @FXML
@@ -168,7 +168,7 @@ public class HomeController implements Initializable {
 
             if(result.get() == ButtonType.OK) {
                 this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
-                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
+                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
             }
 
 
@@ -387,7 +387,7 @@ public class HomeController implements Initializable {
             this.updateIndexSong(0);
         });
 
-        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
+        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
 
 
     }

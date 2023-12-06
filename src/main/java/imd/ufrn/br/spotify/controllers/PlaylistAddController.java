@@ -32,11 +32,11 @@ public class PlaylistAddController {
             return;
         }
 
-        Playlist playlist = new Playlist(strNamePlaylist, userStore.getUser().getId());
+        Playlist playlist = new Playlist(strNamePlaylist, userStore.getId());
 
         this.createPlaylistUseCase.execute(playlist);
 
-        playlistsStore.updateAllPlaylistsOfUser(userStore.getUser().getId());
+        playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
         this.playlistName.setText("");
 
     }
