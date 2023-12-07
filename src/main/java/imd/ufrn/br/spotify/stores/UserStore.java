@@ -26,4 +26,8 @@ public class UserStore {
     public UUID getId() {
         return this.user.getId();
     }
+
+    public String getFullName() {
+        return this.user.getFullName();
+    }
 }

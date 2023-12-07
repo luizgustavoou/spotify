@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -62,6 +63,8 @@ public class HomeController implements Initializable {
     DirectoryChooser directoryChooser = new DirectoryChooser();
 
     // Variáveis da interface
+    @FXML
+    private Text userFullName;
     @FXML
     private ListView<Playlist> listViewPlaylists;
     @FXML
@@ -287,6 +290,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userFullName.setText(userStore.getFullName());
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
