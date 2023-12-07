@@ -71,8 +71,6 @@ public class HomeController implements Initializable {
     @FXML
     private ProgressBar songProgressBar;
     private Timer timer;
-    @FXML
-    private TextField playlistName;
 
 
 
@@ -87,23 +85,6 @@ public class HomeController implements Initializable {
         this.songsStore = SongsStore.getInstance();
         this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
         this.removeSongUseCase = new RemoveSongUseCaseImpl();
-    }
-
-    @FXML
-    public void addPlaylist() {
-        String strNamePlaylist = playlistName.getText();
-
-        if(strNamePlaylist.isEmpty()) {
-            System.out.println("Nome da playlist vázia!");
-            return;
-        }
-
-        Playlist playlist = new Playlist(strNamePlaylist, userStore.getId());
-
-        this.createPlaylistUseCase.execute(playlist);
-
-        this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
-
     }
 
     @FXML
@@ -304,7 +285,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void createPlaylist(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(playlistName, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+        ShowModal.getInstance().execute(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
     }
 
     @Override
