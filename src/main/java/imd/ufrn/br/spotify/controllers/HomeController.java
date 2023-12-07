@@ -39,9 +39,12 @@ import javafx.scene.media.MediaPlayer;
 
 
 public class HomeController implements Initializable {
+    // váriaveis de stores
     private final PlaylistsStore playlistsStore;
     private final SongsStore songsStore;
     private final UserStore userStore;
+
+    // variáveis de funções
     private final ICreateSongUseCase createSongUseCase;
     private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
@@ -50,13 +53,15 @@ public class HomeController implements Initializable {
 
 
     // Variáveis de tocar música
-    FileChooser musicFileChooser = new FileChooser();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
-    private CurrentPlaylist currentPlaylist;
-    private CurrentSong currentSong;
+    private final CurrentPlaylist currentPlaylist;
+    private final CurrentSong currentSong;
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
+
+    // variáveis para abrir o fs
+    FileChooser musicFileChooser = new FileChooser();
+    DirectoryChooser directoryChooser = new DirectoryChooser();
 
     // Variáveis da interface
     @FXML
@@ -66,8 +71,6 @@ public class HomeController implements Initializable {
     @FXML
     private ProgressBar songProgressBar;
     private Timer timer;
-    private TimerTask task;
-
     @FXML
     private TextField playlistName;
 
@@ -278,14 +281,14 @@ public class HomeController implements Initializable {
 
         timer = new Timer();
 
-        task = new TimerTask() {
+        TimerTask task = new TimerTask() {
 
             public void run() {
                 double current = mediaPlayer.getCurrentTime().toSeconds();
                 double end = media.getDuration().toSeconds();
-                songProgressBar.setProgress(current/end);
+                songProgressBar.setProgress(current / end);
 
-                if(current/end == 1) {
+                if (current / end == 1) {
 
                     cancelTimer();
                 }
