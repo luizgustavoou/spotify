@@ -22,7 +22,7 @@
             </Text>
             <ImageView fitHeight="50.0" fitWidth="84.0" layoutX="136.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../imgs/music.png" />
+                  <Image url="@assets/images/music.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
