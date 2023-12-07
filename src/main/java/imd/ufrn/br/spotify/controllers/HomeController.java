@@ -8,9 +8,7 @@ import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
-import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
 import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
-import imd.ufrn.br.spotify.services.song.impl.CreateSongUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.*;
 import imd.ufrn.br.spotify.utils.PathViews;
@@ -39,16 +37,17 @@ import javafx.util.Callback;
 
 
 public class HomeController implements Initializable {
+    // váriaveis controllers
+    SongController songController;
     // váriaveis de stores
     private final PlaylistsStore playlistsStore;
     private final SongsStore songsStore;
     private final UserStore userStore;
 
     // variáveis de funções
-    private final ICreateSongUseCase createSongUseCase;
+
     private final ICreateFolderUseCase createFolderUseCase;
     private final IRemovePlaylistUseCase removePlaylistUseCase;
-    private final IRemoveSongUseCase removeSongUseCase;
 
 
     // Variáveis de tocar música
@@ -75,13 +74,13 @@ public class HomeController implements Initializable {
     public HomeController() {
         this.currentPlaylist = CurrentPlaylist.getInstance();
         this.currentSong = CurrentSong.getInstance();
-        this.createSongUseCase = new CreateSongUseCaseImpl();
         this.createFolderUseCase = new CreateFolderUseCaseImpl();
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
         this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
-        this.removeSongUseCase = new RemoveSongUseCaseImpl();
+
+        this.songController = new SongController();
     }
 
     @FXML
@@ -98,9 +97,8 @@ public class HomeController implements Initializable {
         String name = parts[0];
         String extension = parts[1];
 
-        Song newSong = new Song(name, file.getPath(), playlistId);
 
-        createSongUseCase.execute(newSong);
+        this.songController.create(name, file.getPath(), playlistId);
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
@@ -162,7 +160,7 @@ public class HomeController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.removeSongUseCase.execute(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songController.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
                 this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
             }
 

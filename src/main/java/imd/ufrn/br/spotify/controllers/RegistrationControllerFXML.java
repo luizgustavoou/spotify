@@ -25,10 +25,6 @@ import java.util.ResourceBundle;
 public class RegistrationControllerFXML implements Initializable {
     AuthController authController;
     Navigator navigator;
-
-    @FXML
-    private Button btnLogin;
-
     @FXML
     private TextField fullName;
 
@@ -36,6 +32,7 @@ public class RegistrationControllerFXML implements Initializable {
     private PasswordField password;
 
     private String[] typeUsers = {"FREE", "VIP"};
+
     @FXML
     private ChoiceBox<String> typeUserBox;
 
@@ -44,11 +41,11 @@ public class RegistrationControllerFXML implements Initializable {
 
     @FXML
     private TextField username;
+
     public RegistrationControllerFXML() {
         this.navigator = Navigator.getInstance();
         this.authController = new AuthController();
     }
-
 
     public void register() throws EmptyTextFieldsException, IOException {
         String strUsername = this.username.getText();
