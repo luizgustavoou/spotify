@@ -36,6 +36,7 @@ import java.util.*;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Callback;
 
 
 public class HomeController implements Initializable {
@@ -149,6 +150,7 @@ public class HomeController implements Initializable {
 
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
+
         }
     }
 
@@ -293,6 +295,42 @@ public class HomeController implements Initializable {
         listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
+
+        listViewPlaylists.setCellFactory(new Callback<ListView<Playlist>, ListCell<Playlist>>() {
+            @Override
+            public ListCell<Playlist> call(ListView<Playlist> playlistListView) {
+                return new ListCell<Playlist>() {
+                    @Override
+                    protected void updateItem(Playlist item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+            }
+        });
+
+        listViewSongs.setCellFactory(new Callback<ListView<Song>, ListCell<Song>>() {
+            @Override
+            public ListCell<Song> call(ListView<Song> songListView) {
+                return new ListCell<Song>() {
+                    @Override
+                    protected void updateItem(Song item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+            }
+        });
 
         listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, oldPlaylist, newPlaylist) -> {
             if(newPlaylist == null) {
