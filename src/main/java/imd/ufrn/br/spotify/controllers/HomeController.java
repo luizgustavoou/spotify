@@ -7,25 +7,18 @@ import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
-import imd.ufrn.br.spotify.services.playlist.IFindAllPlaylistOfUserUseCase;
 import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
-import imd.ufrn.br.spotify.services.playlist.impl.FindAllPlaylistOfUserUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
-import imd.ufrn.br.spotify.services.song.IGetAllSongsOfPlaylistUseCase;
 import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
 import imd.ufrn.br.spotify.services.song.impl.CreateSongUseCaseImpl;
-import imd.ufrn.br.spotify.services.song.impl.GetAllSongsOfPlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
-import imd.ufrn.br.spotify.stores.PlaylistsStore;
-import imd.ufrn.br.spotify.stores.SongsStore;
-import imd.ufrn.br.spotify.stores.UserStore;
+import imd.ufrn.br.spotify.stores.*;
 import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.ShowModal;
 import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -49,8 +42,6 @@ public class HomeController implements Initializable {
     private final PlaylistsStore playlistsStore;
     private final SongsStore songsStore;
     private final UserStore userStore;
-    private final IGetAllSongsOfPlaylistUseCase getAllSongsOfPlaylistUseCase;
-    private final IFindAllPlaylistOfUserUseCase findAllPlaylistOfUserUseCase;
     private final ICreateSongUseCase createSongUseCase;
     private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
@@ -61,8 +52,8 @@ public class HomeController implements Initializable {
     // Variáveis de tocar música
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    private int currentPlaylist = -1;
-    private int currentSong = -1;
+    private CurrentPlaylist currentPlaylist;
+    private CurrentSong currentSong;
     private Media media;
     private MediaPlayer mediaPlayer;
     private boolean running;
@@ -83,8 +74,8 @@ public class HomeController implements Initializable {
 
 
     public HomeController() {
-        this.getAllSongsOfPlaylistUseCase = new GetAllSongsOfPlaylistUseCaseImpl();
-        this.findAllPlaylistOfUserUseCase = new FindAllPlaylistOfUserUseCaseImpl();
+        this.currentPlaylist = CurrentPlaylist.getInstance();
+        this.currentSong = CurrentSong.getInstance();
         this.createSongUseCase = new CreateSongUseCaseImpl();
         this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
         this.createFolderUseCase = new CreateFolderUseCaseImpl();
@@ -114,7 +105,7 @@ public class HomeController implements Initializable {
 
     @FXML
     void addSong(MouseEvent event) {
-        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist).getId();
+        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos MP3 (*.mp3)", "*.mp3");
         musicFileChooser.getExtensionFilters().add(extFilter);
         musicFileChooser.setTitle("Escolha uma música");
@@ -137,9 +128,9 @@ public class HomeController implements Initializable {
 
     @FXML
     void addFolder(MouseEvent event) {
-        if(this.currentPlaylist < 0) return;
+        if(this.currentPlaylist.getIndex() < 0) return;
         // TODO: Selecionar o playlistId atual do usuário
-        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist).getId();
+        UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
 
         directoryChooser.setTitle("Escolha um diretório");
         directoryChooser.setInitialDirectory(new java.io.File("."));
@@ -157,17 +148,17 @@ public class HomeController implements Initializable {
 
     @FXML
     void removePlaylist(MouseEvent event)  {
-        if(this.currentPlaylist < 0) return;
+        if(this.currentPlaylist.getIndex() < 0) return;
 
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alerta de confirmação de remoção de playlist");
-            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(currentPlaylist).getName() + " ?");
+            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getName() + " ?");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.get() == ButtonType.OK) {
-                this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+                this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
                 this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
             }
 
@@ -179,18 +170,18 @@ public class HomeController implements Initializable {
 
     @FXML
     void removeSong(MouseEvent event)  {
-        if(this.currentSong < 0) return;
+        if(this.currentSong.getIndex() < 0) return;
 
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alerta de confirmação de remoção de música");
-            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(currentSong).getName() + " ?");
+            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(this.currentSong.getIndex()).getName() + " ?");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.get() == ButtonType.OK) {
-                this.removeSongUseCase.execute(songsStore.getSongs().get(currentSong).getId());
-                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist).getId());
+                this.removeSongUseCase.execute(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
             }
 
         } catch (EntityNotFoundException e) {
@@ -203,23 +194,21 @@ public class HomeController implements Initializable {
     public void updateIndexPlaylist(int index) {
         Platform.runLater(() -> {
             if(playlistsStore.getPlaylists().isEmpty()) {
-                this.currentPlaylist = -1;
+                this.currentPlaylist.setIndex(-1);
                 this.listViewPlaylists.getSelectionModel().select(-1);
                 return;
             }
 
             int newIndex = index % playlistsStore.getPlaylists().size();
-            this.currentPlaylist = newIndex;
+            this.currentPlaylist.setIndex(newIndex);
             this.listViewPlaylists.getSelectionModel().select(newIndex);
         });
-
-
     }
 
     public void updateIndexSong(int index) {
         Platform.runLater(() -> {
             if(songsStore.getSongs().isEmpty()) {
-                this.currentSong = -1;
+                this.currentSong.setIndex(-1);
                 this.listViewSongs.getSelectionModel().select(-1);
                 return;
 
@@ -227,65 +216,39 @@ public class HomeController implements Initializable {
 
             int newIndex = index % songsStore.getSongs().size();
 
-            this.currentSong = newIndex;
+            this.currentSong.setIndex(newIndex);
+
             this.listViewSongs.getSelectionModel().select(newIndex);
         });
 
     }
 
-//    public void getAllPlaylistsOfUser(UUID userId) {
-//        playlistsStore.clear();
-//        playlistsStore.addPlaylists(findAllPlaylistOfUserUseCase.execute(userId));
-//
-//        if(playlistsStore.getPlaylists().isEmpty()) {
-//            this.updateIndexPlaylist(-1);
-//            return;
-//        }
-//
-//        this.updateIndexPlaylist(0);
-//
-//        this.getAllSongsOfPlaylist(this.playlistsStore.getPlaylists().get(currentPlaylist).getId());
-//
-//    }
-
-//    public void getAllSongsOfPlaylist(UUID playlistId) {
-//        songsStore.clear();
-//        songsStore.addSongs(this.getAllSongsOfPlaylistUseCase.execute(playlistId));
-//
-//        if(songsStore.getSongs().isEmpty()) {
-//            this.updateIndexSong(-1);
-//            return;
-//        }
-//
-//        this.updateIndexSong(0);
-//    }
-
     @FXML
     public void previousSong() {
-        if(this.currentSong == -1) return;
-        if(this.currentSong == 0) {
+        if(this.currentSong.getIndex() == -1) return;
+        if(this.currentSong.getIndex() == 0) {
             this.stopMusic();
             this.updateIndexSong(songsStore.getSongs().size() -1);
             this.playMusic();
         }
         else {
             this.stopMusic();
-            this.updateIndexSong(this.currentSong - 1);
+            this.updateIndexSong(this.currentSong.getIndex() - 1);
             this.playMusic();
         }
     }
     @FXML
     public void nextSong() {
-        if(this.currentSong == -1) return;
+        if(this.currentSong.getIndex() == -1) return;
         this.stopMusic();
-        this.updateIndexSong(this.currentSong + 1);
+        this.updateIndexSong(this.currentSong.getIndex() + 1);
         this.playMusic();
     }
 
 
     @FXML
     public void playMedia() {
-        if(this.currentSong == -1) return;
+        if(this.currentSong.getIndex() == -1) return;
         if(this.running == true) {
             this.stopMusic();
         }
@@ -304,7 +267,7 @@ public class HomeController implements Initializable {
 
     public void playMusic() {
         this.running = true;
-        File file = new File(songsStore.getSongs().get(currentSong).getPath());
+        File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
         media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
