@@ -4,18 +4,22 @@ import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
+import imd.ufrn.br.spotify.services.playlist.IUpdatePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
+import imd.ufrn.br.spotify.services.playlist.impl.UpdatePlaylistUseCaseImpl;
 
 import java.util.UUID;
 
 public class PlaylistController {
     private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final IRemovePlaylistUseCase removePlaylistUseCase;
+    private final IUpdatePlaylistUseCase updatePlaylistUseCase;
 
     public PlaylistController() {
         this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
         this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
+        this.updatePlaylistUseCase = new UpdatePlaylistUseCaseImpl();
     }
 
     public Playlist create(String name, UUID userId) {
@@ -26,5 +30,12 @@ public class PlaylistController {
 
     public void remove(UUID id) throws EntityNotFoundException {
         this.removePlaylistUseCase.execute(id);
+    }
+
+    public void update(UUID id, String name, UUID userId) throws EntityNotFoundException {
+        Playlist playlist = new Playlist(id, name, userId);
+
+
+        this.updatePlaylistUseCase.execute(id, playlist);
     }
 }
