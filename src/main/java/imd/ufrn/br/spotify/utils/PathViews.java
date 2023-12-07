@@ -6,4 +6,5 @@ public class PathViews {
     static public String HOME_VIEW = "/imd/ufrn/br/spotify/home-view.fxml";
     static public String ADD_PLAYLIST_VIEW = "/imd/ufrn/br/spotify/playlist-add.fxml";
     static public String UPDATE_PLAYLIST_VIEW = "/imd/ufrn/br/spotify/playlist-edit.fxml";
+    static public String UPDATE_SONG_VIEW = "/imd/ufrn/br/spotify/song-edit.fxml";
 }

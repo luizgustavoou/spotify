@@ -276,6 +276,11 @@ public class HomeControllerFXML implements Initializable {
         ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
     }
 
+    @FXML
+    void updateSong(MouseEvent event) throws IOException {
+        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userFullName.setText(userStore.getFullName());
