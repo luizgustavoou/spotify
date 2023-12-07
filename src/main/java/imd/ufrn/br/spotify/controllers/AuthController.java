@@ -12,8 +12,8 @@ import imd.ufrn.br.spotify.services.user.impl.LoginUseCaseImpl;
 import java.util.Objects;
 
 public class AuthController {
-    ILoginUseCase loginUseCase;
-    ICreateUserUseCase createUserUseCase;
+    private final ILoginUseCase loginUseCase;
+    private final ICreateUserUseCase createUserUseCase;
 
     public AuthController() {
         this.loginUseCase = new LoginUseCaseImpl();

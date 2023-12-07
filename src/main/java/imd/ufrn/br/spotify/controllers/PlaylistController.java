@@ -10,8 +10,8 @@ import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import java.util.UUID;
 
 public class PlaylistController {
-    ICreatePlaylistUseCase createPlaylistUseCase;
-    IRemovePlaylistUseCase removePlaylistUseCase;
+    private final ICreatePlaylistUseCase createPlaylistUseCase;
+    private final IRemovePlaylistUseCase removePlaylistUseCase;
 
     public PlaylistController() {
         this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();

@@ -1,11 +1,8 @@
 package imd.ufrn.br.spotify.controllers;
 
-import imd.ufrn.br.spotify.entities.Folder;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
-import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
-import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
 import imd.ufrn.br.spotify.stores.*;
 import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.ShowModal;
@@ -32,19 +29,16 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Callback;
 
 
-public class HomeController implements Initializable {
+public class HomeControllerFXML implements Initializable {
     // váriaveis controllers
     SongController songController;
     PlaylistController playlistController;
+    FolderController folderController;
+
     // váriaveis de stores
     private final PlaylistsStore playlistsStore;
     private final SongsStore songsStore;
     private final UserStore userStore;
-
-    // variáveis de funções
-
-    private final ICreateFolderUseCase createFolderUseCase;
-
 
     // Variáveis de tocar música
     private final CurrentPlaylist currentPlaylist;
@@ -67,16 +61,16 @@ public class HomeController implements Initializable {
     private ProgressBar songProgressBar;
     private Timer timer;
 
-    public HomeController() {
+    public HomeControllerFXML() {
         this.currentPlaylist = CurrentPlaylist.getInstance();
         this.currentSong = CurrentSong.getInstance();
-        this.createFolderUseCase = new CreateFolderUseCaseImpl();
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
 
         this.songController = new SongController();
         this.playlistController = new PlaylistController();
+        this.folderController = new FolderController();
 
     }
 
@@ -114,9 +108,7 @@ public class HomeController implements Initializable {
         File folder = directoryChooser.showDialog(new Stage());
         if (folder == null) return;
 
-        Folder newFolder = new Folder(folder.getAbsolutePath(), playlistId);
-
-        createFolderUseCase.execute(newFolder);
+        this.folderController.create(folder.getAbsolutePath(), playlistId);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
