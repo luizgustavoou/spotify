@@ -21,10 +21,9 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class LoginController {
+public class LoginControllerFXML {
+    private final AuthController authController;
     private final UserStore userStore;
-
-    private final ILoginUseCase loginUseCase;
 
     Navigator navigator;
 
@@ -40,15 +39,10 @@ public class LoginController {
     @FXML
     private Text msgError;
 
-    private LoginController(ILoginUseCase loginUseCase) {
-        this.loginUseCase = loginUseCase;
-        this.userStore = UserStore.getInstance();
-    }
-
-    public LoginController() {
-        this.loginUseCase = new LoginUseCaseImpl();
+    public LoginControllerFXML() {
         this.navigator = Navigator.getInstance();
         this.userStore = UserStore.getInstance();
+        this.authController = new AuthController();
     }
 
     private void login() {
@@ -56,7 +50,7 @@ public class LoginController {
         String strPassword = password.getText();
 
         try {
-            User user = this.loginUseCase.execute(strUsername, strPassword);
+            User user = this.authController.login(strUsername, strPassword);
 
             userStore.setUser(user);
 
