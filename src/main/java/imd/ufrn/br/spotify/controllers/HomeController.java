@@ -6,9 +6,7 @@ import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
-import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
 import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
-import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.services.song.ICreateSongUseCase;
 import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
@@ -47,7 +45,6 @@ public class HomeController implements Initializable {
 
     // variáveis de funções
     private final ICreateSongUseCase createSongUseCase;
-    private final ICreatePlaylistUseCase createPlaylistUseCase;
     private final ICreateFolderUseCase createFolderUseCase;
     private final IRemovePlaylistUseCase removePlaylistUseCase;
     private final IRemoveSongUseCase removeSongUseCase;
@@ -79,7 +76,6 @@ public class HomeController implements Initializable {
         this.currentPlaylist = CurrentPlaylist.getInstance();
         this.currentSong = CurrentSong.getInstance();
         this.createSongUseCase = new CreateSongUseCaseImpl();
-        this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
         this.createFolderUseCase = new CreateFolderUseCaseImpl();
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
@@ -142,7 +138,7 @@ public class HomeController implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
 
-            if(result.get() == ButtonType.OK) {
+            if(result.isPresent() && result.get() == ButtonType.OK) {
                 this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
                 this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
             }
@@ -165,7 +161,7 @@ public class HomeController implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
 
-            if(result.get() == ButtonType.OK) {
+            if(result.isPresent() && result.get() == ButtonType.OK) {
                 this.removeSongUseCase.execute(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
                 this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
             }
@@ -235,7 +231,7 @@ public class HomeController implements Initializable {
     @FXML
     public void playMedia() {
         if(this.currentSong.getIndex() == -1) return;
-        if(this.running == true) {
+        if(this.running) {
             this.stopMusic();
         }
         else {
@@ -244,11 +240,10 @@ public class HomeController implements Initializable {
     }
 
     public void stopMusic() {
-        if(this.running == false) return;
+        if(!this.running) return;
         this.running = false;
         this.mediaPlayer.stop();
         this.cancelTimer();
-        return;
     }
 
     public void playMusic() {
@@ -296,10 +291,10 @@ public class HomeController implements Initializable {
 
         listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
 
-        listViewPlaylists.setCellFactory(new Callback<ListView<Playlist>, ListCell<Playlist>>() {
+        listViewPlaylists.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Playlist> call(ListView<Playlist> playlistListView) {
-                return new ListCell<Playlist>() {
+                return new ListCell<>() {
                     @Override
                     protected void updateItem(Playlist item, boolean empty) {
                         super.updateItem(item, empty);
@@ -314,10 +309,10 @@ public class HomeController implements Initializable {
             }
         });
 
-        listViewSongs.setCellFactory(new Callback<ListView<Song>, ListCell<Song>>() {
+        listViewSongs.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Song> call(ListView<Song> songListView) {
-                return new ListCell<Song>() {
+                return new ListCell<>() {
                     @Override
                     protected void updateItem(Song item, boolean empty) {
                         super.updateItem(item, empty);
