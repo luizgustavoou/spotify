@@ -11,15 +11,6 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.HomeController">
-   <top>
-      <AnchorPane prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: fff; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #fff;" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-cursor: hand;" text="Arquivo" />
-            <Button layoutX="58.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-cursor: hand;" text="Editar" />
-            <Button layoutX="105.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-cursor: hand;" text="Ver" />
-         </children>
-      </AnchorPane>
-   </top>
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #333; -fx-border-color: #333; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
          <children>
@@ -35,11 +26,20 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/images/play_pause.png" />
+                        <Image url="@assets/images/pause.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button layoutX="95.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#nextSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;">
+            <Button layoutX="92.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#playMedia" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/images/play.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="128.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#nextSong" style="-fx-background-radius: 100; -fx-background-color: #fff; -fx-cursor: hand;">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +47,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <ProgressBar fx:id="songProgressBar" layoutX="143.0" layoutY="10.0" prefHeight="20.0" prefWidth="540.0" progress="0.0" />
+            <ProgressBar fx:id="songProgressBar" layoutX="172.0" layoutY="10.0" prefHeight="20.0" prefWidth="511.0" progress="0.0" />
          </children>
       </AnchorPane>
    </bottom>
@@ -111,7 +111,7 @@
             <AnchorPane prefHeight="435.0" prefWidth="243.0" style="-fx-background-color: #333; -fx-border-color: #444; -fx-border-width: 0px 1px 0px 0px;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musicas" />
-                  <ListView fx:id="listViewSongs" layoutX="14.0" layoutY="41.0" prefHeight="385.0" prefWidth="200.0" />
+                  <ListView fx:id="listViewSongs" layoutX="14.0" layoutY="41.0" prefHeight="419.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </left>
@@ -119,7 +119,7 @@
             <AnchorPane prefHeight="435.0" prefWidth="258.0" style="-fx-background-color: #333; -fx-border-width: 0px 0px 0px 1px; -fx-border-color: #444;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
-                  <ListView fx:id="listViewPlaylists" layoutX="14.0" layoutY="41.0" prefHeight="385.0" prefWidth="200.0" />
+                  <ListView fx:id="listViewPlaylists" layoutX="14.0" layoutY="41.0" prefHeight="419.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </center>
