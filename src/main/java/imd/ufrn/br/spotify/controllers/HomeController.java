@@ -56,7 +56,6 @@ public class HomeController implements Initializable {
     private final CurrentSong currentSong;
     private Media media;
     private MediaPlayer mediaPlayer;
-    private boolean running;
 
     // variáveis para abrir o fs
     FileChooser musicFileChooser = new FileChooser();
@@ -72,8 +71,6 @@ public class HomeController implements Initializable {
     @FXML
     private ProgressBar songProgressBar;
     private Timer timer;
-
-
 
     public HomeController() {
         this.currentPlaylist = CurrentPlaylist.getInstance();
@@ -227,6 +224,7 @@ public class HomeController implements Initializable {
         if(this.currentSong.getIndex() == -1) return;
         this.stopMusic();
         this.updateIndexSong(this.currentSong.getIndex() + 1);
+        this.updateIndexSong(this.currentSong.getIndex() + 1);
         this.playMusic();
     }
 
@@ -234,7 +232,7 @@ public class HomeController implements Initializable {
     @FXML
     public void playMedia() {
         if(this.currentSong.getIndex() == -1) return;
-        if(this.running) {
+        if(this.mediaPlayer != null && this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             this.stopMusic();
         }
         else {
@@ -243,14 +241,12 @@ public class HomeController implements Initializable {
     }
 
     public void stopMusic() {
-        if(!this.running) return;
-        this.running = false;
+        if(this.mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING) return;
         this.mediaPlayer.stop();
         this.cancelTimer();
     }
 
     public void playMusic() {
-        this.running = true;
         File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
         media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -372,7 +368,5 @@ public class HomeController implements Initializable {
         });
 
         this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
-
-
     }
 }
