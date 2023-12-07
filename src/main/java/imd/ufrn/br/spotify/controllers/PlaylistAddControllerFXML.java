@@ -1,24 +1,21 @@
 package imd.ufrn.br.spotify.controllers;
 
-import imd.ufrn.br.spotify.entities.Playlist;
-import imd.ufrn.br.spotify.services.playlist.ICreatePlaylistUseCase;
-import imd.ufrn.br.spotify.services.playlist.impl.CreatePlaylistUseCaseImpl;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
 import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class PlaylistAddController {
+public class PlaylistAddControllerFXML {
 
-    ICreatePlaylistUseCase createPlaylistUseCase;
+    PlaylistController playlistController;
     UserStore userStore;
     PlaylistsStore playlistsStore;
 
-    public PlaylistAddController() {
-        this.createPlaylistUseCase = new CreatePlaylistUseCaseImpl();
+    public PlaylistAddControllerFXML() {
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
+        this.playlistController = new PlaylistController();
     }
     @FXML
     private TextField playlistName;
@@ -32,9 +29,8 @@ public class PlaylistAddController {
             return;
         }
 
-        Playlist playlist = new Playlist(strNamePlaylist, userStore.getId());
 
-        this.createPlaylistUseCase.execute(playlist);
+        this.playlistController.create(strNamePlaylist, userStore.getId());
 
         playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
         this.playlistName.setText("");

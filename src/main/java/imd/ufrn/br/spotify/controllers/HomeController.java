@@ -6,10 +6,6 @@ import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.services.folder.ICreateFolderUseCase;
 import imd.ufrn.br.spotify.services.folder.impl.CreateFolderUseCaseImpl;
-import imd.ufrn.br.spotify.services.playlist.IRemovePlaylistUseCase;
-import imd.ufrn.br.spotify.services.playlist.impl.RemovePlaylistUseCaseImpl;
-import imd.ufrn.br.spotify.services.song.IRemoveSongUseCase;
-import imd.ufrn.br.spotify.services.song.impl.RemoveSongUseCaseImpl;
 import imd.ufrn.br.spotify.stores.*;
 import imd.ufrn.br.spotify.utils.PathViews;
 import imd.ufrn.br.spotify.utils.ShowModal;
@@ -39,6 +35,7 @@ import javafx.util.Callback;
 public class HomeController implements Initializable {
     // váriaveis controllers
     SongController songController;
+    PlaylistController playlistController;
     // váriaveis de stores
     private final PlaylistsStore playlistsStore;
     private final SongsStore songsStore;
@@ -47,7 +44,6 @@ public class HomeController implements Initializable {
     // variáveis de funções
 
     private final ICreateFolderUseCase createFolderUseCase;
-    private final IRemovePlaylistUseCase removePlaylistUseCase;
 
 
     // Variáveis de tocar música
@@ -78,9 +74,10 @@ public class HomeController implements Initializable {
         this.userStore = UserStore.getInstance();
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
-        this.removePlaylistUseCase = new RemovePlaylistUseCaseImpl();
 
         this.songController = new SongController();
+        this.playlistController = new PlaylistController();
+
     }
 
     @FXML
@@ -137,7 +134,7 @@ public class HomeController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.removePlaylistUseCase.execute(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
+                this.playlistController.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
                 this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
             }
 
