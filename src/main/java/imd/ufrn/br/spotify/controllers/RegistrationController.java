@@ -64,8 +64,17 @@ public class RegistrationController implements Initializable {
         String strFullName = this.fullName.getText();
         String strTypeUser = this.typeUserBox.getValue();
 
-        if(strUsername.isEmpty() || strPassword.isEmpty() || strFullName.isEmpty() || strTypeUser == null) {
-            throw new EmptyTextFieldsException("Algum campo está vazio!");
+        if(strFullName.isEmpty()){
+            throw new EmptyTextFieldsException("Digite um nome completo válido.");
+        }
+        else if(strUsername.isEmpty()) {
+            throw new EmptyTextFieldsException("Cadastre um nome de usuário válido.");
+        }
+        else if(strPassword.isEmpty()){
+            throw new EmptyTextFieldsException("Digite uma senha válida.");
+        }
+        else if(strTypeUser == null){
+            throw new EmptyTextFieldsException("Escolha um tipo de usuário");
         }
 
         User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"));
