@@ -11,3 +11,4 @@ ef549caf-41a3-45b3-8d8e-f83d6c54d073,Playlist Padrão,1fd2c753-8caf-4645-97c0-94
 813db78f-f38c-437c-b10f-6594b2910684,playlist legal,81d101a8-3192-4f70-9873-bc9c80220115
 f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9,Playlist Padrão,f709beea-0cc4-4cdb-b006-d05be279527a
 816e4254-dc89-4af6-ae59-e33f0cf071d2,Playlist bagaceira,f709beea-0cc4-4cdb-b006-d05be279527a
+ecc32332-9daf-4528-b0be-2c46549d446c,Playlist Padrão,28394cac-ad9a-4c09-9a34-1b63fa9e9131

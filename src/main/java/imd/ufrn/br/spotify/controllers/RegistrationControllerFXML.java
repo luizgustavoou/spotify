@@ -2,8 +2,6 @@ package imd.ufrn.br.spotify.controllers;
 
 import imd.ufrn.br.spotify.entities.User;
 import imd.ufrn.br.spotify.exceptions.EmptyTextFieldsException;
-import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
-import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
 import imd.ufrn.br.spotify.services.user.ICreateUserUseCase;
 import imd.ufrn.br.spotify.services.user.impl.CreateUserUseCaseImpl;
 
@@ -23,9 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
-public class RegistrationController implements Initializable {
+public class RegistrationControllerFXML implements Initializable {
+    AuthController authController;
     Navigator navigator;
 
     @FXML
@@ -46,15 +44,9 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private TextField username;
-    private final ICreateUserUseCase createUserUseCase;
-
-    public RegistrationController(ICreateUserUseCase createUserUseCase, Navigator navigator) {
-        this.createUserUseCase = createUserUseCase;
-        this.navigator = navigator;
-    }
-    public RegistrationController() {
-        this.createUserUseCase = new CreateUserUseCaseImpl();
+    public RegistrationControllerFXML() {
         this.navigator = Navigator.getInstance();
+        this.authController = new AuthController();
     }
 
 
@@ -64,27 +56,11 @@ public class RegistrationController implements Initializable {
         String strFullName = this.fullName.getText();
         String strTypeUser = this.typeUserBox.getValue();
 
-        if(strFullName.isEmpty()){
-            throw new EmptyTextFieldsException("Digite um nome completo válido.");
-        }
-        else if(strUsername.isEmpty()) {
-            throw new EmptyTextFieldsException("Cadastre um nome de usuário válido.");
-        }
-        else if(strPassword.isEmpty()){
-            throw new EmptyTextFieldsException("Digite uma senha válida.");
-        }
-        else if(strTypeUser == null){
-            throw new EmptyTextFieldsException("Escolha um tipo de usuário");
-        }
+        this.authController.register(strUsername, strPassword, strFullName, strTypeUser);
 
-        User user = new User(strUsername, strPassword, strFullName, Objects.equals(strTypeUser, "VIP"));
-
-        this.createUserUseCase.execute(user);
         this.formClear();
 
         navigator.to(username, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
-
-
     }
 
     private void formClear() {

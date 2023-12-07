@@ -11,3 +11,4 @@ d2add4ac-5509-45ef-87a5-d6c407f29a30,joaozin62,$2a$10$UZ3k6e4pFuxs5HNhQjAiZum/sK
 7331db73-3c7a-4b3b-946f-295fcde29a68,Pato Agiota Maromba91,$2a$10$sH.HREsr8MOT2wzWPB4nN.9ZBCYD3PE3WBJYN1KPCB1eRsfOScwUi,Pato Agiota Maromba Silva Da Costa Pereira,0
 e51c36cc-3ccb-45de-81dc-d907192557cf,PATO,$2a$10$DjYErowkW7PS7x09qkat6eaA35bILf/jPqH4ZjTi91qXhIAyz4zfS,PATO,1
 f709beea-0cc4-4cdb-b006-d05be279527a,teste2,$2a$10$EL7b1gD6E7Q2hzqkwvwbYOlxMhFTzWNd8KvMMGHSg3isrjrStj8xm,teste2,1
+28394cac-ad9a-4c09-9a34-1b63fa9e9131,teste3,$2a$10$MqYWPM3h8p/lIo06L.Hv6eyGBeo/j4EKPm5IdK4Hw7oVwOvv854hW,teste3,1
