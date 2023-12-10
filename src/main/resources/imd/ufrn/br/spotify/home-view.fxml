@@ -22,7 +22,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button layoutX="54.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#playMedia" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;">
+            <Button layoutX="54.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#pauseMedia" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -32,7 +32,7 @@
                </graphic></Button>
             <Button layoutX="92.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#playMedia" style="-fx-background-radius: 500; -fx-background-color: #fff; -fx-cursor: hand;">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="18.0" onMouseClicked="#playMedia" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/images/play.png" />
                      </image>

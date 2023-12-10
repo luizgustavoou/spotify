@@ -196,47 +196,55 @@ public class HomeControllerFXML implements Initializable {
     public void previousSong() {
         if(this.currentSong.getIndex() == -1) return;
         if(this.currentSong.getIndex() == 0) {
-            this.stopMusic();
             this.updateIndexSong(songsStore.getSongs().size() -1);
-            this.playMusic();
+            this.startMusicPlayback();
         }
         else {
-            this.stopMusic();
             this.updateIndexSong(this.currentSong.getIndex() - 1);
-            this.playMusic();
+            this.startMusicPlayback();
         }
     }
     @FXML
     public void nextSong() {
         if(this.currentSong.getIndex() == -1) return;
 
-        this.stopMusic();
+
         this.updateIndexSong(this.currentSong.getIndex() + 1);
-        this.playMusic();
+        this.startMusicPlayback();
     }
 
 
     @FXML
     public void playMedia() {
         if(this.currentSong.getIndex() == -1) return;
-        if(this.mediaPlayer != null && this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            this.stopMusic();
-        }
-        else {
-            this.playMusic();
+
+        this.startMusicPlayback();
+
+    }
+
+    @FXML
+    public void pauseMedia() {
+        if(this.mediaPlayer == null) return;
+
+        if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+            this.mediaPlayer.play();
+        }else if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            this.mediaPlayer.pause();
         }
     }
 
-    public void stopMusic() {
+    public void stopMedia() {
         if(this.mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING) return;
         this.mediaPlayer.stop();
         this.cancelTimer();
     }
 
-    public void playMusic() {
+    public void startMusicPlayback() {
         Platform.runLater(() -> {
-            System.out.println(songsStore.getSongs());
-            System.out.println(currentSong.getIndex());
+            if(this.mediaPlayer != null && this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                this.stopMedia();
+            }
+
             File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
             media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
