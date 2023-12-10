@@ -8,3 +8,7 @@ b1a8ec9f-3145-46b5-a252-861cb39c5f25,musica metalzao 2,caminho2,ab2acce0-30ca-4a
 4f2568d8-edc5-4687-9591-5f5e4490b5a1,360ytmp3,D:\Biblioteca\Downloads\360ytmp3.com_320kbps-ac-dc-thunderstruck-official-video.mp3,f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9
 cdf43972-dc16-49e8-b0bf-056480194be9,thunderstruck,C:\Users\luizg\OneDrive\Desktop\testmusicas\thunderstruck.mp3,9f989e7a-eb8d-418f-8e39-5dae1831705f
 a6c0c71f-257d-4d94-afc6-d82d445bdaa0,luftballons,C:\Users\luizg\OneDrive\Desktop\testmusicas\luftballons.mp3,9f989e7a-eb8d-418f-8e39-5dae1831705f
+127a59a0-fb26-4745-8a07-433d74e92da0,thunderstruck,C:\Users\luizg\OneDrive\Desktop\testmusicas\thunderstruck.mp3,5f19f2a7-5bdc-4f7e-a148-a1ada9b11432
+b916b017-00ef-416a-817d-78072fe672ef,luftballons,C:\Users\luizg\OneDrive\Desktop\testmusicas\luftballons.mp3,5f19f2a7-5bdc-4f7e-a148-a1ada9b11432
+56699072-98a9-4bda-be1d-f318f68f5670,sample-9s,C:\Users\luizg\OneDrive\Desktop\sample-9s.mp3,19ad6874-8836-4519-84d3-dd73a29afd01
+23695c30-9bad-4788-93e0-1503b7bc0431,sample-12s,C:\Users\luizg\OneDrive\Desktop\sample-12s.mp3,19ad6874-8836-4519-84d3-dd73a29afd01

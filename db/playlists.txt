@@ -13,3 +13,6 @@ f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9,Playlist Padrão,f709beea-0cc4-4cdb-b006-d0
 ecc32332-9daf-4528-b0be-2c46549d446c,Playlist Padrão,28394cac-ad9a-4c09-9a34-1b63fa9e9131
 83970d44-9822-4e17-bb3b-48bb9f8524d8,playlist ida,81d101a8-3192-4f70-9873-bc9c80220115
 9f989e7a-eb8d-418f-8e39-5dae1831705f,Playlist top,81d101a8-3192-4f70-9873-bc9c80220115
+ebacf406-a9bf-427a-9907-26ee0d5284ef,Playlist Padrão,dfeab936-56ca-404e-810d-3ad9445aa0d4
+5f19f2a7-5bdc-4f7e-a148-a1ada9b11432,Músicas internacionais,dfeab936-56ca-404e-810d-3ad9445aa0d4
+19ad6874-8836-4519-84d3-dd73a29afd01,Playlist Padrão,a4507316-4e29-43ac-9ac9-265267aae8bb

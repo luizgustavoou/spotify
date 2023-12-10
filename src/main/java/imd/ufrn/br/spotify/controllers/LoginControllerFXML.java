@@ -54,7 +54,13 @@ public class LoginControllerFXML {
 
             userStore.setUser(user);
 
-            this.navigator.to(btnLogin, TitleViews.HOME_VIEW, PathViews.HOME_VIEW);
+            if(userStore.getIsVip()) {
+                this.navigator.to(btnLogin, TitleViews.VIP_HOME_VIEW, PathViews.VIP_HOME_VIEW);
+
+            }else {
+                this.navigator.to(btnLogin, TitleViews.FREE_HOME_VIEW, PathViews.FREE_HOME_VIEW);
+            }
+
 
         } catch (EntityNotFoundException e) {
             msgError.setVisible(true);

@@ -30,4 +30,8 @@ public class UserStore {
     public String getFullName() {
         return this.user.getFullName();
     }
+
+    public Boolean getIsVip() {
+        return this.user.getVip();
+    }
 }
