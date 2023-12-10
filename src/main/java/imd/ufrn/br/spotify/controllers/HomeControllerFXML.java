@@ -250,6 +250,9 @@ public class HomeControllerFXML implements Initializable {
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();
             this.beginTimer();
+
+            this.mediaPlayer.setOnEndOfMedia(this::nextSong);
+
         });
 
     }
@@ -378,5 +381,7 @@ public class HomeControllerFXML implements Initializable {
         });
 
         this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
+
+
     }
 }
