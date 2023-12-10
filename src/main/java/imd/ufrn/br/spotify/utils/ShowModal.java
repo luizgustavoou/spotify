@@ -29,7 +29,9 @@ public class ShowModal {
         Stage dialog = new Stage();
 
 
-        dialog.setScene(new Scene(root, 300, 300));
+        Scene scene = new Scene(root, 300, 300);
+
+        dialog.setScene(scene);
 
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
