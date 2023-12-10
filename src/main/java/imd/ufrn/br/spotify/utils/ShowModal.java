@@ -21,7 +21,7 @@ public class ShowModal {
 
         return instance;
     }
-    public void execute(Node node, String title, String viewPath) throws IOException {
+    public Stage configure(Node node, String title, String viewPath) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
         Parent root = fxmlLoader.load();
 
@@ -37,6 +37,11 @@ public class ShowModal {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setTitle(title);
         dialog.setResizable(false);
-        dialog.showAndWait();
+
+        return dialog;
+    }
+
+    public void execute(Stage stage) {
+        stage.showAndWait();
     }
 }

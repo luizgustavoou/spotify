@@ -200,19 +200,22 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     public void createPlaylist(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
 
+        ShowModal.getInstance().execute(dialog);
         System.out.println("blz");
     }
 
     @FXML
     public void updatePlaylist(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
+        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
+        ShowModal.getInstance().execute(dialog);
     }
 
     @FXML
     void updateSong(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
+        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
+        ShowModal.getInstance().execute(dialog);
     }
 
     // Funções de lógica
