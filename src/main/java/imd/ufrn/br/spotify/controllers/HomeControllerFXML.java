@@ -50,7 +50,7 @@ public class HomeControllerFXML implements Initializable {
     FileChooser musicFileChooser = new FileChooser();
     DirectoryChooser directoryChooser = new DirectoryChooser();
 
-    // Variáveis da interface
+    // Variáveis da interface FXML
     @FXML
     private Text userFullName;
     @FXML
@@ -74,6 +74,7 @@ public class HomeControllerFXML implements Initializable {
 
     }
 
+    // Funções da interface XML
     @FXML
     void addSong(MouseEvent event) {
         UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
@@ -98,8 +99,8 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     void addFolder(MouseEvent event) {
-        if(this.currentPlaylist.getIndex() < 0) return;
-        // TODO: Selecionar o playlistId atual do usuário
+        if(this.hasNotSong()) return;
+
         UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
 
         directoryChooser.setTitle("Escolha um diretório");
@@ -116,7 +117,7 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     void removePlaylist(MouseEvent event)  {
-        if(this.currentPlaylist.getIndex() < 0) return;
+        if(this.hasNotPlaylist()) return;
 
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -139,7 +140,7 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     void removeSong(MouseEvent event)  {
-        if(this.currentSong.getIndex() < 0) return;
+        if(this.hasNotSong()) return;
 
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -158,6 +159,72 @@ public class HomeControllerFXML implements Initializable {
         }
 
 
+    }
+
+    @FXML
+    public void previousSong() {
+        if(this.hasNotSong()) return;
+
+        if(this.currentSong.getIndex() == 0) {
+            this.updateIndexSong(songsStore.getSongs().size() -1);
+            this.startMusicPlayback();
+        }
+        else {
+            this.updateIndexSong(this.currentSong.getIndex() - 1);
+            this.startMusicPlayback();
+        }
+    }
+    @FXML
+    public void nextSong() {
+        if(this.hasNotSong()) return;
+
+        this.updateIndexSong(this.currentSong.getIndex() + 1);
+        this.startMusicPlayback();
+    }
+
+
+    @FXML
+    public void playMedia() {
+        if(this.hasNotSong()) return;
+
+        this.startMusicPlayback();
+
+    }
+
+    @FXML
+    public void pauseMedia() {
+        if(this.mediaPlayer == null) return;
+
+        if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+            this.mediaPlayer.play();
+        }else if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            this.mediaPlayer.pause();
+        }
+    }
+
+    @FXML
+    public void createPlaylist(MouseEvent event) throws IOException {
+        ShowModal.getInstance().execute(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+    }
+
+    @FXML
+    public void updatePlaylist(MouseEvent event) throws IOException {
+        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
+    }
+
+    @FXML
+    void updateSong(MouseEvent event) throws IOException {
+        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
+    }
+
+    // Funções de lógica
+
+    public boolean hasNotSong() {
+        return this.songsStore.getSongs().isEmpty();
+    }
+
+    public boolean hasNotPlaylist() {
+        return this.playlistsStore.getPlaylists().isEmpty();
     }
 
     public void updateIndexPlaylist(int index) {
@@ -192,49 +259,9 @@ public class HomeControllerFXML implements Initializable {
 
     }
 
-    @FXML
-    public void previousSong() {
-        if(this.currentSong.getIndex() == -1) return;
-        if(this.currentSong.getIndex() == 0) {
-            this.updateIndexSong(songsStore.getSongs().size() -1);
-            this.startMusicPlayback();
-        }
-        else {
-            this.updateIndexSong(this.currentSong.getIndex() - 1);
-            this.startMusicPlayback();
-        }
-    }
-    @FXML
-    public void nextSong() {
-        if(this.currentSong.getIndex() == -1) return;
-
-
-        this.updateIndexSong(this.currentSong.getIndex() + 1);
-        this.startMusicPlayback();
-    }
-
-
-    @FXML
-    public void playMedia() {
-        if(this.currentSong.getIndex() == -1) return;
-
-        this.startMusicPlayback();
-
-    }
-
-    @FXML
-    public void pauseMedia() {
-        if(this.mediaPlayer == null) return;
-
-        if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
-            this.mediaPlayer.play();
-        }else if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            this.mediaPlayer.pause();
-        }
-    }
-
     public void stopMedia() {
         if(this.mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING) return;
+
         this.mediaPlayer.stop();
         this.cancelTimer();
     }
@@ -282,20 +309,6 @@ public class HomeControllerFXML implements Initializable {
         timer.cancel();
     }
 
-    @FXML
-    public void createPlaylist(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
-    }
-
-    @FXML
-    public void updatePlaylist(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
-    }
-
-    @FXML
-    void updateSong(MouseEvent event) throws IOException {
-        ShowModal.getInstance().execute(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
