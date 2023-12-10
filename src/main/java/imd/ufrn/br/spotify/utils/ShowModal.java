@@ -28,11 +28,13 @@ public class ShowModal {
         Stage parentStage = (Stage) node.getScene().getWindow();
         Stage dialog = new Stage();
 
+
+        dialog.setScene(new Scene(root, 300, 300));
+
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setTitle(title);
         dialog.setResizable(false);
-        dialog.setScene(new Scene(root, 300, 300));
         dialog.showAndWait();
     }
 }

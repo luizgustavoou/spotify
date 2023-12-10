@@ -23,6 +23,9 @@ public class Navigator {
 
     public void to(Node node, String title, String viewPath) throws IOException {
         Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+
+        Stage primaryStage = new Stage();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
 
@@ -30,8 +33,9 @@ public class Navigator {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle(title);
-        stage.setScene(scene);
+        primaryStage.setTitle(title);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 }
