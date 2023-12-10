@@ -246,7 +246,7 @@ public class HomeControllerFXML implements Initializable {
 
     public void updateIndexPlaylist(int index) {
         Platform.runLater(() -> {
-            if(playlistsStore.getPlaylists().isEmpty()) {
+            if(hasNotPlaylist()) {
                 this.currentPlaylist.setIndex(-1);
                 this.listViewPlaylists.getSelectionModel().select(-1);
                 return;
@@ -259,7 +259,7 @@ public class HomeControllerFXML implements Initializable {
     }
 
     public void updateIndexSong(int index) {
-        if(songsStore.getSongs().isEmpty()) {
+        if(hasNotSong()) {
             this.currentSong.setIndex(-1);
             this.listViewSongs.getSelectionModel().select(-1);
             return;
