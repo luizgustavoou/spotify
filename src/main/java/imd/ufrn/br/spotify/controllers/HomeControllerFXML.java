@@ -209,8 +209,8 @@ public class HomeControllerFXML implements Initializable {
     @FXML
     public void nextSong() {
         if(this.currentSong.getIndex() == -1) return;
+
         this.stopMusic();
-        this.updateIndexSong(this.currentSong.getIndex() + 1);
         this.updateIndexSong(this.currentSong.getIndex() + 1);
         this.playMusic();
     }
@@ -234,11 +234,16 @@ public class HomeControllerFXML implements Initializable {
     }
 
     public void playMusic() {
-        File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
-        media = new Media(file.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-        this.beginTimer();
+        Platform.runLater(() -> {
+            System.out.println(songsStore.getSongs());
+            System.out.println(currentSong.getIndex());
+            File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
+            media = new Media(file.toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+            this.beginTimer();
+        });
+
     }
 
     public void beginTimer() {

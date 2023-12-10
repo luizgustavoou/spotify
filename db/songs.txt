@@ -6,4 +6,3 @@ b1a8ec9f-3145-46b5-a252-861cb39c5f25,musica metalzao 2,caminho2,ab2acce0-30ca-4a
 3c8b49b6-0510-45e3-8e96-0c9afc6a5e26,James_Bond_007_Theme_Tune.mp3,C:\Users\Joab\Desktop\teste\James_Bond_007_Theme_Tune.mp3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 85c5d9a2-b5c1-4e87-9a63-450cefa209f0,James_Bond_007_Theme_Tune,C:\Users\Joab\Desktop\teste\James_Bond_007_Theme_Tune.mp3,ab2acce0-30ca-4aa9-98cb-315781d0c2b9
 4f2568d8-edc5-4687-9591-5f5e4490b5a1,360ytmp3,D:\Biblioteca\Downloads\360ytmp3.com_320kbps-ac-dc-thunderstruck-official-video.mp3,f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9
-ecb6a5c4-c34c-4b04-b856-8adbf5f21147,thunders,D:\Biblioteca\Downloads\360ytmp3.com_320kbps-ac-dc-thunderstruck-official-video.mp3,83970d44-9822-4e17-bb3b-48bb9f8524d8
