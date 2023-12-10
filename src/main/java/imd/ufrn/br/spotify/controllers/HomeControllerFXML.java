@@ -167,11 +167,11 @@ public class HomeControllerFXML implements Initializable {
 
         if(this.currentSong.getIndex() == 0) {
             this.updateIndexSong(songsStore.getSongs().size() -1);
-            this.startMusicPlayback();
+            this.startPlayback();
         }
         else {
             this.updateIndexSong(this.currentSong.getIndex() - 1);
-            this.startMusicPlayback();
+            this.startPlayback();
         }
     }
     @FXML
@@ -179,7 +179,7 @@ public class HomeControllerFXML implements Initializable {
         if(this.hasNotSong()) return;
 
         this.updateIndexSong(this.currentSong.getIndex() + 1);
-        this.startMusicPlayback();
+        this.startPlayback();
     }
 
 
@@ -187,7 +187,7 @@ public class HomeControllerFXML implements Initializable {
     public void playMedia() {
         if(this.hasNotSong()) return;
 
-        this.startMusicPlayback();
+        this.startPlayback();
 
     }
 
@@ -259,17 +259,17 @@ public class HomeControllerFXML implements Initializable {
 
     }
 
-    public void stopMedia() {
+    public void stopPlayBack() {
         if(this.mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING) return;
 
         this.mediaPlayer.stop();
         this.cancelTimer();
     }
 
-    public void startMusicPlayback() {
+    public void startPlayback() {
         Platform.runLater(() -> {
             if(this.mediaPlayer != null && this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                this.stopMedia();
+                this.stopPlayBack();
             }
 
             File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
