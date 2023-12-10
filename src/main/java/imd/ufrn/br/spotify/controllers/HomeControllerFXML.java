@@ -29,7 +29,8 @@ import javafx.util.Callback;
 
 
 public class HomeControllerFXML implements Initializable {
-    private PlayerImpl playerImpl = new PlayerImpl(this::beginTimer, this::cancelTimer);
+    private final PlayerImpl playerImpl = new PlayerImpl(this::beginTimer, this::cancelTimer);
+
     // váriaveis controllers
     SongController songController;
     PlaylistController playlistController;
@@ -183,14 +184,11 @@ public class HomeControllerFXML implements Initializable {
 
         this.playerImpl.nextSong();
         this.updateIndexSong(this.currentSong.getIndex() + 1);
-
-
     }
 
     @FXML
     public void playMedia() {
         this.playerImpl.playMedia();
-
     }
 
     @FXML
@@ -209,6 +207,8 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     public void updatePlaylist(MouseEvent event) throws IOException {
+        if(hasNotPlaylist()) return;
+
         ShowModal showModal = new ShowModal();
 
         Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
@@ -222,6 +222,8 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     void updateSong(MouseEvent event) throws IOException {
+        if(hasNotSong()) return;
+
         ShowModal showModal = new ShowModal();
 
         Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
