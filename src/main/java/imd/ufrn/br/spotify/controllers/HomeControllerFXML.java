@@ -1,5 +1,6 @@
 package imd.ufrn.br.spotify.controllers;
 
+import imd.ufrn.br.spotify.PlayerImpl;
 import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
@@ -24,12 +25,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Callback;
 
 
 public class HomeControllerFXML implements Initializable {
+    private PlayerImpl playerImpl = new PlayerImpl(this::beginTimer, this::cancelTimer);
     // váriaveis controllers
     SongController songController;
     PlaylistController playlistController;
@@ -43,8 +43,6 @@ public class HomeControllerFXML implements Initializable {
     // Variáveis de tocar música
     private final CurrentPlaylist currentPlaylist;
     private final CurrentSong currentSong;
-    private Media media;
-    private MediaPlayer mediaPlayer;
 
     // variáveis para abrir o fs
     FileChooser musicFileChooser = new FileChooser();
@@ -161,50 +159,50 @@ public class HomeControllerFXML implements Initializable {
 
     }
 
+    public void startMusicPlayback() {
+        Platform.runLater(() -> {
+            this.playerImpl.startMusicPlayback();
+        });
+    }
+
     @FXML
     public void previousSong() {
         if(this.hasNotSong()) return;
 
+        this.playerImpl.previousSong();
         if(this.currentSong.getIndex() == 0) {
             this.updateIndexSong(songsStore.getSongs().size() -1);
-            this.startPlayback();
         }
         else {
             this.updateIndexSong(this.currentSong.getIndex() - 1);
-            this.startPlayback();
         }
     }
     @FXML
     public void nextSong() {
         if(this.hasNotSong()) return;
 
+        this.playerImpl.nextSong();
         this.updateIndexSong(this.currentSong.getIndex() + 1);
-        this.startPlayback();
-    }
 
+
+    }
 
     @FXML
     public void playMedia() {
-        if(this.hasNotSong()) return;
-
-        this.startPlayback();
+        this.playerImpl.playMedia();
 
     }
 
     @FXML
     public void pauseMedia() {
-        if(this.mediaPlayer == null) return;
-
-        if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
-            this.mediaPlayer.play();
-        }else if(this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            this.mediaPlayer.pause();
-        }
+        this.playerImpl.pauseMedia();
     }
 
     @FXML
     public void createPlaylist(MouseEvent event) throws IOException {
         ShowModal.getInstance().execute(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+
+        System.out.println("blz");
     }
 
     @FXML
@@ -242,46 +240,18 @@ public class HomeControllerFXML implements Initializable {
     }
 
     public void updateIndexSong(int index) {
-        Platform.runLater(() -> {
-            if(songsStore.getSongs().isEmpty()) {
-                this.currentSong.setIndex(-1);
-                this.listViewSongs.getSelectionModel().select(-1);
-                return;
+        if(songsStore.getSongs().isEmpty()) {
+            this.currentSong.setIndex(-1);
+            this.listViewSongs.getSelectionModel().select(-1);
+            return;
 
-            }
+        }
 
-            int newIndex = index % songsStore.getSongs().size();
+        int newIndex = index % songsStore.getSongs().size();
 
-            this.currentSong.setIndex(newIndex);
+        this.currentSong.setIndex(newIndex);
 
-            this.listViewSongs.getSelectionModel().select(newIndex);
-        });
-
-    }
-
-    public void stopPlayBack() {
-        if(this.mediaPlayer.getStatus() != MediaPlayer.Status.PLAYING) return;
-
-        this.mediaPlayer.stop();
-        this.cancelTimer();
-    }
-
-    public void startPlayback() {
-        Platform.runLater(() -> {
-            if(this.mediaPlayer != null && this.mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                this.stopPlayBack();
-            }
-
-            File file = new File(songsStore.getSongs().get(this.currentSong.getIndex()).getPath());
-            media = new Media(file.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-            this.beginTimer();
-
-            this.mediaPlayer.setOnEndOfMedia(this::nextSong);
-
-        });
-
+        this.listViewSongs.getSelectionModel().select(newIndex);
     }
 
     public void beginTimer() {
@@ -291,11 +261,11 @@ public class HomeControllerFXML implements Initializable {
         TimerTask task = new TimerTask() {
 
             public void run() {
-                double current = mediaPlayer.getCurrentTime().toSeconds();
-                double end = media.getDuration().toSeconds();
-                songProgressBar.setProgress(current / end);
+                double current = playerImpl.getCurrentTime();
+                double duration = playerImpl.getDuration();
+                songProgressBar.setProgress(current / duration);
 
-                if (current / end == 1) {
+                if (current / duration == 1) {
 
                     cancelTimer();
                 }
@@ -360,15 +330,20 @@ public class HomeControllerFXML implements Initializable {
             this.updateIndexPlaylist(listViewPlaylists.getSelectionModel().getSelectedIndex());
             this.songsStore.updateAllSongsOfPlaylist(newPlaylist.getId());
             this.updateIndexSong(0);
+            this.playerImpl.selectSong(0);
             }
         });
 
         listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSong, newSong) -> {
             if(newSong == null) {
                 this.updateIndexSong(-1);
+                this.playerImpl.selectSong(0);
+
 
             }else {
                 this.updateIndexSong(listViewSongs.getSelectionModel().getSelectedIndex());
+                this.playerImpl.selectSong(listViewSongs.getSelectionModel().getSelectedIndex());
+
 
             }
 
@@ -385,16 +360,21 @@ public class HomeControllerFXML implements Initializable {
         });
 
         songsStore.addListener((observableValue, oldSongs, newSongs) -> {
+            this.playerImpl.setSongs(newSongs);
+
             if(newSongs.isEmpty()) {
                 this.updateIndexSong(-1);
+                this.playerImpl.selectSong(-1);
                 return;
             }
 
             this.updateIndexSong(0);
+            this.playerImpl.selectSong(0);
+
         });
 
         this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
 
-
+        this.playerImpl.setSongs(songsStore.getSongs());
     }
 }

@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -50,16 +51,19 @@ public class LoginControllerFXML {
         String strPassword = password.getText();
 
         try {
+            Stage stage;
             User user = this.authController.login(strUsername, strPassword);
 
             userStore.setUser(user);
 
             if(userStore.getIsVip()) {
-                this.navigator.to(btnLogin, TitleViews.VIP_HOME_VIEW, PathViews.VIP_HOME_VIEW);
+                stage = this.navigator.configure(btnLogin, TitleViews.VIP_HOME_VIEW, PathViews.VIP_HOME_VIEW);
 
             }else {
-                this.navigator.to(btnLogin, TitleViews.FREE_HOME_VIEW, PathViews.FREE_HOME_VIEW);
+                stage = this.navigator.configure(btnLogin, TitleViews.FREE_HOME_VIEW, PathViews.FREE_HOME_VIEW);
             }
+
+            this.navigator.execute(stage);
 
 
         } catch (EntityNotFoundException e) {
@@ -81,6 +85,7 @@ public class LoginControllerFXML {
 
     @FXML
     void navigateToRegister(MouseEvent event) throws IOException {
-        navigator.to(btnLogin, TitleViews.REGISTER_VIEW, PathViews.REGISTER_VIEW);
+       Stage stage = this.navigator.configure(btnLogin, TitleViews.REGISTER_VIEW, PathViews.REGISTER_VIEW);
+       this.navigator.execute(stage);
     }
 }

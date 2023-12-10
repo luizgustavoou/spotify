@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,7 +58,8 @@ public class RegistrationControllerFXML implements Initializable {
 
         this.formClear();
 
-        navigator.to(username, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        Stage stage = this.navigator.configure(username, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        this.navigator.execute(stage);
     }
 
     private void formClear() {
@@ -81,7 +83,8 @@ public class RegistrationControllerFXML implements Initializable {
 
     @FXML
     public void backToLogin(MouseEvent event) throws IOException {
-        navigator.to(username, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        Stage stage = this.navigator.configure(username, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        this.navigator.execute(stage);
     }
 
 

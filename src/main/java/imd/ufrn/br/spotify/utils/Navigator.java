@@ -21,10 +21,12 @@ public class Navigator {
         return instance;
     }
 
-    public void to(Node node, String title, String viewPath) throws IOException {
+    public Stage configure(Node node, String title, String viewPath) throws IOException {
+        // Fechar a stage antiga
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
 
+        // Criar uma nova stage
         Stage primaryStage = new Stage();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
@@ -35,7 +37,12 @@ public class Navigator {
 
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.show();
+
+        return primaryStage;
+    }
+
+    public void execute(Stage stage) {
+        stage.show();
     }
 
 }
