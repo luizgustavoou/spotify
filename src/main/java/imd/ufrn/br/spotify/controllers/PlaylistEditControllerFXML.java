@@ -1,31 +1,34 @@
 package imd.ufrn.br.spotify.controllers;
 
-import imd.ufrn.br.spotify.entities.User;
+import imd.ufrn.br.spotify.entities.Playlist;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
-import imd.ufrn.br.spotify.stores.CurrentPlaylist;
 import imd.ufrn.br.spotify.stores.PlaylistsStore;
-import imd.ufrn.br.spotify.stores.UserStore;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class PlaylistEditControllerFXML implements Initializable {
+
+public class PlaylistEditControllerFXML  {
+    private Playlist playlist;
     private final PlaylistController playlistController;
-
     private final PlaylistsStore playlistsStore;
-    private final UserStore userStore;
-    private final CurrentPlaylist currentPlaylist;
 
     public PlaylistEditControllerFXML() {
         this.playlistController = new PlaylistController();
         this.playlistsStore = PlaylistsStore.getInstance();
-        this.userStore = UserStore.getInstance();
-        this.currentPlaylist = CurrentPlaylist.getInstance();
     }
+
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+        this.playlistName.setText(playlist.getName());
+
+    }
+
     @FXML
     private TextField playlistName;
 
@@ -39,13 +42,13 @@ public class PlaylistEditControllerFXML implements Initializable {
         }
 
 
-        this.playlistController.update(playlistsStore.getPlaylists().get(currentPlaylist.getIndex()).getId() , strNamePlaylist, userStore.getId());
+        this.playlistController.update(playlist.getId() , strNamePlaylist, playlist.getUserId());
 
-        playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
+        playlistsStore.updateAllPlaylistsOfUser(playlist.getUserId());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.playlistName.setText(playlistsStore.getPlaylists().get(currentPlaylist.getIndex()).getName());
-    }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        this.playlistName.setText(playlist.getName());
+//    }
 }

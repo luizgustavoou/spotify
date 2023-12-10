@@ -1,33 +1,32 @@
 package imd.ufrn.br.spotify.controllers;
 
 
+import imd.ufrn.br.spotify.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.stores.*;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class SongEditControllerFXML implements Initializable {
+public class SongEditControllerFXML  {
+
+    Song song;
     private final SongController songController;
 
     private final SongsStore songStore;
-    private final PlaylistsStore playlistsStore;
-    private final CurrentPlaylist currentPlaylist;
-    private final CurrentSong currentSong;
 
 
     public SongEditControllerFXML() {
         this.songController = new SongController();
         this.songStore = SongsStore.getInstance();
-
-        this.currentPlaylist = CurrentPlaylist.getInstance();
-        this.playlistsStore = PlaylistsStore.getInstance();
-        this.currentSong = CurrentSong.getInstance();
     }
+
+    public void setSong(Song song) {
+        this.song = song;
+        this.songName.setText(song.getName());
+    }
+
     @FXML
     private TextField songName;
 
@@ -40,14 +39,14 @@ public class SongEditControllerFXML implements Initializable {
             return;
         }
 
-        this.songController.update(songStore.getSongs().get(currentSong.getIndex()).getId(), strSongName, songStore.getSongs().get(currentSong.getIndex()).getPath() ,songStore.getSongs().get(currentSong.getIndex()).getPlaylistId());
+        this.songController.update(song.getId(), strSongName, song.getPath() ,song.getPlaylistId());
 
-        songStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(currentPlaylist.getIndex()).getId());
+        songStore.updateAllSongsOfPlaylist(song.getPlaylistId());
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.songName.setText(songStore.getSongs().get(currentSong.getIndex()).getName());
-    }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        this.songName.setText(song.getName());
+//    }
 }

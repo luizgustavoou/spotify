@@ -200,22 +200,36 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     public void createPlaylist(MouseEvent event) throws IOException {
-        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+        ShowModal showModal = new ShowModal();
 
-        ShowModal.getInstance().execute(dialog);
-        System.out.println("blz");
+        Stage dialog = showModal.configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
+
+        showModal.execute(dialog);
     }
 
     @FXML
     public void updatePlaylist(MouseEvent event) throws IOException {
-        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
-        ShowModal.getInstance().execute(dialog);
+        ShowModal showModal = new ShowModal();
+
+        Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
+
+        PlaylistEditControllerFXML controller =  showModal.getFxmlLoader().getController();
+
+        controller.setPlaylist(this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()));
+
+        showModal.execute(dialog);
     }
 
     @FXML
     void updateSong(MouseEvent event) throws IOException {
-        Stage dialog = ShowModal.getInstance().configure(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
-        ShowModal.getInstance().execute(dialog);
+        ShowModal showModal = new ShowModal();
+
+        Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_SONG_VIEW, PathViews.UPDATE_SONG_VIEW);
+        SongEditControllerFXML controller = showModal.getFxmlLoader().getController();
+
+        controller.setSong(this.songsStore.getSongs().get(this.currentSong.getIndex()));
+
+        showModal.execute(dialog);
     }
 
     // Funções de lógica

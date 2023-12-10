@@ -10,24 +10,31 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ShowModal {
-    static private ShowModal instance;
+//    static private ShowModal instance;
 
-    private ShowModal(){}
+//    private ShowModal(){}
 
-    static public ShowModal getInstance() {
-        if(instance == null) {
-            instance = new ShowModal();
-        }
+//    static public ShowModal getInstance() {
+//        if(instance == null) {
+//            instance = new ShowModal();
+//        }
+//
+//        return instance;
+//    }
 
-        return instance;
+    private FXMLLoader fxmlLoader;
+
+    public FXMLLoader getFxmlLoader() {
+        return fxmlLoader;
     }
+
     public Stage configure(Node node, String title, String viewPath) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
+        this.fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
+
         Parent root = fxmlLoader.load();
 
         Stage parentStage = (Stage) node.getScene().getWindow();
         Stage dialog = new Stage();
-
 
         Scene scene = new Scene(root, 300, 300);
 
