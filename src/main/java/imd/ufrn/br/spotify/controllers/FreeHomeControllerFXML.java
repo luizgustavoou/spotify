@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -21,17 +20,15 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import javafx.util.Callback;
 
-
-public class HomeControllerFXML implements Initializable {
+public class FreeHomeControllerFXML implements Initializable {
     private final PlayerImpl playerImpl = new PlayerImpl(this::beginTimer, this::cancelTimer);
 
     // váriaveis controllers
@@ -71,15 +68,13 @@ public class HomeControllerFXML implements Initializable {
     @FXML
     private TableView<Playlist> tablePlaylists;
     @FXML
-    private TableColumn<Playlist, String> playlistActionCol;
-    @FXML
     private TableColumn<Playlist, String> playlistNameCol;
 
 
 
     private Timer timer;
 
-    public HomeControllerFXML() {
+    public FreeHomeControllerFXML() {
         this.currentPlaylist = CurrentPlaylist.getInstance();
         this.currentSong = CurrentSong.getInstance();
         this.userStore = UserStore.getInstance();
@@ -122,7 +117,7 @@ public class HomeControllerFXML implements Initializable {
         UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
 
         directoryChooser.setTitle("Escolha um diretório");
-        directoryChooser.setInitialDirectory(new java.io.File("."));
+        directoryChooser.setInitialDirectory(new File("."));
 
         File folder = directoryChooser.showDialog(new Stage());
         if (folder == null) return;
@@ -131,29 +126,6 @@ public class HomeControllerFXML implements Initializable {
 
         System.out.println("Folder adicionado a playlist " + playlistId);
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
-    }
-
-
-    void removePlaylist()  {
-        if(this.hasNotPlaylist()) return;
-
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta de confirmação de remoção de playlist");
-            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getName() + " ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.playlistController.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
-                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
-            }
-
-
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
-
-        }
     }
 
 
@@ -214,16 +186,6 @@ public class HomeControllerFXML implements Initializable {
     public void pauseMedia() {
         this.playerImpl.pauseMedia();
     }
-
-
-    public void createPlaylist() throws IOException {
-        ShowModal showModal = new ShowModal();
-
-        Stage dialog = showModal.configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
-
-        showModal.execute(dialog);
-    }
-
 
     public void updatePlaylist() throws IOException {
         if(hasNotPlaylist()) return;
@@ -317,64 +279,6 @@ public class HomeControllerFXML implements Initializable {
 
     private void loadPlaylists() {
         playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        Callback<TableColumn<Playlist, String>, TableCell<Playlist, String>> cellFactory = (TableColumn<Playlist, String> param) -> {
-            // make cell containing buttons
-            final TableCell<Playlist, String> cell = new TableCell<Playlist, String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    //that cell created only on non-empty rows
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-
-                    } else {
-
-                        Text deleteIcon = new Text();
-                        deleteIcon.setText("Remover");
-
-                        Text editIcon = new Text();
-                        editIcon.setText("Editar");
-
-                        deleteIcon.setStyle(
-                                " -fx-cursor: hand ;"
-                                        + "-glyph-size:28px;"
-                                        + "-fx-fill:#ff1744;"
-                        );
-                        editIcon.setStyle(
-                                " -fx-cursor: hand ;"
-                                        + "-glyph-size:28px;"
-                                        + "-fx-fill:#00E676;"
-                        );
-                        deleteIcon.setOnMouseClicked((MouseEvent event) -> {
-                          removePlaylist();
-                        });
-
-                        editIcon.setOnMouseClicked((MouseEvent event) -> {
-                            try {
-                                updatePlaylist();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
-                        HBox managebtn = new HBox(editIcon, deleteIcon);
-                        managebtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
-                        HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
-
-                        setGraphic(managebtn);
-
-                        setText(null);
-
-                    }
-                }
-            };
-            return cell;
-        };
-
-        this.playlistActionCol.setCellFactory(cellFactory);
         this.tablePlaylists.setItems(this.playlistsStore.getPlaylists());
     }
 

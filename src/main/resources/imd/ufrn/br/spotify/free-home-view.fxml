@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.HomeControllerFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.controllers.FreeHomeControllerFXML">
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="818.0" style="-fx-background-color: #333; -fx-border-color: #333; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
          <children>
@@ -111,8 +111,7 @@
                   <Text fill="WHITE" layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
                   <TableView fx:id="tablePlaylists" layoutX="21.0" layoutY="40.0" prefHeight="405.0" prefWidth="219.0">
                      <columns>
-                        <TableColumn fx:id="playlistNameCol" prefWidth="106.40000009536743" text="Playlist" />
-                        <TableColumn fx:id="playlistActionCol" minWidth="0.0" prefWidth="111.20000762939452" text="Ações" />
+                        <TableColumn fx:id="playlistNameCol" prefWidth="218.40000076293944" text="Playlist" />
                      </columns>
                   </TableView>
                </children>
