@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -53,11 +54,27 @@ public class HomeControllerFXML implements Initializable {
     @FXML
     private Text userFullName;
     @FXML
-    private ListView<Playlist> listViewPlaylists;
-    @FXML
-    private ListView<Song> listViewSongs;
-    @FXML
     private ProgressBar songProgressBar;
+
+    @FXML
+    private TableView<Song> tableSongs;
+
+    @FXML
+    private TableColumn<Song, String> songNameCol;
+    @FXML
+    private TableColumn<Song, String> songActionCol;
+
+
+
+    @FXML
+    private TableView<Playlist> tablePlaylists;
+    @FXML
+    private TableColumn<Playlist, String> playlistActionCol;
+    @FXML
+    private TableColumn<Playlist, String> playlistNameCol;
+
+
+
     private Timer timer;
 
     public HomeControllerFXML() {
@@ -248,20 +265,20 @@ public class HomeControllerFXML implements Initializable {
         Platform.runLater(() -> {
             if(hasNotPlaylist()) {
                 this.currentPlaylist.setIndex(-1);
-                this.listViewPlaylists.getSelectionModel().select(-1);
+                this.tablePlaylists.getSelectionModel().select(-1);
                 return;
             }
 
             int newIndex = index % playlistsStore.getPlaylists().size();
             this.currentPlaylist.setIndex(newIndex);
-            this.listViewPlaylists.getSelectionModel().select(newIndex);
+            this.tablePlaylists.getSelectionModel().select(newIndex);
         });
     }
 
     public void updateIndexSong(int index) {
         if(hasNotSong()) {
             this.currentSong.setIndex(-1);
-            this.listViewSongs.getSelectionModel().select(-1);
+            this.tableSongs.getSelectionModel().select(-1);
             return;
 
         }
@@ -270,7 +287,7 @@ public class HomeControllerFXML implements Initializable {
 
         this.currentSong.setIndex(newIndex);
 
-        this.listViewSongs.getSelectionModel().select(newIndex);
+        this.tableSongs.getSelectionModel().select(newIndex);
     }
 
     public void beginTimer() {
@@ -302,73 +319,32 @@ public class HomeControllerFXML implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userFullName.setText(userStore.getFullName());
-        listViewPlaylists.itemsProperty().bindBidirectional(playlistsStore.getObservablePlaylist());
 
-        listViewSongs.itemsProperty().bindBidirectional(songsStore.getObservableSong());
-
-        listViewPlaylists.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<Playlist> call(ListView<Playlist> playlistListView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Playlist item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-        });
-
-        listViewSongs.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<Song> call(ListView<Song> songListView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Song item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
-            }
-        });
-
-        listViewPlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, oldPlaylist, newPlaylist) -> {
+        // Escutar mudança de playlist na GUI
+        this.tablePlaylists.getSelectionModel().selectedItemProperty().addListener((observableValue, oldPlaylist, newPlaylist) -> {
             if(newPlaylist == null) {
                 this.updateIndexPlaylist(-1);
             }else {
-            this.updateIndexPlaylist(listViewPlaylists.getSelectionModel().getSelectedIndex());
+            this.updateIndexPlaylist(this.tablePlaylists.getSelectionModel().getSelectedIndex());
             this.songsStore.updateAllSongsOfPlaylist(newPlaylist.getId());
             this.updateIndexSong(0);
             this.playerImpl.selectSong(0);
             }
         });
 
-        listViewSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSong, newSong) -> {
+        // Escutar mudança de Song na GUI
+        this.tableSongs.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSong, newSong) -> {
             if(newSong == null) {
                 this.updateIndexSong(-1);
                 this.playerImpl.selectSong(0);
-
-
             }else {
-                this.updateIndexSong(listViewSongs.getSelectionModel().getSelectedIndex());
-                this.playerImpl.selectSong(listViewSongs.getSelectionModel().getSelectedIndex());
-
-
+                this.updateIndexSong(this.tableSongs.getSelectionModel().getSelectedIndex());
+                this.playerImpl.selectSong(this.tableSongs.getSelectionModel().getSelectedIndex());
             }
-
         });
 
 
+        // Escutar mudança das Playlists
         playlistsStore.addListener((observableValue, oldPlaylists, newPlaylists) -> {
             if(newPlaylists.isEmpty()) {
                 this.updateIndexPlaylist(-1);
@@ -378,6 +354,7 @@ public class HomeControllerFXML implements Initializable {
             this.updateIndexPlaylist(0);
         });
 
+        // Escutar mudança dos Songs
         songsStore.addListener((observableValue, oldSongs, newSongs) -> {
             this.playerImpl.setSongs(newSongs);
 
@@ -389,11 +366,24 @@ public class HomeControllerFXML implements Initializable {
 
             this.updateIndexSong(0);
             this.playerImpl.selectSong(0);
-
         });
 
+        // Carregar todas as playlists do usuário
         this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
 
+        // Setar songs no player
         this.playerImpl.setSongs(songsStore.getSongs());
+
+        // Carregar tabela de song
+        songNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        this.tableSongs.setItems(this.songsStore.getSongs());
+
+
+        // Carregar tabela de playlist
+        playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        this.tablePlaylists.setItems(this.playlistsStore.getPlaylists());
+
     }
 }
