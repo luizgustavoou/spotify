@@ -133,8 +133,8 @@ public class HomeControllerFXML implements Initializable {
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
 
-    @FXML
-    void removePlaylist(MouseEvent event)  {
+
+    void removePlaylist()  {
         if(this.hasNotPlaylist()) return;
 
         try {
@@ -156,8 +156,8 @@ public class HomeControllerFXML implements Initializable {
         }
     }
 
-    @FXML
-    void removeSong(MouseEvent event)  {
+
+    void removeSong()  {
         if(this.hasNotSong()) return;
 
         try {
@@ -215,8 +215,8 @@ public class HomeControllerFXML implements Initializable {
         this.playerImpl.pauseMedia();
     }
 
-    @FXML
-    public void createPlaylist(MouseEvent event) throws IOException {
+
+    public void createPlaylist() throws IOException {
         ShowModal showModal = new ShowModal();
 
         Stage dialog = showModal.configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
@@ -224,8 +224,8 @@ public class HomeControllerFXML implements Initializable {
         showModal.execute(dialog);
     }
 
-    @FXML
-    public void updatePlaylist(MouseEvent event) throws IOException {
+
+    public void updatePlaylist() throws IOException {
         if(hasNotPlaylist()) return;
 
         ShowModal showModal = new ShowModal();
@@ -238,9 +238,7 @@ public class HomeControllerFXML implements Initializable {
 
         showModal.execute(dialog);
     }
-
-    @FXML
-    void updateSong(MouseEvent event) throws IOException {
+    void updateSong() throws IOException {
         if(hasNotSong()) return;
 
         ShowModal showModal = new ShowModal();
@@ -333,10 +331,10 @@ public class HomeControllerFXML implements Initializable {
 
                     } else {
 
-                        Button deleteIcon = new Button();
+                        Text deleteIcon = new Text();
                         deleteIcon.setText("Remover");
 
-                        Button editIcon = new Button();
+                        Text editIcon = new Text();
                         editIcon.setText("Editar");
 
                         deleteIcon.setStyle(
@@ -350,11 +348,15 @@ public class HomeControllerFXML implements Initializable {
                                         + "-fx-fill:#00E676;"
                         );
                         deleteIcon.setOnMouseClicked((MouseEvent event) -> {
-                            System.out.println("Clicou em remover");
+                          removePlaylist();
                         });
 
                         editIcon.setOnMouseClicked((MouseEvent event) -> {
-                            System.out.println("Clicou em editar");
+                            try {
+                                updatePlaylist();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         });
 
                         HBox managebtn = new HBox(editIcon, deleteIcon);
@@ -393,10 +395,10 @@ public class HomeControllerFXML implements Initializable {
 
                     } else {
 
-                        Button deleteIcon = new Button();
+                        Text deleteIcon = new Text();
                         deleteIcon.setText("Remover");
 
-                        Button editIcon = new Button();
+                        Text editIcon = new Text();
                         editIcon.setText("Editar");
 
                         deleteIcon.setStyle(
@@ -410,11 +412,15 @@ public class HomeControllerFXML implements Initializable {
                                         + "-fx-fill:#00E676;"
                         );
                         deleteIcon.setOnMouseClicked((MouseEvent event) -> {
-                            System.out.println("Clicou em remover");
+                            removeSong();
                         });
 
                         editIcon.setOnMouseClicked((MouseEvent event) -> {
-                            System.out.println("Clicou em editar");
+                            try {
+                                updateSong();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         });
 
                         HBox managebtn = new HBox(editIcon, deleteIcon);

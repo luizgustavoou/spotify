@@ -75,27 +75,7 @@
             </Button>
             <Text fill="WHITE" layoutX="6.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="1.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar música" textAlignment="CENTER" />
-            <Button layoutX="1.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#removeSong" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Remover música">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
-            <Button layoutX="1.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#removePlaylist" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Remover playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
-            <Button layoutX="1.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#createPlaylist" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Criar playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
-            <Button layoutX="1.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#updatePlaylist" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Atualizar playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
-            <Button layoutX="1.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#updateSong" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Atualizar música">
+            <Button layoutX="3.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#createPlaylist" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Criar playlist">
                <font>
                   <Font size="10.0" />
                </font>
