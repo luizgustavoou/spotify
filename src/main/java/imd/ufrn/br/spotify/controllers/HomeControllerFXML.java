@@ -11,10 +11,12 @@ import imd.ufrn.br.spotify.utils.TitleViews;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -315,6 +317,127 @@ public class HomeControllerFXML implements Initializable {
         timer.cancel();
     }
 
+    private void loadPlaylists() {
+        playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        Callback<TableColumn<Playlist, String>, TableCell<Playlist, String>> cellFactory = (TableColumn<Playlist, String> param) -> {
+            // make cell containing buttons
+            final TableCell<Playlist, String> cell = new TableCell<Playlist, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    //that cell created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+
+                    } else {
+
+                        Button deleteIcon = new Button();
+                        deleteIcon.setText("Remover");
+
+                        Button editIcon = new Button();
+                        editIcon.setText("Editar");
+
+                        deleteIcon.setStyle(
+                                " -fx-cursor: hand ;"
+                                        + "-glyph-size:28px;"
+                                        + "-fx-fill:#ff1744;"
+                        );
+                        editIcon.setStyle(
+                                " -fx-cursor: hand ;"
+                                        + "-glyph-size:28px;"
+                                        + "-fx-fill:#00E676;"
+                        );
+                        deleteIcon.setOnMouseClicked((MouseEvent event) -> {
+                            System.out.println("Clicou em remover");
+                        });
+
+                        editIcon.setOnMouseClicked((MouseEvent event) -> {
+                            System.out.println("Clicou em editar");
+                        });
+
+                        HBox managebtn = new HBox(editIcon, deleteIcon);
+                        managebtn.setStyle("-fx-alignment:center");
+                        HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
+
+                        setGraphic(managebtn);
+
+                        setText(null);
+
+                    }
+                }
+            };
+            return cell;
+        };
+
+        this.playlistActionCol.setCellFactory(cellFactory);
+        this.tablePlaylists.setItems(this.playlistsStore.getPlaylists());
+    }
+
+    private void loadSongs() {
+        songNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+
+        Callback<TableColumn<Song, String>, TableCell<Song, String>> cellFactory = (TableColumn<Song, String> param) -> {
+            // make cell containing buttons
+            final TableCell<Song, String> cell = new TableCell<Song, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    //that cell created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+
+                    } else {
+
+                        Button deleteIcon = new Button();
+                        deleteIcon.setText("Remover");
+
+                        Button editIcon = new Button();
+                        editIcon.setText("Editar");
+
+                        deleteIcon.setStyle(
+                                " -fx-cursor: hand ;"
+                                        + "-glyph-size:28px;"
+                                        + "-fx-fill:#ff1744;"
+                        );
+                        editIcon.setStyle(
+                                " -fx-cursor: hand ;"
+                                        + "-glyph-size:28px;"
+                                        + "-fx-fill:#00E676;"
+                        );
+                        deleteIcon.setOnMouseClicked((MouseEvent event) -> {
+                            System.out.println("Clicou em remover");
+                        });
+
+                        editIcon.setOnMouseClicked((MouseEvent event) -> {
+                            System.out.println("Clicou em editar");
+                        });
+
+                        HBox managebtn = new HBox(editIcon, deleteIcon);
+                        managebtn.setStyle("-fx-alignment:center");
+                        HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
+
+                        setGraphic(managebtn);
+
+                        setText(null);
+
+                    }
+                }
+            };
+            return cell;
+        };
+
+        songActionCol.setCellFactory(cellFactory);
+        this.tableSongs.setItems(this.songsStore.getSongs());
+
+
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -375,15 +498,11 @@ public class HomeControllerFXML implements Initializable {
         this.playerImpl.setSongs(songsStore.getSongs());
 
         // Carregar tabela de song
-        songNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        this.tableSongs.setItems(this.songsStore.getSongs());
+        this.loadSongs();
 
 
         // Carregar tabela de playlist
-        playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        this.tablePlaylists.setItems(this.playlistsStore.getPlaylists());
+        this.loadPlaylists();
 
     }
 }
