@@ -438,7 +438,9 @@ public class HomeControllerFXML implements Initializable {
             return cell;
         };
 
+
         songActionCol.setCellFactory(cellFactory);
+
         this.tableSongs.setItems(this.songsStore.getSongs());
 
 

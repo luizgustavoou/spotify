@@ -117,7 +117,7 @@
                   <Text fill="WHITE" layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" />
                   <TableView fx:id="tablePlaylists" layoutX="21.0" layoutY="40.0" prefHeight="405.0" prefWidth="219.0">
                      <columns>
-                        <TableColumn fx:id="playlistNameCol" prefWidth="106.40000009536743" text="Música" />
+                        <TableColumn fx:id="playlistNameCol" prefWidth="106.40000009536743" text="Playlist" />
                         <TableColumn fx:id="playlistActionCol" minWidth="0.0" prefWidth="111.20000762939452" text="Ações" />
                      </columns>
                   </TableView>
