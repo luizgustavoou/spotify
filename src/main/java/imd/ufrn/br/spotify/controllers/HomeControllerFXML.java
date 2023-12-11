@@ -115,7 +115,7 @@ public class HomeControllerFXML implements Initializable {
 
     @FXML
     void addFolder(MouseEvent event) {
-        if(this.hasNotSong()) return;
+        if(this.hasNotPlaylist()) return;
 
         UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
 
