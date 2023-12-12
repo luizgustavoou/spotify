@@ -1,4 +1,4 @@
-package imd.ufrn.br.spotify.back.apis;
+package imd.ufrn.br.spotify.back.utils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class CSVApiImpl implements ICSVApi {
+public class CSVOperationsImpl implements ICSVOperations {
     private  final String CSV_FILE_NAME;
     final private String COMMA_DELIMITER = ",";
 
-    public CSVApiImpl(String CSV_FILE_NAME) {
+    public CSVOperationsImpl(String CSV_FILE_NAME) {
         this.CSV_FILE_NAME = CSV_FILE_NAME;
     }
 
@@ -70,7 +70,7 @@ public class CSVApiImpl implements ICSVApi {
     }
 
     public static void main(String[] args) throws IOException {
-        CSVApiImpl csvApi = new CSVApiImpl("/home/luizgustavoou/Documentos/study_java/spotify/db/users.txt");
+        CSVOperationsImpl csvApi = new CSVOperationsImpl("/home/luizgustavoou/Documentos/study_java/spotify/db/users.txt");
 
         List<List<String>> teste = csvApi.readFile().stream().map(Arrays::asList).toList();
 

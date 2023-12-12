@@ -1,7 +1,7 @@
 package imd.ufrn.br.spotify.back.repositories.csv;
 
-import imd.ufrn.br.spotify.back.apis.CSVApiImpl;
-import imd.ufrn.br.spotify.back.apis.ICSVApi;
+import imd.ufrn.br.spotify.back.utils.CSVOperationsImpl;
+import imd.ufrn.br.spotify.back.utils.ICSVOperations;
 import imd.ufrn.br.spotify.back.entities.Playlist;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
@@ -13,14 +13,14 @@ import java.util.UUID;
 
 public class CSVPlaylistRepositoryImpl extends CSVRepositoryImpl<Playlist> implements IPlaylistRepository {
     private  final String CSV_FILE_NAME = "db/playlists.txt";
-    private final ICSVApi csvApi;
+    private final ICSVOperations csvApi;
 
-    public CSVPlaylistRepositoryImpl(ICSVApi csvApi) {
+    public CSVPlaylistRepositoryImpl(ICSVOperations csvApi) {
         this.csvApi = csvApi;
     }
 
     public CSVPlaylistRepositoryImpl() {
-        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+        this.csvApi = new CSVOperationsImpl(CSV_FILE_NAME);
     }
 
     public List<Playlist> readFile() {

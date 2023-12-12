@@ -1,7 +1,7 @@
 package imd.ufrn.br.spotify.back.services.song.impl;
 
 import imd.ufrn.br.spotify.back.entities.Song;
-import imd.ufrn.br.spotify.back.helpers.Extension;
+import imd.ufrn.br.spotify.back.helpers.Extensions;
 import imd.ufrn.br.spotify.back.services.song.IFindAllSongsOfFolderUseCase;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class FindAllSongsOfFolderUseCaseImpl implements IFindAllSongsOfFolderUse
         ArrayList<Song> songs = new ArrayList<>();
 
         if (folder.isDirectory()) {
-            File[] mp3Files = folder.listFiles((File file, String fileName) -> fileName.toLowerCase().endsWith(Extension.MP3_EXTENSION));
+            File[] mp3Files = folder.listFiles((File file, String fileName) -> fileName.toLowerCase().endsWith(Extensions.MP3_EXTENSION));
 
             if (mp3Files != null) {
                 for (File file : mp3Files) {

@@ -1,7 +1,7 @@
 package imd.ufrn.br.spotify.back.repositories.csv;
 
-import imd.ufrn.br.spotify.back.apis.CSVApiImpl;
-import imd.ufrn.br.spotify.back.apis.ICSVApi;
+import imd.ufrn.br.spotify.back.utils.CSVOperationsImpl;
+import imd.ufrn.br.spotify.back.utils.ICSVOperations;
 import imd.ufrn.br.spotify.back.entities.Folder;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
@@ -12,14 +12,14 @@ import java.util.UUID;
 
 public class CSVFolderRepositoryImpl extends CSVRepositoryImpl<Folder> implements IFolderRepository {
     private  final String CSV_FILE_NAME = "db/folders.txt";
-    private final ICSVApi csvApi;
+    private final ICSVOperations csvApi;
 
-    public CSVFolderRepositoryImpl(ICSVApi csvApi) {
+    public CSVFolderRepositoryImpl(ICSVOperations csvApi) {
         this.csvApi = csvApi;
     }
 
     public CSVFolderRepositoryImpl() {
-        this.csvApi = new CSVApiImpl(CSV_FILE_NAME);
+        this.csvApi = new CSVOperationsImpl(CSV_FILE_NAME);
     }
 
     public List<Folder> readFile() {
