@@ -1,11 +1,14 @@
 package imd.ufrn.br.spotify.front.controllers;
 
-import imd.ufrn.br.spotify.back.controllers.*;
 import imd.ufrn.br.spotify.front.lib.Player;
 import imd.ufrn.br.spotify.front.lib.PlayerImpl;
 import imd.ufrn.br.spotify.back.entities.Playlist;
 import imd.ufrn.br.spotify.back.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
+import imd.ufrn.br.spotify.front.services.IFolderService;
+import imd.ufrn.br.spotify.front.services.ISongService;
+import imd.ufrn.br.spotify.front.services.impl.FolderServiceImpl;
+import imd.ufrn.br.spotify.front.services.impl.SongServiceImpl;
 import imd.ufrn.br.spotify.front.stores.*;
 import imd.ufrn.br.spotify.front.utils.PathViews;
 import imd.ufrn.br.spotify.front.utils.ShowModal;
@@ -34,9 +37,8 @@ public class FreeHomeControllerFXML implements Initializable {
     private final Player player;
 
     // váriaveis controllers
-    SongController songController;
-    PlaylistController playlistController;
-    FolderController folderController;
+    private final ISongService songService;
+    private final IFolderService folderService;
 
     // váriaveis de stores
     private final PlaylistsStore playlistsStore;
@@ -77,9 +79,8 @@ public class FreeHomeControllerFXML implements Initializable {
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
 
-        this.songController = new SongController();
-        this.playlistController = new PlaylistController();
-        this.folderController = new FolderController();
+        this.songService = new SongServiceImpl();
+        this.folderService = new FolderServiceImpl();
 
         this.player = new PlayerImpl(this::beginTimer, this::cancelTimer);
 
@@ -101,7 +102,7 @@ public class FreeHomeControllerFXML implements Initializable {
         String extension = parts[1];
 
 
-        this.songController.create(name, file.getPath(), playlistId);
+        this.songService.create(name, file.getPath(), playlistId);
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
@@ -115,17 +116,16 @@ public class FreeHomeControllerFXML implements Initializable {
         UUID playlistId = this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId();
 
         directoryChooser.setTitle("Escolha um diretório");
-        directoryChooser.setInitialDirectory(new File("."));
+        directoryChooser.setInitialDirectory(new java.io.File("."));
 
         File folder = directoryChooser.showDialog(new Stage());
         if (folder == null) return;
 
-        this.folderController.create(folder.getAbsolutePath(), playlistId);
+        this.folderService.create(folder.getAbsolutePath(), playlistId);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
-
 
     void removeSong()  {
         if(this.hasNotSong()) return;
@@ -138,7 +138,7 @@ public class FreeHomeControllerFXML implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.songController.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
                 this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
             }
 
@@ -147,12 +147,6 @@ public class FreeHomeControllerFXML implements Initializable {
         }
 
 
-    }
-
-    public void startMusicPlayback() {
-        Platform.runLater(() -> {
-            this.player.startMusicPlayback();
-        });
     }
 
     @FXML
@@ -185,19 +179,6 @@ public class FreeHomeControllerFXML implements Initializable {
         this.player.pauseMedia();
     }
 
-    public void updatePlaylist() throws IOException {
-        if(hasNotPlaylist()) return;
-
-        ShowModal showModal = new ShowModal();
-
-        Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
-
-        PlaylistEditControllerFXML controller =  showModal.getFxmlLoader().getController();
-
-        controller.setPlaylist(this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()));
-
-        showModal.execute(dialog);
-    }
     void updateSong() throws IOException {
         if(hasNotSong()) return;
 
@@ -277,6 +258,7 @@ public class FreeHomeControllerFXML implements Initializable {
 
     private void loadPlaylists() {
         playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         this.tablePlaylists.setItems(this.playlistsStore.getPlaylists());
     }
 
@@ -333,20 +315,15 @@ public class FreeHomeControllerFXML implements Initializable {
                         setGraphic(managebtn);
 
                         setText(null);
-
                     }
                 }
             };
             return cell;
         };
 
-
         songActionCol.setCellFactory(cellFactory);
 
         this.tableSongs.setItems(this.songsStore.getSongs());
-
-
-
     }
 
     @Override
@@ -358,10 +335,10 @@ public class FreeHomeControllerFXML implements Initializable {
             if(newPlaylist == null) {
                 this.updateIndexPlaylist(-1);
             }else {
-            this.updateIndexPlaylist(this.tablePlaylists.getSelectionModel().getSelectedIndex());
-            this.songsStore.updateAllSongsOfPlaylist(newPlaylist.getId());
-            this.updateIndexSong(0);
-            this.player.selectSong(0);
+                this.updateIndexPlaylist(this.tablePlaylists.getSelectionModel().getSelectedIndex());
+                this.songsStore.updateAllSongsOfPlaylist(newPlaylist.getId());
+                this.updateIndexSong(0);
+                this.player.selectSong(0);
             }
         });
 
