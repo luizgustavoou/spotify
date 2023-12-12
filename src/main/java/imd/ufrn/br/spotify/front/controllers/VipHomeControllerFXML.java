@@ -1,13 +1,16 @@
 package imd.ufrn.br.spotify.front.controllers;
 
-import imd.ufrn.br.spotify.back.controllers.FolderController;
-import imd.ufrn.br.spotify.back.controllers.PlaylistController;
-import imd.ufrn.br.spotify.back.controllers.SongController;
 import imd.ufrn.br.spotify.front.lib.Player;
 import imd.ufrn.br.spotify.front.lib.PlayerImpl;
 import imd.ufrn.br.spotify.back.entities.Playlist;
 import imd.ufrn.br.spotify.back.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
+import imd.ufrn.br.spotify.front.services.IFolderService;
+import imd.ufrn.br.spotify.front.services.IPlaylistService;
+import imd.ufrn.br.spotify.front.services.ISongService;
+import imd.ufrn.br.spotify.front.services.impl.FolderServiceImpl;
+import imd.ufrn.br.spotify.front.services.impl.PlaylistServiceImpl;
+import imd.ufrn.br.spotify.front.services.impl.SongServiceImpl;
 import imd.ufrn.br.spotify.front.stores.*;
 import imd.ufrn.br.spotify.front.utils.PathViews;
 import imd.ufrn.br.spotify.front.utils.ShowModal;
@@ -39,9 +42,9 @@ public class VipHomeControllerFXML implements Initializable {
     private final Player player;
 
     // váriaveis controllers
-    SongController songController;
-    PlaylistController playlistController;
-    FolderController folderController;
+    private final ISongService songService;
+    private final IPlaylistService playlistService;
+    private final IFolderService folderService;
 
     // váriaveis de stores
     private final PlaylistsStore playlistsStore;
@@ -84,9 +87,9 @@ public class VipHomeControllerFXML implements Initializable {
         this.playlistsStore = PlaylistsStore.getInstance();
         this.songsStore = SongsStore.getInstance();
 
-        this.songController = new SongController();
-        this.playlistController = new PlaylistController();
-        this.folderController = new FolderController();
+        this.songService = new SongServiceImpl();
+        this.playlistService = new PlaylistServiceImpl();
+        this.folderService = new FolderServiceImpl();
 
         this.player = new PlayerImpl(this::beginTimer, this::cancelTimer);
 
@@ -108,7 +111,7 @@ public class VipHomeControllerFXML implements Initializable {
         String extension = parts[1];
 
 
-        this.songController.create(name, file.getPath(), playlistId);
+        this.songService.create(name, file.getPath(), playlistId);
 
         System.out.println("Música adicionada a playlist " + playlistId);
 
@@ -127,7 +130,7 @@ public class VipHomeControllerFXML implements Initializable {
         File folder = directoryChooser.showDialog(new Stage());
         if (folder == null) return;
 
-        this.folderController.create(folder.getAbsolutePath(), playlistId);
+        this.folderService.create(folder.getAbsolutePath(), playlistId);
 
         System.out.println("Folder adicionado a playlist " + playlistId);
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
@@ -145,7 +148,7 @@ public class VipHomeControllerFXML implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.playlistController.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
+                this.playlistService.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
                 this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
             }
 
@@ -168,7 +171,7 @@ public class VipHomeControllerFXML implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.songController.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
                 this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
             }
 

@@ -25,7 +25,7 @@ public class LoginControllerFXML {
     private final IAuthService authService;
     private final UserStore userStore;
 
-    Navigator navigator;
+    private final Navigator navigator;
 
     @FXML
     private PasswordField password;
