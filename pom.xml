@@ -90,7 +90,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>imd.ufrn.br.spotify/imd.ufrn.br.spotify.Main</mainClass>
+              <mainClass>imd.ufrn.br.spotify/imd.ufrn.br.spotify.front.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

@@ -8,16 +8,21 @@ module imd.ufrn.br.spotify {
     requires javafx.media;
 
     opens imd.ufrn.br.spotify to javafx.fxml;
-    exports imd.ufrn.br.spotify;
-    exports imd.ufrn.br.spotify.controllers;
-    exports imd.ufrn.br.spotify.services.song;
-    exports imd.ufrn.br.spotify.services.user;
-    exports imd.ufrn.br.spotify.services.folder;
-    exports imd.ufrn.br.spotify.services.playlist;
+    exports imd.ufrn.br.spotify.back.controllers;
+    exports imd.ufrn.br.spotify.back.services.song;
+    exports imd.ufrn.br.spotify.back.services.user;
+    exports imd.ufrn.br.spotify.back.services.folder;
+    exports imd.ufrn.br.spotify.back.services.playlist;
     exports imd.ufrn.br.spotify.exceptions;
-    exports imd.ufrn.br.spotify.entities;
-    exports imd.ufrn.br.spotify.stores;
-    opens imd.ufrn.br.spotify.controllers to javafx.fxml;
-    exports imd.ufrn.br.spotify.utils;
-    opens imd.ufrn.br.spotify.utils to javafx.fxml;
+    exports imd.ufrn.br.spotify.back.entities;
+    exports imd.ufrn.br.spotify.front.stores;
+    opens imd.ufrn.br.spotify.back.controllers to javafx.fxml;
+    exports imd.ufrn.br.spotify.front.utils;
+    opens imd.ufrn.br.spotify.front.utils to javafx.fxml;
+    exports imd.ufrn.br.spotify.front;
+    opens imd.ufrn.br.spotify.front to javafx.fxml;
+    exports imd.ufrn.br.spotify.front.controllers;
+    opens imd.ufrn.br.spotify.front.controllers to javafx.fxml;
+    exports imd.ufrn.br.spotify.front.lib;
+    opens imd.ufrn.br.spotify.front.lib to javafx.fxml;
 }
