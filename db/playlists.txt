@@ -11,7 +11,5 @@ ef549caf-41a3-45b3-8d8e-f83d6c54d073,Playlist Padrão,1fd2c753-8caf-4645-97c0-94
 f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9,Playlist Padrão,f709beea-0cc4-4cdb-b006-d05be279527a
 816e4254-dc89-4af6-ae59-e33f0cf071d2,Playlist bagaceira,f709beea-0cc4-4cdb-b006-d05be279527a
 ecc32332-9daf-4528-b0be-2c46549d446c,Playlist Padrão,28394cac-ad9a-4c09-9a34-1b63fa9e9131
-83970d44-9822-4e17-bb3b-48bb9f8524d8,Playlist Padrão,81d101a8-3192-4f70-9873-bc9c80220115
-ebacf406-a9bf-427a-9907-26ee0d5284ef,Playlist Padrão,dfeab936-56ca-404e-810d-3ad9445aa0d4
-5f19f2a7-5bdc-4f7e-a148-a1ada9b11432,Músicas internacionais,dfeab936-56ca-404e-810d-3ad9445aa0d4
-19ad6874-8836-4519-84d3-dd73a29afd01,Playlist Padrão,a4507316-4e29-43ac-9ac9-265267aae8bb
+83970d44-9822-4e17-bb3b-48bb9f8524d8,playlist ida,81d101a8-3192-4f70-9873-bc9c80220115
+74f61b4a-b55d-47e4-bef4-491aaf4cf07e,Playlist Padrão,d7e9ee4e-df09-40ba-bdd5-302450d47e22

@@ -8,10 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.front.controllers.VipHomeControllerFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.front.controllers.VipHomeControllerFXML">
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="818.0" style="-fx-background-color: #333; -fx-border-color: #333; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
          <children>
@@ -75,11 +74,16 @@
             </Button>
             <Text fill="WHITE" layoutX="6.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar pasta" textAlignment="CENTER" />
             <Text fill="WHITE" layoutX="1.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar música" textAlignment="CENTER" />
-            <Button layoutX="3.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#createPlaylist" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: fff;" text="Criar playlist">
-               <font>
-                  <Font size="10.0" />
-               </font>
+            <Button layoutX="16.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#createPlaylist" prefHeight="30.0" prefWidth="25.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/images/add_playlist.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
+            <Text fill="WHITE" layoutX="3.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar playlist" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </left>
@@ -102,7 +106,7 @@
             <AnchorPane prefHeight="435.0" prefWidth="243.0" style="-fx-background-color: #333; -fx-border-color: #444; -fx-border-width: 0px 1px 0px 0px;" BorderPane.alignment="CENTER">
                <children>
                   <Text fill="WHITE" layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Musicas" />
-                  <TableView fx:id="tableSongs" layoutX="14.0" layoutY="54.0" prefHeight="405.0" prefWidth="219.0">
+                  <TableView fx:id="tableSongs" layoutX="12.0" layoutY="40.0" prefHeight="405.0" prefWidth="219.0">
                     <columns>
                       <TableColumn fx:id="songNameCol" prefWidth="106.40000009536743" text="Música" />
                         <TableColumn fx:id="songActionCol" minWidth="0.0" prefWidth="111.20000762939452" text="Ações" />

@@ -10,7 +10,10 @@ d2add4ac-5509-45ef-87a5-d6c407f29a30,joaozin62,$2a$10$UZ3k6e4pFuxs5HNhQjAiZum/sK
 81d101a8-3192-4f70-9873-bc9c80220115,joaozin51,$2a$10$2xMk5dLCjkId3UZ.y.eA4OxRSU1gNZln1k.XI61mF8aAHAmjo/202,João,0
 7331db73-3c7a-4b3b-946f-295fcde29a68,Pato Agiota Maromba91,$2a$10$sH.HREsr8MOT2wzWPB4nN.9ZBCYD3PE3WBJYN1KPCB1eRsfOScwUi,Pato Agiota Maromba Silva Da Costa Pereira,0
 e51c36cc-3ccb-45de-81dc-d907192557cf,PATO,$2a$10$DjYErowkW7PS7x09qkat6eaA35bILf/jPqH4ZjTi91qXhIAyz4zfS,PATO,1
+810caa8f-cdc0-4f8e-bbc6-4dc2ee6367c0,a,$2a$10$sKPRh77yOAQrXTWk27BmaucQIyBTmGeTcLU34RCa8Ba1E97ak9Qla,a,0
+23240ada-e3f8-400d-b1e4-c9f28e460214,a,$2a$10$5iSJD3Os2fdw0sNk11WynuU1MiYmKYmTGba53OJSyZPya3DuvF.uS,a,0
 f709beea-0cc4-4cdb-b006-d05be279527a,teste2,$2a$10$EL7b1gD6E7Q2hzqkwvwbYOlxMhFTzWNd8KvMMGHSg3isrjrStj8xm,teste2,1
 28394cac-ad9a-4c09-9a34-1b63fa9e9131,teste3,$2a$10$MqYWPM3h8p/lIo06L.Hv6eyGBeo/j4EKPm5IdK4Hw7oVwOvv854hW,teste3,1
 dfeab936-56ca-404e-810d-3ad9445aa0d4,gustavito,$2a$10$8//eqdQ/QcbvLnsUUhIUtu018Y9CMV8aBwoEEQjvAwQl2X6OKGNai,Gustavito,1
 a4507316-4e29-43ac-9ac9-265267aae8bb,gustavim,$2a$10$WeC2AgsUrBxxiIG.cG9U2.mnldv.YoCyRescTXxryjg//MuZSrx.K,Gustavim,0
+d7e9ee4e-df09-40ba-bdd5-302450d47e22,senhorvip,$2a$10$btN.H4Atw1a4r/JHyVszKu94OJXM82nr1lRB04Kl4TZv4OBz7qZgO,Senhor Vip da Silva,1
