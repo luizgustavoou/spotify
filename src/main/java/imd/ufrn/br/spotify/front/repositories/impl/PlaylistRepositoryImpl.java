@@ -4,10 +4,11 @@ import imd.ufrn.br.spotify.back.entities.Playlist;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.front.apis.IPlaylistApi;
 import imd.ufrn.br.spotify.front.apis.impl.PlaylistApiImpl;
+import imd.ufrn.br.spotify.front.repositories.IPlaylistRepository;
 
 import java.util.UUID;
 
-public class PlaylistRepositoryImpl {
+public class PlaylistRepositoryImpl implements IPlaylistRepository {
     private final IPlaylistApi playlistApi;
 
     public PlaylistRepositoryImpl() {

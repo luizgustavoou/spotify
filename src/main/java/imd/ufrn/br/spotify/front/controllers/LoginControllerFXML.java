@@ -1,12 +1,12 @@
 package imd.ufrn.br.spotify.front.controllers;
 
-
-import imd.ufrn.br.spotify.back.controllers.AuthController;
 import imd.ufrn.br.spotify.back.entities.User;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
 
 
+import imd.ufrn.br.spotify.front.services.IAuthService;
+import imd.ufrn.br.spotify.front.services.impl.AuthServiceImpl;
 import imd.ufrn.br.spotify.front.stores.UserStore;
 import imd.ufrn.br.spotify.front.utils.Navigator;
 import imd.ufrn.br.spotify.front.utils.PathViews;
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginControllerFXML {
-    private final AuthController authController;
+    private final IAuthService authService;
     private final UserStore userStore;
 
     Navigator navigator;
@@ -42,7 +42,7 @@ public class LoginControllerFXML {
     public LoginControllerFXML() {
         this.navigator = Navigator.getInstance();
         this.userStore = UserStore.getInstance();
-        this.authController = new AuthController();
+        this.authService = new AuthServiceImpl();
     }
 
     private void login() {
@@ -51,7 +51,7 @@ public class LoginControllerFXML {
 
         try {
             Stage stage;
-            User user = this.authController.login(strUsername, strPassword);
+            User user = this.authService.login(strUsername, strPassword);
 
             userStore.setUser(user);
 

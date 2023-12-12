@@ -1,25 +1,27 @@
-package imd.ufrn.br.spotify.front.repositories.impl;
+package imd.ufrn.br.spotify.front.services.impl;
 
 import imd.ufrn.br.spotify.back.entities.User;
 import imd.ufrn.br.spotify.exceptions.EmptyTextFieldsException;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
-import imd.ufrn.br.spotify.front.apis.IAuthApi;
-import imd.ufrn.br.spotify.front.apis.impl.AuthApiImpl;
 import imd.ufrn.br.spotify.front.repositories.IAuthRepository;
+import imd.ufrn.br.spotify.front.repositories.impl.AuthRepositoryImpl;
+import imd.ufrn.br.spotify.front.services.IAuthService;
 
-public class AuthRepositoryImpl implements IAuthRepository {
-    private final IAuthApi authApi;
+public class AuthServiceImpl implements IAuthService {
+    private final IAuthRepository authRepository;
 
-    public AuthRepositoryImpl() {
-        this.authApi = new AuthApiImpl();
+    public AuthServiceImpl() {
+        this.authRepository = new AuthRepositoryImpl();
     }
 
+    @Override
     public User login(String username, String password) throws UnauthorizedException, EntityNotFoundException {
-        return this.authApi.login(username, password);
-    }
-    public User register(String username, String password, String fullName, String typeUser) throws EmptyTextFieldsException {
-        return this.authApi.register(username, password, fullName, typeUser);
+        return this.authRepository.login(username, password);
     }
 
+    @Override
+    public User register(String username, String password, String fullName, String typeUser) throws EmptyTextFieldsException {
+        return this.authRepository.register(username, password, fullName, typeUser);
+    }
 }

@@ -4,10 +4,11 @@ import imd.ufrn.br.spotify.back.entities.Song;
 import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.front.apis.ISongApi;
 import imd.ufrn.br.spotify.front.apis.impl.SongApiImpl;
+import imd.ufrn.br.spotify.front.repositories.ISongRepository;
 
 import java.util.UUID;
 
-public class SongRepositoryImpl {
+public class SongRepositoryImpl implements ISongRepository {
     private final ISongApi songApi;
 
     public SongRepositoryImpl() {
