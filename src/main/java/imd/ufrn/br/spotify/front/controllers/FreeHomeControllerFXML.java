@@ -10,6 +10,7 @@ import imd.ufrn.br.spotify.front.services.ISongService;
 import imd.ufrn.br.spotify.front.services.impl.FolderServiceImpl;
 import imd.ufrn.br.spotify.front.services.impl.SongServiceImpl;
 import imd.ufrn.br.spotify.front.stores.*;
+import imd.ufrn.br.spotify.front.utils.Navigator;
 import imd.ufrn.br.spotify.front.utils.PathViews;
 import imd.ufrn.br.spotify.front.utils.ShowModal;
 import imd.ufrn.br.spotify.front.utils.TitleViews;
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -25,12 +27,14 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import javafx.util.Callback;
 
 
 public class FreeHomeControllerFXML implements Initializable {
@@ -68,6 +72,8 @@ public class FreeHomeControllerFXML implements Initializable {
     private TableView<Playlist> tablePlaylists;
     @FXML
     private TableColumn<Playlist, String> playlistNameCol;
+    @FXML
+    private TableColumn<Playlist, String> playlistActionCol;
 
     // Váriavel para atualizar o tempo da música na interface
     private Timer timer;
@@ -127,28 +133,6 @@ public class FreeHomeControllerFXML implements Initializable {
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
 
-    void removeSong()  {
-        if(this.hasNotSong()) return;
-
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta de confirmação de remoção de música");
-            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(this.currentSong.getIndex()).getName() + " ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
-                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
-            }
-
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-    }
-
     @FXML
     public void previousSong() {
         if(this.hasNotSong()) return;
@@ -179,6 +163,44 @@ public class FreeHomeControllerFXML implements Initializable {
         this.player.pauseMedia();
     }
 
+    @FXML
+    public void logout() throws IOException {
+        this.userStore.setUser(null);
+        Stage stage = Navigator.getInstance().configure(userFullName, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        Navigator.getInstance().execute(stage);
+    }
+    public void updatePlaylist() throws IOException {
+        if(hasNotPlaylist()) return;
+
+        ShowModal showModal = new ShowModal();
+
+        Stage dialog = showModal.configure(songProgressBar, TitleViews.UPDATE_PLAYLIST_VIEW, PathViews.UPDATE_PLAYLIST_VIEW);
+
+        PlaylistEditControllerFXML controller =  showModal.getFxmlLoader().getController();
+
+        controller.setPlaylist(this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()));
+
+        showModal.execute(dialog);
+    }
+    void removeSong()  {
+        if(this.hasNotSong()) return;
+
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de remoção de música");
+            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(this.currentSong.getIndex()).getName() + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
+            }
+
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     void updateSong() throws IOException {
         if(hasNotSong()) return;
 
@@ -325,7 +347,6 @@ public class FreeHomeControllerFXML implements Initializable {
 
         this.tableSongs.setItems(this.songsStore.getSongs());
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userFullName.setText(userStore.getFullName());

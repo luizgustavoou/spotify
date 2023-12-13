@@ -12,6 +12,7 @@ import imd.ufrn.br.spotify.front.services.impl.FolderServiceImpl;
 import imd.ufrn.br.spotify.front.services.impl.PlaylistServiceImpl;
 import imd.ufrn.br.spotify.front.services.impl.SongServiceImpl;
 import imd.ufrn.br.spotify.front.stores.*;
+import imd.ufrn.br.spotify.front.utils.Navigator;
 import imd.ufrn.br.spotify.front.utils.PathViews;
 import imd.ufrn.br.spotify.front.utils.ShowModal;
 import imd.ufrn.br.spotify.front.utils.TitleViews;
@@ -136,58 +137,6 @@ public class VipHomeControllerFXML implements Initializable {
         this.playlistsStore.updateAllPlaylistsOfUser(this.userStore.getId());
     }
 
-
-    void removePlaylist()  {
-        if(this.hasNotPlaylist()) return;
-
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta de confirmação de remoção de playlist");
-            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getName() + " ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.playlistService.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
-                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
-            }
-
-
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-
-    void removeSong()  {
-        if(this.hasNotSong()) return;
-
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alerta de confirmação de remoção de música");
-            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(this.currentSong.getIndex()).getName() + " ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if(result.isPresent() && result.get() == ButtonType.OK) {
-                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
-                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
-            }
-
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-
-    }
-
-    public void startMusicPlayback() {
-        Platform.runLater(() -> {
-            this.player.startMusicPlayback();
-        });
-    }
-
     @FXML
     public void previousSong() {
         if(this.hasNotSong()) return;
@@ -218,6 +167,12 @@ public class VipHomeControllerFXML implements Initializable {
         this.player.pauseMedia();
     }
 
+    @FXML
+    public void logout() throws IOException {
+        this.userStore.setUser(null);
+        Stage stage = Navigator.getInstance().configure(userFullName, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+        Navigator.getInstance().execute(stage);
+    }
 
     public void createPlaylist() throws IOException {
         ShowModal showModal = new ShowModal();
@@ -225,6 +180,28 @@ public class VipHomeControllerFXML implements Initializable {
         Stage dialog = showModal.configure(songProgressBar, TitleViews.ADD_PLAYLIST_VIEW, PathViews.ADD_PLAYLIST_VIEW);
 
         showModal.execute(dialog);
+    }
+
+    void removePlaylist()  {
+        if(this.hasNotPlaylist()) return;
+
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de remoção de playlist");
+            alert.setContentText("Você quer remover a playlist " + this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getName() + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                this.playlistService.remove(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
+                this.playlistsStore.updateAllPlaylistsOfUser(userStore.getId());
+            }
+
+
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
 
@@ -240,6 +217,25 @@ public class VipHomeControllerFXML implements Initializable {
         controller.setPlaylist(this.playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()));
 
         showModal.execute(dialog);
+    }
+    void removeSong()  {
+        if(this.hasNotSong()) return;
+
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alerta de confirmação de remoção de música");
+            alert.setContentText("Você quer remover a música " + this.songsStore.getSongs().get(this.currentSong.getIndex()).getName() + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                this.songService.remove(songsStore.getSongs().get(this.currentSong.getIndex()).getId());
+                this.songsStore.updateAllSongsOfPlaylist(playlistsStore.getPlaylists().get(this.currentPlaylist.getIndex()).getId());
+            }
+
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
     void updateSong() throws IOException {
         if(hasNotSong()) return;
@@ -444,7 +440,6 @@ public class VipHomeControllerFXML implements Initializable {
 
         this.tableSongs.setItems(this.songsStore.getSongs());
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userFullName.setText(userStore.getFullName());

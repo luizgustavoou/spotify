@@ -87,6 +87,7 @@
                   <Image url="@assets/images/user.png" />
                </image>
             </ImageView>
+            <Button layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="79.0" text="Sair" />
          </children>
       </AnchorPane>
    </right>

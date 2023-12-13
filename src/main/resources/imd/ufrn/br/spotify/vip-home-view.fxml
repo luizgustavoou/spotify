@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.front.controllers.VipHomeControllerFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imd.ufrn.br.spotify.front.controllers.VipHomeControllerFXML">
    <bottom>
       <AnchorPane prefHeight="40.0" prefWidth="818.0" style="-fx-background-color: #333; -fx-border-color: #333; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
          <children>
@@ -97,6 +97,7 @@
                   <Image url="@assets/images/user.png" />
                </image>
             </ImageView>
+            <Button layoutX="13.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="73.0" text="Sair" />
          </children>
       </AnchorPane>
    </right>
