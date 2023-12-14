@@ -5,6 +5,9 @@ import imd.ufrn.br.spotify.exceptions.EntityNotFoundException;
 import imd.ufrn.br.spotify.exceptions.UnauthorizedException;
 
 
+import imd.ufrn.br.spotify.front.helpers.HomeScreenStrategy.FreeHomeScreenStrategy;
+import imd.ufrn.br.spotify.front.helpers.HomeScreenStrategy.HomeScreenContext;
+import imd.ufrn.br.spotify.front.helpers.HomeScreenStrategy.VipHomeScreenStrategy;
 import imd.ufrn.br.spotify.front.services.IAuthService;
 import imd.ufrn.br.spotify.front.services.impl.AuthServiceImpl;
 import imd.ufrn.br.spotify.front.stores.UserStore;
@@ -46,32 +49,30 @@ public class LoginControllerFXML {
     }
 
     private void login() {
+        HomeScreenContext homeScreenContext = new HomeScreenContext();
         String strUsername = username.getText();
         String strPassword = password.getText();
 
         try {
-            Stage stage;
+
             User user = this.authService.login(strUsername, strPassword);
 
             userStore.setUser(user);
 
             if(userStore.getIsVip()) {
-                stage = this.navigator.configure(btnLogin, TitleViews.VIP_HOME_VIEW, PathViews.VIP_HOME_VIEW);
+                homeScreenContext.setHomeScreenStrategy(new VipHomeScreenStrategy());
 
             }else {
-                stage = this.navigator.configure(btnLogin, TitleViews.FREE_HOME_VIEW, PathViews.FREE_HOME_VIEW);
+                homeScreenContext.setHomeScreenStrategy(new FreeHomeScreenStrategy());
             }
 
-            this.navigator.execute(stage);
+            homeScreenContext.execute(btnLogin);
 
 
         } catch (EntityNotFoundException e) {
             msgError.setVisible(true);
             msgError.setText(e.getMessage());
         } catch (UnauthorizedException e) {
-            msgError.setVisible(true);
-            msgError.setText(e.getMessage());
-        } catch (IOException e) {
             msgError.setVisible(true);
             msgError.setText(e.getMessage());
         }
@@ -84,7 +85,7 @@ public class LoginControllerFXML {
 
     @FXML
     void navigateToRegister(MouseEvent event) throws IOException {
-       Stage stage = this.navigator.configure(btnLogin, TitleViews.REGISTER_VIEW, PathViews.REGISTER_VIEW);
-       this.navigator.execute(stage);
+        Stage stage = this.navigator.configure(btnLogin, TitleViews.REGISTER_VIEW, PathViews.REGISTER_VIEW);
+        this.navigator.execute(stage);
     }
 }

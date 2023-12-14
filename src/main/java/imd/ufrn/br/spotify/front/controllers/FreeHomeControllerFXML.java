@@ -166,7 +166,10 @@ public class FreeHomeControllerFXML implements Initializable {
     @FXML
     public void logout() throws IOException {
         this.userStore.setUser(null);
+        this.playlistsStore.clear();
+        this.songsStore.clear();
         Stage stage = Navigator.getInstance().configure(userFullName, TitleViews.LOGIN_VIEW, PathViews.LOGIN_VIEW);
+
         Navigator.getInstance().execute(stage);
     }
     public void updatePlaylist() throws IOException {

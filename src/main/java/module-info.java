@@ -25,4 +25,6 @@ module imd.ufrn.br.spotify {
     opens imd.ufrn.br.spotify.front.controllers to javafx.fxml;
     exports imd.ufrn.br.spotify.front.lib;
     opens imd.ufrn.br.spotify.front.lib to javafx.fxml;
+    exports imd.ufrn.br.spotify.front.helpers.HomeScreenStrategy;
+    opens imd.ufrn.br.spotify.front.helpers.HomeScreenStrategy to javafx.fxml;
 }
