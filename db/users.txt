@@ -17,3 +17,4 @@ f709beea-0cc4-4cdb-b006-d05be279527a,teste2,$2a$10$EL7b1gD6E7Q2hzqkwvwbYOlxMhFTz
 dfeab936-56ca-404e-810d-3ad9445aa0d4,gustavito,$2a$10$8//eqdQ/QcbvLnsUUhIUtu018Y9CMV8aBwoEEQjvAwQl2X6OKGNai,Gustavito,1
 a4507316-4e29-43ac-9ac9-265267aae8bb,gustavim,$2a$10$WeC2AgsUrBxxiIG.cG9U2.mnldv.YoCyRescTXxryjg//MuZSrx.K,Gustavim,0
 d7e9ee4e-df09-40ba-bdd5-302450d47e22,senhorvip,$2a$10$btN.H4Atw1a4r/JHyVszKu94OJXM82nr1lRB04Kl4TZv4OBz7qZgO,Senhor Vip da Silva,1
+c3d6708b-6c1d-43d9-88ba-48d9cb9d03b3,userteste,$2a$10$rMBRd7RqW8JrUJnWByfpwenI211bSvkaZud.THT.mG.dWXXxOGeUS,Usuário,1

@@ -63,9 +63,9 @@ cd spotify
 
 # Autor
 
-Luiz Gustavo de Oliveira Umbelino
-Joab Urbano
-Felipe
+Luiz Gustavo de Oliveira Umbelino,
+Joab Urbano e
+Fellipe Souza.
 
 [https://www.linkedin.com/in/wmazoni](https://www.linkedin.com/in/luiz-oliveira-802294294/)https://www.linkedin.com/in/luiz-oliveira-802294294/
 

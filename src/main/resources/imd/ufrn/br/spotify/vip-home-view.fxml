@@ -97,7 +97,7 @@
                   <Image url="@assets/images/user.png" />
                </image>
             </ImageView>
-            <Button layoutX="13.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="73.0" text="Sair" />
+            <Button layoutX="13.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="73.0" text="Sair" style="-fx-cursor: hand; -fx-background-color: #333;" textAlignment="CENTER" textFill="WHITE"/>
          </children>
       </AnchorPane>
    </right>

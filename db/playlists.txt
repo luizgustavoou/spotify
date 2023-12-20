@@ -13,3 +13,4 @@ f91c0d55-13a8-4ad0-9c19-b29c7ecf97e9,Playlist Padrão,f709beea-0cc4-4cdb-b006-d0
 ecc32332-9daf-4528-b0be-2c46549d446c,Playlist Padrão,28394cac-ad9a-4c09-9a34-1b63fa9e9131
 83970d44-9822-4e17-bb3b-48bb9f8524d8,playlist ida,81d101a8-3192-4f70-9873-bc9c80220115
 74f61b4a-b55d-47e4-bef4-491aaf4cf07e,Playlist Padrão,d7e9ee4e-df09-40ba-bdd5-302450d47e22
+c71f826d-3055-4374-872d-909d0c96eb4a,Playlist Padrão,c3d6708b-6c1d-43d9-88ba-48d9cb9d03b3
