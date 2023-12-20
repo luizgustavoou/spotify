@@ -11,7 +11,7 @@ A aplicação consiste em um Media Player, onde o usuário poderá criar sua con
 -->
 
 ## Layout web
-[video miniblog](https://github.com/luizgustavoou/Miniblog/assets/89609312/2eae513a-ed78-4a62-b044-b7ae4c9a5143)
+<!-- [video miniblog](https://github.com/luizgustavoou/Miniblog/assets/89609312/2eae513a-ed78-4a62-b044-b7ae4c9a5143) -->
 
 <!--
 ## Modelo conceitual
