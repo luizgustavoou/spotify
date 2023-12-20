@@ -36,6 +36,12 @@ A aplicação consiste em um Media Player, onde o usuário poderá criar sua con
 
 # :rocket: Rodando o projeto
 
+![login](https://github.com/luizgustavoou/spotify/assets/61148484/1183ee27-e7ee-4d25-9d35-ab4562ae8a32)
+
+![sign_up](https://github.com/luizgustavoou/spotify/assets/61148484/f5d0e145-1800-4f71-8af7-1e180b04fc6c)
+
+![home_vip](https://github.com/luizgustavoou/spotify/assets/61148484/d3152f63-b701-4fdd-b967-146bbc6c1698)
+
 ## Back end
 Pré-requisitos: Java na versão 17 ou superior
 
