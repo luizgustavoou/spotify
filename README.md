@@ -67,9 +67,10 @@ cd spotify
 
 ```
 
+## :soon: Implementação futura
+
 ## :dart: Status do projeto
-Backend: Finalizado
-Frontend: Em desenvolvimento
+Finalizado
 
 # Autor
 
