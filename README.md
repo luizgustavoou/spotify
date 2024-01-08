@@ -67,6 +67,10 @@ cd spotify
 
 ```
 
+## :dart: Status do projeto
+Backend: Finalizado
+Frontend: Em desenvolvimento
+
 # Autor
 
 Luiz Gustavo de Oliveira Umbelino,
