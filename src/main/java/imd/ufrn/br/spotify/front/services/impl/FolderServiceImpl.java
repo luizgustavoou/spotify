@@ -9,11 +9,13 @@ import imd.ufrn.br.spotify.front.services.IFolderService;
 import java.util.UUID;
 
 public class FolderServiceImpl implements IFolderService {
+
     private final IFolderRepository folderRepository;
 
     public FolderServiceImpl() {
         this.folderRepository = new FolderRepositoryImpl();
     }
+
     @Override
     public Folder create(String path, UUID playlistId) {
         return this.folderRepository.create(path, playlistId);

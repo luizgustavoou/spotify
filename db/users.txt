@@ -18,3 +18,4 @@ dfeab936-56ca-404e-810d-3ad9445aa0d4,gustavito,$2a$10$8//eqdQ/QcbvLnsUUhIUtu018Y
 a4507316-4e29-43ac-9ac9-265267aae8bb,gustavim,$2a$10$WeC2AgsUrBxxiIG.cG9U2.mnldv.YoCyRescTXxryjg//MuZSrx.K,Gustavim,0
 d7e9ee4e-df09-40ba-bdd5-302450d47e22,senhorvip,$2a$10$btN.H4Atw1a4r/JHyVszKu94OJXM82nr1lRB04Kl4TZv4OBz7qZgO,Senhor Vip da Silva,1
 c3d6708b-6c1d-43d9-88ba-48d9cb9d03b3,userteste,$2a$10$rMBRd7RqW8JrUJnWByfpwenI211bSvkaZud.THT.mG.dWXXxOGeUS,Usuário,1
+364f747c-8546-4063-814f-72f14df6ce4f,Pato Agiota Maromba Sheypado Mr Olympia16,$2a$10$VrtVSmG1r3lg8jOxx6UVDeiXoB9bNKNtDas.2r2ZANOythm2nRQdy,Pato Agiota Maromba Silva Da Costa Pereira CBUM URS DINO,1

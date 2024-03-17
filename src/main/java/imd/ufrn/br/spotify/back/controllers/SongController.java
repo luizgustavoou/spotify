@@ -12,9 +12,12 @@ import imd.ufrn.br.spotify.back.services.song.impl.UpdateSongUseCaseImpl;
 import java.util.UUID;
 
 public class SongController {
+
+
     private final ICreateSongUseCase createSongUseCase;
     private final IRemoveSongUseCase removeSongUseCase;
     private final IUpdateSongUseCase updateSongUseCase;
+
     public SongController() {
         this.createSongUseCase = new CreateSongUseCaseImpl();
         this.removeSongUseCase = new RemoveSongUseCaseImpl();

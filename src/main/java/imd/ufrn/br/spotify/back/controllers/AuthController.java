@@ -15,6 +15,11 @@ public class AuthController {
     private final ILoginUseCase loginUseCase;
     private final ICreateUserUseCase createUserUseCase;
 
+    public AuthController(ILoginUseCase loginUseCase, ICreateUserUseCase createUserUseCase) {
+        this.loginUseCase = loginUseCase;
+        this.createUserUseCase = createUserUseCase;
+    }
+
     public AuthController() {
         this.loginUseCase = new LoginUseCaseImpl();
         this.createUserUseCase = new CreateUserUseCaseImpl();
@@ -24,18 +29,16 @@ public class AuthController {
         return this.loginUseCase.execute(username, password);
     }
 
-    public User register(String username, String password, String fullName, String typeUser) throws EmptyTextFieldsException {
+    public User register(String username, String password, String fullName, String typeUser)
+            throws EmptyTextFieldsException {
 
-        if(fullName.isEmpty()){
+        if (fullName.isEmpty()) {
             throw new EmptyTextFieldsException("Digite um nome completo válido.");
-        }
-        else if(username.isEmpty()) {
+        } else if (username.isEmpty()) {
             throw new EmptyTextFieldsException("Cadastre um nome de usuário válido.");
-        }
-        else if(password.isEmpty()){
+        } else if (password.isEmpty()) {
             throw new EmptyTextFieldsException("Digite uma senha válida.");
-        }
-        else if(typeUser == null){
+        } else if (typeUser == null) {
             throw new EmptyTextFieldsException("Escolha um tipo de usuário");
         }
 
