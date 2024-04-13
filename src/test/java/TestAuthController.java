@@ -41,7 +41,6 @@ public class TestAuthController {
         User userLogged = this.authController.login("Luiz", "123");
 
         assertEquals(user, userLogged);
-
     }
 
     @Test(expected = EntityNotFoundException.class)
