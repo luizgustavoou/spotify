@@ -19,7 +19,7 @@ public class AuthController {
     private final ICreateUserUseCase createUserUseCase;
 
     /**
-     * Constructs an AuthController with the provided login and create user use
+     * Constructs an AuthController with the provided login and createUser use cases.
      * cases.
      * 
      * @param loginUseCase
@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     /**
-     * Default construct that initializes the login and create user use cases.
+     * Default construct that initializes the login and createUser use cases.
      */
     public AuthController() {
         this.loginUseCase = new LoginUseCaseImpl();
