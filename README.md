@@ -4,7 +4,7 @@
 ## :memo:  Sobre o projeto
 
 <!-- https://wmazoni-sds1.netlify.app -->
-A aplicação consiste em um Media Player, onde o usuário poderá criar sua conta Free ou Vip, escutar, pausar e passar músicas e, por fim, adicionar, remover e editar  músicas e playlists, sendo este último apenas para os usuários Vip. 
+O Media Player é uma aplicação que oferece uma experiência completa de audição de música, permitindo que os usuários criem contas gratuitas ou se inscrevam como usuários VIP. Com funcionalidades para reproduzir, pausar e avançar músicas, além de recursos exclusivos para usuários VIP, como edição de músicas e playlists, o Media Player promete satisfazer as necessidades de audição de música de seus usuários.
 
 <!--## Layout mobile-->
 
