@@ -1,75 +1,52 @@
 # Spotify
-<!-- license --> 
 
-## :memo:  Sobre o projeto
+## :memo: About the Project
 
-<!-- https://wmazoni-sds1.netlify.app -->
-O Media Player é uma aplicação que oferece uma experiência completa de audição de música, permitindo que os usuários criem contas gratuitas ou se inscrevam como usuários VIP. Com funcionalidades para reproduzir, pausar e avançar músicas, além de recursos exclusivos para usuários VIP, como edição de músicas e playlists, o Media Player promete satisfazer as necessidades de audição de música de seus usuários.
+The Media Player is an application that offers a comprehensive music listening experience, allowing users to create free accounts or subscribe as VIP users. With features to play, pause, and skip songs, as well as exclusive resources for VIP users such as editing songs and playlists, the Media Player aims to meet the music listening needs of its users.
 
-<!--## Layout mobile-->
-
-## Layout web
+## Web Layout
 ![login](https://github.com/luizgustavoou/spotify/assets/61148484/1183ee27-e7ee-4d25-9d35-ab4562ae8a32)
 
 ![sign_up](https://github.com/luizgustavoou/spotify/assets/61148484/f5d0e145-1800-4f71-8af7-1e180b04fc6c)
 
 ![home_vip](https://github.com/luizgustavoou/spotify/assets/61148484/d3152f63-b701-4fdd-b967-146bbc6c1698)
 
-<!-- ## Modelo conceitual -->
-## :books: Funcionalidades
-* <b>Autenticação</b>;
-* <b>Criar, editar e remover músicsa</b>;
-* <b>Criar, editar e remover playlists (Usuário Vip)</b>;
-* <b>Escutar e pausar música</b>;
-  
-# :wrench: Tecnologias utilizadas
-## Back end
-* Java;
-## Front end
+## :books: Features
+* **Authentication**
+* **Create, edit, and delete songs**
+* **Create, edit, and delete playlists (VIP users)**
+* **Play and pause music**
+
+# :wrench: Technologies Used
+## Backend
+* Java
+
+## Frontend
 * JavaFX
 
-<!--## Implantação em produção
-- Back end: Heroku
-- Front end web: Netlify
-- Banco de dados: Postgresql -->
+# :rocket: Running the Project
 
-# :rocket: Rodando o projeto
+## Backend
+Prerequisites: Java version 17 or higher
 
-## Back end
-Pré-requisitos: Java na versão 17 ou superior
-
-<!-- ```bash
-# clonar repositório
-
-
-# entrar na pasta do projeto back end
-
-
-# executar o projeto
-``` -->
-
-## Front end web
-Pré-requisitos: Java na versão 17 ou superior, JavaFX e Maven
+## Frontend
+Prerequisites: Java version 17 or higher, JavaFX, and Maven
 
 ```bash
-# clonar repositório
-https://github.com/luizgustavoou/spotify.git
+# clone the repository
+git clone https://github.com/luizgustavoou/spotify.git
 
-# entrar na pasta do projeto front end web
+# navigate to the project directory
 cd spotify
-
 ```
 
-## :soon: Implementação futura
+## :soon: Future Implementations
 
-## :dart: Status do projeto
-Finalizado
+## :dart: Project Status
+Completed
 
-# Autor
+# Author
 
-Luiz Gustavo de Oliveira Umbelino,
-Joab Urbano e
-Fellipe Souza.
-
-[https://www.linkedin.com/in/wmazoni](https://www.linkedin.com/in/luiz-oliveira-802294294/)https://www.linkedin.com/in/luiz-oliveira-802294294/
-
+<a href="https://github.com/luizgustavoou">Luiz Gustavo de Oliveira Umbelino</a><br>
+<a href="https://github.com/JoabUrbano">Joab Urbano</a><br>
+<a href="https://github.com/Fellpz9">Joab Urbano</a><br>
